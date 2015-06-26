@@ -19,8 +19,16 @@ public class Colores {
      * @return 
      */
     public static Color fondo(){
-        Color fondo =new Color(18, 23, 28);
-        return fondo;
+        return new Color(18, 23, 28);
+    }
+    
+    public static Color cabeceraEntered(){
+        //return new Color(153, 153, 255);
+        return new Color(255,117,48);
+    }
+    
+    public static Color cabeceraExited(){
+        return new Color (102,102,102);
     }
     
 }

@@ -9,6 +9,8 @@ import airsendtfg.frontend.img.Colores;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.RoundRectangle2D;
@@ -35,13 +37,15 @@ import javax.swing.border.Border;
  */
 public class menuPrincipal extends javax.swing.JFrame {
 
-    
+    private Thread hiloWifiProgreso;
+    private int x, y;
     /**
      * Creates new form menuPrincipal
      */
     public menuPrincipal() {
         this.esteticaBasica();
         this.cargarGridLayout();
+        this.hiloWifiProgreso();
     }
     
     public void esteticaBasica(){
@@ -56,12 +60,48 @@ public class menuPrincipal extends javax.swing.JFrame {
         cabecera.setBackground(Colores.fondo());
     }
     
+    /**
+     * Esta clase genera un hilo anónimo pata
+     */
+    public void hiloWifiProgreso(){
+    this.hiloWifiProgreso = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        labelProgreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/frontend/img/wifiprogress/401.png")));
+                        Thread.sleep(1000);
+                        labelProgreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/frontend/img/wifiprogress/402.png")));
+                        Thread.sleep(1000);
+                        labelProgreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/frontend/img/wifiprogress/403.png")));
+                        Thread.sleep(1000);
+                        labelProgreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/frontend/img/wifiprogress/404.png")));
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        //Log.error(ex.getLocalizedMessage());
+                    }
+                }
+            }
+        });
+        this.hiloWifiProgreso.start();
+    
+    }
+    
     public void cargarGridLayout(){
-        jPanel1.setLayout(new GridLayout(5, 3, 3, 3));
+        //Se establece un panel en 
+        interiorScroll.setLayout(new GridLayout(5, 3, 3, 3));
 
         for (int i = 0; i < 12; i++) {
             try {
-                JPanel objeto = new JPanel();
+                interiorScroll.add(this.crearJPanelPrueba());
+            } catch (IOException ex) {
+                Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public JPanel crearJPanelPrueba() throws IOException{
+        JPanel objeto = new JPanel();
                 //objeto.setSize(50, 100);
                 objeto.setBackground(Color.red);
                 //imagen
@@ -71,17 +111,9 @@ public class menuPrincipal extends javax.swing.JFrame {
                 objeto.add(picLabel);
                 
                 JLabel texto = new JLabel();
-                texto.setText("hola "+i);
+                texto.setText("hola ");
                 objeto.add(texto);
-                
-                 JLabel textoe = new JLabel();
-                textoe.setText("hola "+i);
-                objeto.add(textoe);
-                jPanel1.add(objeto);
-            } catch (IOException ex) {
-                Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+                return objeto;
     }
 
     /**
@@ -94,105 +126,139 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         cabecera = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        panelCerrar = new javax.swing.JPanel();
+        labelCerrar = new javax.swing.JLabel();
+        panelMinimizar = new javax.swing.JPanel();
+        labelMinimizar = new javax.swing.JLabel();
+        panelConfiguracion = new javax.swing.JPanel();
+        labelConfiguracion = new javax.swing.JLabel();
+        panelProgreso = new javax.swing.JPanel();
+        labelProgreso = new javax.swing.JLabel();
+        nombrePrograma = new javax.swing.JLabel();
         scrollFondo = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
+        interiorScroll = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(18, 23, 28));
 
         cabecera.setBackground(new java.awt.Color(18, 23, 18));
+        cabecera.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                cabeceraMouseDragged(evt);
+            }
+        });
+        cabecera.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cabeceraMousePressed(evt);
+            }
+        });
 
-        jPanel6.setPreferredSize(new java.awt.Dimension(38, 38));
+        panelCerrar.setBackground(new java.awt.Color(102, 102, 102));
+        panelCerrar.setPreferredSize(new java.awt.Dimension(40, 40));
+        panelCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelCerrarMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panelCerrarMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panelCerrarMouseEntered(evt);
+            }
+        });
 
-        jLabel1.setText("jLabel1");
+        labelCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/frontend/img/ventana/cerrar.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout panelCerrarLayout = new javax.swing.GroupLayout(panelCerrar);
+        panelCerrar.setLayout(panelCerrarLayout);
+        panelCerrarLayout.setHorizontalGroup(
+            panelCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelCerrar)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel7.setPreferredSize(new java.awt.Dimension(38, 38));
-
-        jLabel2.setText("jLabel1");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        panelCerrarLayout.setVerticalGroup(
+            panelCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel8.setPreferredSize(new java.awt.Dimension(38, 38));
+        panelMinimizar.setBackground(new java.awt.Color(102, 102, 102));
+        panelMinimizar.setPreferredSize(new java.awt.Dimension(40, 40));
+        panelMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelMinimizarMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panelMinimizarMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panelMinimizarMouseEntered(evt);
+            }
+        });
 
-        jLabel3.setText("jLabel1");
+        labelMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/frontend/img/ventana/minimizar.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout panelMinimizarLayout = new javax.swing.GroupLayout(panelMinimizar);
+        panelMinimizar.setLayout(panelMinimizarLayout);
+        panelMinimizarLayout.setHorizontalGroup(
+            panelMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelMinimizar)
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        panelMinimizarLayout.setVerticalGroup(
+            panelMinimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel9.setPreferredSize(new java.awt.Dimension(38, 38));
+        panelConfiguracion.setBackground(new java.awt.Color(102, 102, 102));
+        panelConfiguracion.setPreferredSize(new java.awt.Dimension(40, 40));
+        panelConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panelConfiguracionMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panelConfiguracionMouseEntered(evt);
+            }
+        });
 
-        jLabel4.setText("jLabel1");
+        labelConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/frontend/img/ventana/config.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout panelConfiguracionLayout = new javax.swing.GroupLayout(panelConfiguracion);
+        panelConfiguracion.setLayout(panelConfiguracionLayout);
+        panelConfiguracionLayout.setHorizontalGroup(
+            panelConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelConfiguracion)
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        panelConfiguracionLayout.setVerticalGroup(
+            panelConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelConfiguracion, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
+
+        panelProgreso.setBackground(new java.awt.Color(18, 23, 28));
+        panelProgreso.setPreferredSize(new java.awt.Dimension(40, 40));
+        panelProgreso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panelProgresoMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panelProgresoMouseEntered(evt);
+            }
+        });
+
+        labelProgreso.setBackground(new java.awt.Color(18, 23, 28));
+
+        javax.swing.GroupLayout panelProgresoLayout = new javax.swing.GroupLayout(panelProgreso);
+        panelProgreso.setLayout(panelProgresoLayout);
+        panelProgresoLayout.setHorizontalGroup(
+            panelProgresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelProgreso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+        panelProgresoLayout.setVerticalGroup(
+            panelProgresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelProgreso, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        nombrePrograma.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        nombrePrograma.setForeground(new java.awt.Color(255, 255, 255));
+        nombrePrograma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nombrePrograma.setText("AirSend");
 
         javax.swing.GroupLayout cabeceraLayout = new javax.swing.GroupLayout(cabecera);
         cabecera.setLayout(cabeceraLayout);
@@ -200,63 +266,128 @@ public class menuPrincipal extends javax.swing.JFrame {
             cabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cabeceraLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nombrePrograma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(panelConfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
         cabeceraLayout.setVerticalGroup(
             cabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cabeceraLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(cabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(cabeceraLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(cabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelConfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(cabeceraLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(nombrePrograma)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBackground(new java.awt.Color(18, 23, 28));
+        interiorScroll.setBackground(new java.awt.Color(18, 23, 28));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout interiorScrollLayout = new javax.swing.GroupLayout(interiorScroll);
+        interiorScroll.setLayout(interiorScrollLayout);
+        interiorScrollLayout.setHorizontalGroup(
+            interiorScrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 584, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        interiorScrollLayout.setVerticalGroup(
+            interiorScrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 384, Short.MAX_VALUE)
         );
 
-        scrollFondo.setViewportView(jPanel1);
+        scrollFondo.setViewportView(interiorScroll);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cabecera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollFondo)
-                .addContainerGap())
+            .addComponent(cabecera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(scrollFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollFondo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void panelCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCerrarMouseEntered
+        // TODO add your handling code here:
+        this.panelCerrar.setBackground(Colores.cabeceraEntered());
+    }//GEN-LAST:event_panelCerrarMouseEntered
+
+    private void panelMinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMinimizarMouseEntered
+        // TODO add your handling code here:
+        this.panelMinimizar.setBackground(Colores.cabeceraEntered());
+    }//GEN-LAST:event_panelMinimizarMouseEntered
+
+    private void panelConfiguracionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConfiguracionMouseEntered
+        // TODO add your handling code here:
+        this.panelConfiguracion.setBackground(Colores.cabeceraEntered());
+    }//GEN-LAST:event_panelConfiguracionMouseEntered
+
+    private void panelProgresoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelProgresoMouseEntered
+
+    }//GEN-LAST:event_panelProgresoMouseEntered
+
+    private void panelCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCerrarMouseExited
+        // TODO add your handling code here:
+        this.panelCerrar.setBackground(Colores.cabeceraExited());
+    }//GEN-LAST:event_panelCerrarMouseExited
+
+    private void panelMinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMinimizarMouseExited
+        // TODO add your handling code here:
+        this.panelMinimizar.setBackground(Colores.cabeceraExited());
+    }//GEN-LAST:event_panelMinimizarMouseExited
+
+    private void panelConfiguracionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConfiguracionMouseExited
+        // TODO add your handling code here:
+        this.panelConfiguracion.setBackground(Colores.cabeceraExited());
+    }//GEN-LAST:event_panelConfiguracionMouseExited
+
+    private void panelProgresoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelProgresoMouseExited
+
+    }//GEN-LAST:event_panelProgresoMouseExited
+
+    private void panelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCerrarMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+    }//GEN-LAST:event_panelCerrarMouseClicked
+
+    private void panelMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMinimizarMouseClicked
+        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_panelMinimizarMouseClicked
+
+    private void cabeceraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cabeceraMousePressed
+        // TODO add your handling code here:
+        x = evt.getX();
+        y = evt.getY();
+    }//GEN-LAST:event_cabeceraMousePressed
+
+    private void cabeceraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cabeceraMouseDragged
+        // TODO add your handling code here:
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        setLocation(point.x - x, point.y - y);
+    }//GEN-LAST:event_cabeceraMouseDragged
 
     /**
      * @param args the command line arguments
@@ -295,15 +426,16 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cabecera;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel interiorScroll;
+    private javax.swing.JLabel labelCerrar;
+    private javax.swing.JLabel labelConfiguracion;
+    private javax.swing.JLabel labelMinimizar;
+    private javax.swing.JLabel labelProgreso;
+    private javax.swing.JLabel nombrePrograma;
+    private javax.swing.JPanel panelCerrar;
+    private javax.swing.JPanel panelConfiguracion;
+    private javax.swing.JPanel panelMinimizar;
+    private javax.swing.JPanel panelProgreso;
     private javax.swing.JScrollPane scrollFondo;
     // End of variables declaration//GEN-END:variables
 }
