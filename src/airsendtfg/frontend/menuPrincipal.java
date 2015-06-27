@@ -137,6 +137,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         nombrePrograma = new javax.swing.JLabel();
         scrollFondo = new javax.swing.JScrollPane();
         interiorScroll = new javax.swing.JPanel();
+        barraInferior = new javax.swing.JPanel();
+        labelBarraInferior = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(18, 23, 28));
@@ -296,29 +298,48 @@ public class menuPrincipal extends javax.swing.JFrame {
         interiorScroll.setLayout(interiorScrollLayout);
         interiorScrollLayout.setHorizontalGroup(
             interiorScrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 584, Short.MAX_VALUE)
+            .addGap(0, 596, Short.MAX_VALUE)
         );
         interiorScrollLayout.setVerticalGroup(
             interiorScrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGap(0, 401, Short.MAX_VALUE)
         );
 
         scrollFondo.setViewportView(interiorScroll);
+
+        barraInferior.setBackground(new java.awt.Color(18, 23, 18));
+
+        labelBarraInferior.setForeground(new java.awt.Color(255, 255, 255));
+        labelBarraInferior.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelBarraInferior.setText("Buscando dipositivos en la red...");
+
+        javax.swing.GroupLayout barraInferiorLayout = new javax.swing.GroupLayout(barraInferior);
+        barraInferior.setLayout(barraInferiorLayout);
+        barraInferiorLayout.setHorizontalGroup(
+            barraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelBarraInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        barraInferiorLayout.setVerticalGroup(
+            barraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelBarraInferior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cabecera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(scrollFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(scrollFondo)
+            .addComponent(barraInferior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(barraInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -421,8 +442,10 @@ public class menuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel barraInferior;
     private javax.swing.JPanel cabecera;
     private javax.swing.JPanel interiorScroll;
+    private javax.swing.JLabel labelBarraInferior;
     private javax.swing.JLabel labelCerrar;
     private javax.swing.JLabel labelConfiguracion;
     private javax.swing.JLabel labelMinimizar;
