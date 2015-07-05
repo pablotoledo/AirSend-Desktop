@@ -5,6 +5,7 @@
  */
 package airsendtfg;
 
+import airsendtfg.frontend.menuInicial;
 import airsendtfg.frontend.menuPrincipal;
 
 /**
@@ -20,6 +21,7 @@ public class AirSendTFG {
         // TODO code application logic here
         System.out.println("Hello TFG!");
         new menuPrincipal().setVisible(true);
+        new menuInicial().setVisible(true);
     }
     
 }

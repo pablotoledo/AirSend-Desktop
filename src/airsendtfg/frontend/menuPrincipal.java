@@ -6,30 +6,19 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
-import java.awt.BorderLayout;
+import airsendtfg.utilidades.FileDrop;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.Border;
 
 /**
  *
@@ -39,16 +28,20 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private Thread hiloWifiProgreso;
     private int x, y;
+    private FileDrop dragAndDrop;
     /**
      * Creates new form menuPrincipal
      */
     public menuPrincipal() {
         this.esteticaBasica();
-        this.cargarGridLayout();
         this.hiloWifiProgreso();
+        this.cargarGridLayout();
     }
     
-    public void esteticaBasica(){
+    /**
+     * Método que ajusta la estética del front
+     */
+    private void esteticaBasica(){
         //Constructor de esta clase, inicializa
         this.setUndecorated(true); // Quita el borde del sistema operativo
         initComponents();
@@ -61,9 +54,10 @@ public class menuPrincipal extends javax.swing.JFrame {
     }
     
     /**
-     * Esta clase genera un hilo anónimo pata
+     * Esta clase genera un hilo anónimo para permitir animar la imagen del
+     * wifi
      */
-    public void hiloWifiProgreso(){
+    private void hiloWifiProgreso(){
     this.hiloWifiProgreso = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -87,7 +81,13 @@ public class menuPrincipal extends javax.swing.JFrame {
     
     }
     
-    public void cargarGridLayout(){
+    
+    //Los métodos cargarGridLayout y crearJPanelPrueba son métodos de prueba
+    //de la interfaz
+    /**
+     * Método que permite cargar un GridLayout
+     */
+    private void cargarGridLayout(){
         //Se establece un panel en 
         interiorScroll.setLayout(new GridLayout(5, 3, 3, 3));
 
@@ -100,7 +100,12 @@ public class menuPrincipal extends javax.swing.JFrame {
         }
     }
     
-    public JPanel crearJPanelPrueba() throws IOException{
+    /**
+     * Método para crear un JPanel para crear un objeto que representa a un equipo
+     * @return
+     * @throws IOException 
+     */
+    private JPanel crearJPanelPrueba() throws IOException{
         JPanel objeto = new JPanel();
                 //objeto.setSize(50, 100);
                 objeto.setBackground(Color.red);
@@ -113,6 +118,14 @@ public class menuPrincipal extends javax.swing.JFrame {
                 JLabel texto = new JLabel();
                 texto.setText("hola ");
                 objeto.add(texto);
+                
+                this.dragAndDrop = new FileDrop(System.out, objeto, /*dragBorder,*/ new FileDrop.Listener() {
+                    public void filesDropped(java.io.File[] files) {
+                        // Código tras soltar archivos new EnviarFrame(lista.get(0),files).setVisible(true);
+                        //Log.info("Archivo volcado al programa " + files.length + " " + files[0].getName());
+                        System.err.println(files.length + " " + files[0].getName());
+                    }
+                });
                 return objeto;
     }
 
