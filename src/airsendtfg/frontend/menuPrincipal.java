@@ -50,7 +50,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // Centramos en la pantalla
         //this.getContentPane().setBackground(Colores.fondo()); // Color de fondo de ventana
         this.scrollFondo.setBackground(Colores.fondo());
-        cabecera.setBackground(Colores.fondo());
+        
     }
     
     /**
@@ -156,7 +156,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(18, 23, 28));
 
-        cabecera.setBackground(new java.awt.Color(18, 23, 18));
+        cabecera.setBackground(new java.awt.Color(34, 35, 38));
         cabecera.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 cabeceraMouseDragged(evt);
@@ -246,7 +246,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             .addComponent(labelConfiguracion, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        panelProgreso.setBackground(new java.awt.Color(18, 23, 28));
+        panelProgreso.setBackground(new java.awt.Color(34, 35, 38));
         panelProgreso.setPreferredSize(new java.awt.Dimension(40, 40));
         panelProgreso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
