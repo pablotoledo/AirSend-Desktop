@@ -49,6 +49,7 @@ public class menuInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         contenedor = new javax.swing.JPanel();
         icono = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -62,7 +63,6 @@ public class menuInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bienvenido a AirSend");
-        setPreferredSize(new java.awt.Dimension(500, 680));
 
         contenedor.setBackground(new java.awt.Color(18, 23, 28));
 
@@ -95,6 +95,7 @@ public class menuInicial extends javax.swing.JFrame {
         textoCondiciones.setText("Esta obra es licenciada bajo Copyright (Todos los derechos reservados)\n\nAutor:\nJuan Pablo Toledo Gavagnin\njpablotoledo92@gmail.com\n\n___________________________________________________________________\n\nLos Proyectos fin de Grado son trabajos protegidos por la Ley de Propiedad \nIntelectual (Real Decreto Legislativo 1/1996, 12 abril), y en su caso por la \nLey de patentes (Ley 11/1986, de 20 de marzo, de Patentes). \nEn este sentido, por lo tanto, la titularidad de los derechos de propiedad\nintelectual de los Proyectos Fin de Grado corresponde a los/las estudiantes\nque los hayan realizado.");
         jScrollPane1.setViewportView(textoCondiciones);
 
+        cancelarContenedor.setBackground(new java.awt.Color(102, 102, 102));
         cancelarContenedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cancelarContenedorMouseClicked(evt);
@@ -129,6 +130,7 @@ public class menuInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        aceptarContenedor.setBackground(new java.awt.Color(102, 102, 102));
         aceptarContenedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 aceptarContenedorMouseExited(evt);
@@ -292,6 +294,7 @@ public class menuInicial extends javax.swing.JFrame {
     private javax.swing.JPanel contenedor;
     private javax.swing.JLabel icono;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea textoCondiciones;
     private javax.swing.JLabel titulo;

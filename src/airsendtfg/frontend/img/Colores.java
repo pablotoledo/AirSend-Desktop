@@ -34,5 +34,6 @@ public class Colores {
     public static Color cabeceraExited() {
         return new Color(102, 102, 102);
     }
+    
 
 }
