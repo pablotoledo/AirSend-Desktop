@@ -23,13 +23,17 @@ public class Gatos {
     private static ArrayList<File> listaGatosMediano = new ArrayList();
     private static ArrayList<File> listaGatosPeque = new ArrayList();
     private static ArrayList<String> listaIconos = new ArrayList();
+    private static boolean cargar = true;
 
     public static void cargarListas() {
-        recorrerCarpeta("/airsendtfg/recursos/imagenes/gatos/64x64/", listaGatosPeque);
-        recorrerCarpeta("/airsendtfg/recursos/imagenes/gatos/128x128/", listaGatosMediano);
-        recorrerCarpeta("/airsendtfg/recursos/imagenes/gatos/256x256/", listaGatosGrande);
-        for (File elemento : listaGatosGrande) {
-            listaIconos.add(elemento.getName());
+        if (cargar) {
+            recorrerCarpeta("/airsendtfg/recursos/imagenes/gatos/64x64/", listaGatosPeque);
+            recorrerCarpeta("/airsendtfg/recursos/imagenes/gatos/128x128/", listaGatosMediano);
+            recorrerCarpeta("/airsendtfg/recursos/imagenes/gatos/256x256/", listaGatosGrande);
+            for (File elemento : listaGatosGrande) {
+                listaIconos.add(elemento.getName());
+            }
+            cargar = false;
         }
     }
 

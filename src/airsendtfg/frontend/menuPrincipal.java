@@ -6,6 +6,7 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.librerias.utilidades.Sistema;
 import airsendtfg.utilidades.FileDrop;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -13,8 +14,6 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -29,6 +28,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private Thread hiloWifiProgreso;
     private int x, y;
     private FileDrop dragAndDrop;
+
     /**
      * Creates new form menuPrincipal
      */
@@ -37,11 +37,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         this.hiloWifiProgreso();
         this.cargarGridLayout();
     }
-    
+
     /**
      * Método que ajusta la estética del front
      */
-    private void esteticaBasica(){
+    private void esteticaBasica() {
         //Constructor de esta clase, inicializa
         this.setUndecorated(true); // Quita el borde del sistema operativo
         initComponents();
@@ -50,15 +50,14 @@ public class menuPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // Centramos en la pantalla
         //this.getContentPane().setBackground(Colores.fondo()); // Color de fondo de ventana
         this.scrollFondo.setBackground(Colores.fondo());
-        
+
     }
-    
+
     /**
-     * Esta clase genera un hilo anónimo para permitir animar la imagen del
-     * wifi
+     * Esta clase genera un hilo anónimo para permitir animar la imagen del wifi
      */
-    private void hiloWifiProgreso(){
-    this.hiloWifiProgreso = new Thread(new Runnable() {
+    private void hiloWifiProgreso() {
+        this.hiloWifiProgreso = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
@@ -78,55 +77,51 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
         this.hiloWifiProgreso.start();
-    
+
     }
-    
-    
+
     //Los métodos cargarGridLayout y crearJPanelPrueba son métodos de prueba
     //de la interfaz
     /**
      * Método que permite cargar un GridLayout
      */
-    private void cargarGridLayout(){
+    private void cargarGridLayout() {
         //Se establece un panel en 
         interiorScroll.setLayout(new GridLayout(5, 3, 3, 3));
 
         for (int i = 0; i < 12; i++) {
-            try {
-                interiorScroll.add(this.crearJPanelPrueba());
-            } catch (IOException ex) {
-                Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            interiorScroll.add(new Sistema("Fulanito","cat_banjo.png","192.168.1.50").getjPanel());
         }
     }
-    
+
     /**
-     * Método para crear un JPanel para crear un objeto que representa a un equipo
+     * Método para crear un JPanel para crear un objeto que representa a un
+     * equipo
+     *
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
-    private JPanel crearJPanelPrueba() throws IOException{
+    private JPanel crearJPanelPrueba() throws IOException {
         JPanel objeto = new JPanel();
-                //objeto.setSize(50, 100);
-                objeto.setBackground(Color.red);
-                //imagen
-                BufferedImage myPicture = ImageIO.read(getClass().getResource("/airsendtfg/recursos/imagenes/ipad128.png"));
-                JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-                add(picLabel);
-                objeto.add(picLabel);
-                
-                JLabel texto = new JLabel();
-                texto.setText("hola ");
-                objeto.add(texto);
-                
-                this.dragAndDrop = new FileDrop(System.out, objeto, /*dragBorder,*/ new FileDrop.Listener() {
+        //objeto.setSize(50, 100);
+        objeto.setBackground(Color.red);
+        //imagen
+        BufferedImage myPicture = ImageIO.read(getClass().getResource("/airsendtfg/recursos/imagenes/ipad128.png"));
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        objeto.add(picLabel);
+
+        JLabel texto = new JLabel();
+        texto.setText("hola ");
+        objeto.add(texto);
+
+        this.dragAndDrop = new FileDrop(System.out, objeto, /*dragBorder,*/ new FileDrop.Listener() {
                     public void filesDropped(java.io.File[] files) {
                         // Código tras soltar archivos new EnviarFrame(lista.get(0),files).setVisible(true);
                         //Log.info("Archivo volcado al programa " + files.length + " " + files[0].getName());
                         System.err.println(files.length + " " + files[0].getName());
                     }
                 });
-                return objeto;
+        return objeto;
     }
 
     /**
