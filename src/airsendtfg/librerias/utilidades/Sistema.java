@@ -5,6 +5,7 @@
  */
 package airsendtfg.librerias.utilidades;
 
+import airsendtfg.frontend.EnviarVentana;
 import airsendtfg.frontend.img.Colores;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.image.BufferedImage;
@@ -78,6 +79,8 @@ public class Sistema {
                         // Código tras soltar archivos new EnviarFrame(lista.get(0),files).setVisible(true);
                         //Log.info("Archivo volcado al programa " + files.length + " " + files[0].getName());
                         System.err.println(files.length + " " + files[0].getName());
+                        EnviarVentana ventana = new EnviarVentana();
+                        ventana.setVisible(true);
                         
                     }
                 });
