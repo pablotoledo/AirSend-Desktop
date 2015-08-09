@@ -5,7 +5,7 @@
  */
 package airsendtfg.recursos.imagenes.gatos;
 
-import airsendtfg.frontend.menuConfigInicial;
+import airsendtfg.frontend.MenuConfigInicial;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -46,7 +46,7 @@ public class Gatos {
                 variable.add(archivo);
             }
         } catch (URISyntaxException ex) {
-            Logger.getLogger(menuConfigInicial.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuConfigInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

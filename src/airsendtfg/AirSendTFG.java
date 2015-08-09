@@ -5,9 +5,11 @@
  */
 package airsendtfg;
 
-import airsendtfg.frontend.menuConfigInicial;
-import airsendtfg.frontend.menuInicial;
-import airsendtfg.frontend.menuPrincipal;
+import airsendtfg.frontend.EnviarVentana;
+import airsendtfg.frontend.MenuConfigInicial;
+import airsendtfg.frontend.MenuInicial;
+import airsendtfg.frontend.MenuPrincipal;
+import airsendtfg.frontend.RecibirVentana;
 
 /**
  *
@@ -21,9 +23,11 @@ public class AirSendTFG {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Hello TFG!");
-        new menuPrincipal().setVisible(true);
-        new menuInicial().setVisible(true);
-        new menuConfigInicial().setVisible(true);
+        new MenuPrincipal().setVisible(true);
+        new MenuInicial().setVisible(true);
+        new MenuConfigInicial().setVisible(true);
+        new EnviarVentana().setVisible(true);
+        new RecibirVentana().setVisible(true);
     }
     
 }

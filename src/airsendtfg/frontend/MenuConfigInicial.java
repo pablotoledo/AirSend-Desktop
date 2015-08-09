@@ -25,14 +25,14 @@ import javax.swing.JPanel;
  *
  * @author Pablo
  */
-public class menuConfigInicial extends javax.swing.JFrame {
+public class MenuConfigInicial extends javax.swing.JFrame {
 
     private int x, y;
 
     /**
      * Creates new form menuConfigInicial
      */
-    public menuConfigInicial() {
+    public MenuConfigInicial() {
         this.esteticaBasica();
         
     }
@@ -59,7 +59,7 @@ public class menuConfigInicial extends javax.swing.JFrame {
                 JPanel panel = this.iconoUsuario(elemento);
                 interiorScroll.add(panel);
             } catch (IOException ex) {
-                Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -301,20 +301,21 @@ public class menuConfigInicial extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuConfigInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuConfigInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuConfigInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuConfigInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuConfigInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuConfigInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuConfigInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuConfigInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuConfigInicial().setVisible(true);
+                new MenuConfigInicial().setVisible(true);
             }
         });
     }
