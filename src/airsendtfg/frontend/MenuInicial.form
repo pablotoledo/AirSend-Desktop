@@ -139,7 +139,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="Esta obra es licenciada bajo Copyright (Todos los derechos reservados)&#xa;&#xa;Autor:&#xa;Juan Pablo Toledo Gavagnin&#xa;jpablotoledo92@gmail.com&#xa;&#xa;___________________________________________________________________&#xa;&#xa;Los Proyectos fin de Grado son trabajos protegidos por la Ley de Propiedad &#xa;Intelectual (Real Decreto Legislativo 1/1996, 12 abril), y en su caso por la &#xa;Ley de patentes (Ley 11/1986, de 20 de marzo, de Patentes). &#xa;En este sentido, por lo tanto, la titularidad de los derechos de propiedad&#xa;intelectual de los Proyectos Fin de Grado corresponde a los/las estudiantes&#xa;que los hayan realizado."/>
+                <Property name="text" type="java.lang.String" value="Esta obra es licenciada bajo Copyright (Todos los derechos reservados)&#xa;&#xa;Autor:&#xa;Juan Pablo Toledo Gavagnin&#xa;jpablotoledo92@gmail.com&#xa;&#xa;___________________________________________________________________"/>
               </Properties>
             </Component>
           </SubComponents>

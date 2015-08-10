@@ -55,7 +55,8 @@ public class Sistema {
         this.jPanel.setBackground(Colores.cabeceraExited());
         //imagen
         Gatos.cargarListas();
-        BufferedImage myPicture = ImageIO.read(Gatos.getGatoPeque(imagen).getAbsoluteFile());
+        String direccion = Gatos.getGatoPeque(imagen);
+        BufferedImage myPicture = ImageIO.read( ClassLoader.getSystemResource(Gatos.getGatoPeque(imagen)) );
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         this.jPanel.add(picLabel);
 

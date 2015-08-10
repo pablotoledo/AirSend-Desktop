@@ -5,13 +5,7 @@
  */
 package airsendtfg.recursos.imagenes.gatos;
 
-import airsendtfg.frontend.MenuConfigInicial;
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -19,68 +13,63 @@ import java.util.logging.Logger;
  */
 public class Gatos {
 
-    private static ArrayList<File> listaGatosGrande = new ArrayList();
-    private static ArrayList<File> listaGatosMediano = new ArrayList();
-    private static ArrayList<File> listaGatosPeque = new ArrayList();
-    private static ArrayList<String> listaIconos = new ArrayList();
+    private static ArrayList<String> listaGatosGrande = new ArrayList();
+    private static ArrayList<String> listaGatosMediano = new ArrayList();
+    private static ArrayList<String> listaGatosPeque = new ArrayList();
+
     private static boolean cargar = true;
+    private static String[] listado = {"cat_banjo.png", "cat_bd.png", "cat_birdhouse.png", "cat_box.png", "cat_cage.png", "cat_cart.png",
+        "cat_clean.png", "cat_cupid.png", "cat_drink.png", "cat_drunk.png", "cat_eyes.png",
+        "cat_fat.png", "cat_fight.png", "cat_fish.png", "cat_food.png", "cat_fridge.png", "cat_ghost.png", "cat_gift.png",
+        "cat_grumpy.png", "cat_hungry.png", "cat_lady.png", "cat_laptop (2).png", "cat_laptop.png", "cat_makeup.png",
+        "cat_mask.png", "cat_moustache.png", "cat_mummy.png", "cat_paper.png", "cat_pirate.png", "cat_plain.png",
+        "cat_pumpkin.png", "cat_purr.png", "cat_radio.png", "cat_rascal.png", "cat_sing.png", "cat_sleep.png",
+        "cat_slippers.png", "cat_smoke.png", "cat_tied.png", "cat_toilet.png", "cat_torture.png", "cat_upsidedown.png",
+        "cat_vote.png", "cat_walk.png", "cat_wizard.png", "cat_yarn.png", "shadow_cat.png", "shadow_fly.png", "shadow_lady.png",
+        "shadow_lion.png", "shadow_whale.png"};
 
     public static void cargarListas() {
         if (cargar) {
-            recorrerCarpeta("/airsendtfg/recursos/imagenes/gatos/64x64/", listaGatosPeque);
-            recorrerCarpeta("/airsendtfg/recursos/imagenes/gatos/128x128/", listaGatosMediano);
-            recorrerCarpeta("/airsendtfg/recursos/imagenes/gatos/256x256/", listaGatosGrande);
-            for (File elemento : listaGatosGrande) {
-                listaIconos.add(elemento.getName());
-            }
+            recorrerCarpeta("airsendtfg/recursos/imagenes/gatos/64x64/", listaGatosPeque);
+            recorrerCarpeta("airsendtfg/recursos/imagenes/gatos/128x128/", listaGatosMediano);
+            recorrerCarpeta("airsendtfg/recursos/imagenes/gatos/256x256/", listaGatosGrande);
             cargar = false;
         }
     }
 
-    private static void recorrerCarpeta(String carpeta, ArrayList<File> variable) {
-        URL url = Gatos.class.getResource(carpeta);
-        try {
-            File dir = new File(url.toURI());
-            for (File archivo : dir.listFiles()) {
-                //System.out.println(archivo.getName());
-                variable.add(archivo);
-            }
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(MenuConfigInicial.class.getName()).log(Level.SEVERE, null, ex);
+    private static void recorrerCarpeta(String carpeta, ArrayList<String> variable) {
+        for(int i=0;i<listado.length;i++){
+            variable.add(carpeta+listado[i]);
         }
     }
 
-    public static File getGatoGrande(String nombre) {
+    public static String getGatoGrande(String nombre) {
         return getGato(nombre, listaGatosGrande);
     }
 
-    public static File getGatoMediano(String nombre) {
+    public static String getGatoMediano(String nombre) {
         return getGato(nombre, listaGatosMediano);
     }
 
-    public static File getGatoPeque(String nombre) {
+    public static String getGatoPeque(String nombre) {
         return getGato(nombre, listaGatosPeque);
     }
 
-    public static ArrayList<File> getListaGatosGrande() {
+    public static ArrayList<String> getListaGatosGrande() {
         return listaGatosGrande;
     }
 
-    public static ArrayList<File> getListaGatosMediano() {
+    public static ArrayList<String> getListaGatosMediano() {
         return listaGatosMediano;
     }
 
-    public static ArrayList<File> getListaGatosPeque() {
+    public static ArrayList<String> getListaGatosPeque() {
         return listaGatosPeque;
     }
 
-    public static ArrayList<String> getListaIconos() {
-        return listaIconos;
-    }
-
-    private static File getGato(String nombre, ArrayList<File> tipo) {
-        for (File elemento : tipo) {
-            if (elemento.getName().equals(nombre)) {
+    private static String getGato(String nombre, ArrayList<String> tipo) {
+        for (String elemento : tipo) {
+            if (elemento.contains(nombre)) {
                 return elemento;
             }
         }

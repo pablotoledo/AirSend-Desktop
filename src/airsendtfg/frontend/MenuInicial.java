@@ -2,6 +2,17 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+
+
+___________________________________________________________________
+
+Los Proyectos fin de Grado son trabajos protegidos por la Ley de Propiedad 
+Intelectual (Real Decreto Legislativo 1/1996, 12 abril), y en su caso por la 
+Ley de patentes (Ley 11/1986, de 20 de marzo, de Patentes). 
+En este sentido, por lo tanto, la titularidad de los derechos de propiedad
+intelectual de los Proyectos Fin de Grado corresponde a los/las estudiantes
+que los hayan realizado.
+
  */
 package airsendtfg.frontend;
 
@@ -92,7 +103,7 @@ public class MenuInicial extends javax.swing.JFrame {
         textoCondiciones.setColumns(20);
         textoCondiciones.setForeground(new java.awt.Color(255, 255, 255));
         textoCondiciones.setRows(5);
-        textoCondiciones.setText("Esta obra es licenciada bajo Copyright (Todos los derechos reservados)\n\nAutor:\nJuan Pablo Toledo Gavagnin\njpablotoledo92@gmail.com\n\n___________________________________________________________________\n\nLos Proyectos fin de Grado son trabajos protegidos por la Ley de Propiedad \nIntelectual (Real Decreto Legislativo 1/1996, 12 abril), y en su caso por la \nLey de patentes (Ley 11/1986, de 20 de marzo, de Patentes). \nEn este sentido, por lo tanto, la titularidad de los derechos de propiedad\nintelectual de los Proyectos Fin de Grado corresponde a los/las estudiantes\nque los hayan realizado.");
+        textoCondiciones.setText("Esta obra es licenciada bajo Copyright (Todos los derechos reservados)\n\nAutor:\nJuan Pablo Toledo Gavagnin\njpablotoledo92@gmail.com\n\n___________________________________________________________________");
         jScrollPane1.setViewportView(textoCondiciones);
 
         cancelarContenedor.setBackground(new java.awt.Color(102, 102, 102));

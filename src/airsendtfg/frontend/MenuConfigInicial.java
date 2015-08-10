@@ -54,7 +54,7 @@ public class MenuConfigInicial extends javax.swing.JFrame {
         private void cargarGridLayout(){
         //Se establece un panel en 
         interiorScroll.setLayout(new GridLayout(17, 3, 3, 3));
-        for (File elemento:Gatos.getListaGatosPeque()) {
+        for (String elemento:Gatos.getListaGatosPeque()) {
             try {
                 JPanel panel = this.iconoUsuario(elemento);
                 interiorScroll.add(panel);
@@ -64,12 +64,13 @@ public class MenuConfigInicial extends javax.swing.JFrame {
         }
     }
         
-    private JPanel iconoUsuario(File ubicacion) throws IOException {
+    private JPanel iconoUsuario(String ubicacion) throws IOException {
         JPanel objeto = new JPanel();
         //objeto.setSize(50, 100);
         objeto.setBackground(Colores.cabeceraExited());
         //imagen
-        BufferedImage myPicture = ImageIO.read(ubicacion);
+        BufferedImage myPicture = ImageIO.read( ClassLoader.getSystemResource(ubicacion) );
+        // ImageIO.read( ClassLoader.getSystemResource(ubicacion) );
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         add(picLabel);
         objeto.add(picLabel);

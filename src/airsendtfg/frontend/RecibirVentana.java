@@ -186,7 +186,7 @@ public class RecibirVentana extends javax.swing.JFrame {
 
         textoBtnEnviar.setForeground(new java.awt.Color(255, 255, 255));
         textoBtnEnviar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoBtnEnviar.setText("Enviar");
+        textoBtnEnviar.setText("Recibir");
 
         javax.swing.GroupLayout botonEnviarLayout = new javax.swing.GroupLayout(botonEnviar);
         botonEnviar.setLayout(botonEnviarLayout);
