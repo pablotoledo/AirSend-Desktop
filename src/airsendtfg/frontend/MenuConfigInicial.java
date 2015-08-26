@@ -34,7 +34,7 @@ public class MenuConfigInicial extends javax.swing.JFrame {
      */
     public MenuConfigInicial() {
         this.esteticaBasica();
-        
+
     }
 
     /**
@@ -51,33 +51,43 @@ public class MenuConfigInicial extends javax.swing.JFrame {
         this.cargarGridLayout();
     }
 
-        private void cargarGridLayout(){
+    private void cargarGridLayout() {
         //Se establece un panel en 
         interiorScroll.setLayout(new GridLayout(17, 3, 3, 3));
-        for (String elemento:Gatos.getListaGatosPeque()) {
+        for (String elemento : Gatos.getListaGatosPeque()) {
             try {
                 JPanel panel = this.iconoUsuario(elemento);
+                this.cargarPropiedadesPanelInterior(panel);
                 interiorScroll.add(panel);
             } catch (IOException ex) {
                 Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-        
+    
+    private void cargarPropiedadesPanelInterior(final JPanel panel){
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel.setBackground(Colores.cabeceraExited());
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel.setBackground(Colores.cabeceraEntered());
+            }
+        });
+    }
+
     private JPanel iconoUsuario(String ubicacion) throws IOException {
         JPanel objeto = new JPanel();
         //objeto.setSize(50, 100);
         objeto.setBackground(Colores.cabeceraExited());
         //imagen
-        BufferedImage myPicture = ImageIO.read( ClassLoader.getSystemResource(ubicacion) );
+        BufferedImage myPicture = ImageIO.read(ClassLoader.getSystemResource(ubicacion));
         // ImageIO.read( ClassLoader.getSystemResource(ubicacion) );
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         add(picLabel);
         objeto.add(picLabel);
         return objeto;
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
