@@ -22,7 +22,7 @@ public class EnviarVentana extends javax.swing.JFrame {
     public EnviarVentana() {
         this.setUndecorated(true); // Quita el borde del sistema operativo
         initComponents();
-        this.setSize(600, 290); // Establece el tamaño de la ventana
+        this.setSize(600, 320); // Establece el tamaño de la ventana
         this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
         this.setLocationRelativeTo(null); // Centramos en la pantalla
     }
@@ -277,7 +277,7 @@ public class EnviarVentana extends javax.swing.JFrame {
                 .addComponent(textoTamano)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoNArchivos)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         iconoDestino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/recursos/imagenes/gatos/64x64/cat_box.png"))); // NOI18N

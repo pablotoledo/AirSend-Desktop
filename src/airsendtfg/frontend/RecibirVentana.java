@@ -22,7 +22,7 @@ public class RecibirVentana extends javax.swing.JFrame {
     public RecibirVentana() {
         this.setUndecorated(true); // Quita el borde del sistema operativo
         initComponents();
-        this.setSize(600, 322); // Establece el tamaño de la ventana
+        this.setSize(600, 350); // Establece el tamaño de la ventana
         this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
         this.setLocationRelativeTo(null); // Centramos en la pantalla
     }
@@ -277,13 +277,15 @@ public class RecibirVentana extends javax.swing.JFrame {
                 .addComponent(textoTamano)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoNArchivos)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         iconoDestino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/recursos/imagenes/gatos/64x64/cat_box.png"))); // NOI18N
 
+        checkConfiar.setBackground(new java.awt.Color(18, 23, 28));
         checkConfiar.setForeground(new java.awt.Color(255, 255, 255));
         checkConfiar.setText("Confiar en este usuario en futuras ocasiones");
+        checkConfiar.setBorder(null);
 
         javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
         contenedor.setLayout(contenedorLayout);
