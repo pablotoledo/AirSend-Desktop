@@ -10,6 +10,8 @@ import airsendtfg.frontend.MenuConfigInicial;
 import airsendtfg.frontend.MenuInicial;
 import airsendtfg.frontend.MenuPrincipal;
 import airsendtfg.frontend.RecibirVentana;
+import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
+import airsendtfg.librerias.nucleo.sondeo.ReceptorSondeo;
 
 /**
  *
@@ -23,11 +25,13 @@ public class AirSendTFG {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Hello TFG!");
-        new MenuPrincipal().setVisible(true);
+        /*new MenuPrincipal().setVisible(true);
         new MenuInicial().setVisible(true);
         new MenuConfigInicial().setVisible(true);
         new EnviarVentana().setVisible(true);
-        new RecibirVentana().setVisible(true);
+        new RecibirVentana().setVisible(true);*/
+        new NucleoSondeo();
+        
     }
     
 }
