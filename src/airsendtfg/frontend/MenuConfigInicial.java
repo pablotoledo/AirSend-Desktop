@@ -6,14 +6,15 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.recursos.Persistencia;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
-import airsendtfg.utilidades.FileDrop;
 import java.awt.GridLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -28,7 +29,9 @@ import javax.swing.JPanel;
 public class MenuConfigInicial extends javax.swing.JFrame {
 
     private int x, y;
-
+    private JPanel panelSeleccionado = new JPanel();
+    private String gatoSeleccionado ="";
+    private Map<JPanel, String> nombreMap = new HashMap<JPanel, String>();
     /**
      * Creates new form menuConfigInicial
      */
@@ -58,6 +61,7 @@ public class MenuConfigInicial extends javax.swing.JFrame {
             try {
                 JPanel panel = this.iconoUsuario(elemento);
                 this.cargarPropiedadesPanelInterior(panel);
+                this.nombreMap.put(panel, elemento);
                 interiorScroll.add(panel);
             } catch (IOException ex) {
                 Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,10 +72,19 @@ public class MenuConfigInicial extends javax.swing.JFrame {
     private void cargarPropiedadesPanelInterior(final JPanel panel){
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                panel.setBackground(Colores.cabeceraExited());
+                //panel.setBackground(Colores.cabeceraExited());
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
+                //panel.setBackground(Colores.cabeceraEntered());
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                //Cuando seleccionamos un elemento de la lista nos quedamos con el
+                // en el caso de que otro elemento esté seleccionado previamente
+                // contemplamos esta situación para que tenga otro color
+                panelSeleccionado.setBackground(Colores.cabeceraExited());
                 panel.setBackground(Colores.cabeceraEntered());
+                panelSeleccionado = panel;
+                gatoSeleccionado = nombreMap.get(panel).substring(nombreMap.get(panel).lastIndexOf("/")+1,nombreMap.get(panel).lastIndexOf("."));
             }
         });
     }
@@ -101,14 +114,14 @@ public class MenuConfigInicial extends javax.swing.JFrame {
         contenedor = new javax.swing.JPanel();
         cabecera = new javax.swing.JPanel();
         cabeceraLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        titulo2 = new javax.swing.JLabel();
+        nombreTitulo = new javax.swing.JLabel();
+        nombreTextField = new javax.swing.JTextField();
+        titulo3 = new javax.swing.JLabel();
+        scrollImagenPerfil = new javax.swing.JScrollPane();
         interiorScroll = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        panelBoton = new javax.swing.JPanel();
+        labelAceptar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,25 +160,25 @@ public class MenuConfigInicial extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Vamos a configurar AirSend para poder usarlo:");
+        titulo2.setForeground(new java.awt.Color(255, 255, 255));
+        titulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo2.setText("Vamos a configurar AirSend para poder usarlo:");
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Un nombre para tu equipo:");
+        nombreTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        nombreTitulo.setText("Un nombre para tu equipo:");
 
-        jTextField1.setBackground(new java.awt.Color(102, 102, 102));
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nombreTextField.setBackground(new java.awt.Color(102, 102, 102));
+        nombreTextField.setForeground(new java.awt.Color(255, 255, 255));
+        nombreTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nombreTextFieldActionPerformed(evt);
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Selecciona un imagen para tu perfil");
+        titulo3.setForeground(new java.awt.Color(255, 255, 255));
+        titulo3.setText("Selecciona un imagen para tu perfil");
 
-        jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
+        scrollImagenPerfil.setBackground(new java.awt.Color(102, 102, 102));
 
         interiorScroll.setBackground(new java.awt.Color(18, 23, 28));
 
@@ -180,37 +193,48 @@ public class MenuConfigInicial extends javax.swing.JFrame {
             .addGap(0, 421, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(interiorScroll);
+        scrollImagenPerfil.setViewportView(interiorScroll);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelBoton.setBackground(new java.awt.Color(102, 102, 102));
+        panelBoton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel1MouseExited(evt);
+                panelBotonMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel1MouseEntered(evt);
+                panelBotonMouseEntered(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Aceptar");
+        labelAceptar.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        labelAceptar.setForeground(new java.awt.Color(255, 255, 255));
+        labelAceptar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelAceptar.setText("Aceptar");
+        labelAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelAceptarMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelAceptarMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelAceptarMouseEntered(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBotonLayout = new javax.swing.GroupLayout(panelBoton);
+        panelBoton.setLayout(panelBotonLayout);
+        panelBotonLayout.setHorizontalGroup(
+            panelBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelBotonLayout.setVerticalGroup(
+            panelBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotonLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addComponent(labelAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -223,16 +247,16 @@ public class MenuConfigInicial extends javax.swing.JFrame {
                 .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenedorLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
+                        .addComponent(titulo2, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
                     .addGroup(contenedorLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField1))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                                .addComponent(scrollImagenPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                                .addComponent(panelBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(nombreTextField))
+                            .addComponent(nombreTitulo)
+                            .addComponent(titulo3))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -241,17 +265,17 @@ public class MenuConfigInicial extends javax.swing.JFrame {
             .addGroup(contenedorLayout.createSequentialGroup()
                 .addComponent(cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addComponent(titulo2)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nombreTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(titulo3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(scrollImagenPerfil)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelBoton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
 
@@ -281,19 +305,42 @@ public class MenuConfigInicial extends javax.swing.JFrame {
         setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_cabeceraMouseDragged
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nombreTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nombreTextFieldActionPerformed
 
-    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+    private void panelBotonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBotonMouseEntered
         // TODO add your handling code here:
-        this.jPanel1.setBackground(Colores.cabeceraEntered());
-    }//GEN-LAST:event_jPanel1MouseEntered
+        this.panelBoton.setBackground(Colores.cabeceraEntered());
+    }//GEN-LAST:event_panelBotonMouseEntered
 
-    private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
+    private void panelBotonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBotonMouseExited
         // TODO add your handling code here:
-        this.jPanel1.setBackground(Colores.cabeceraExited());
-    }//GEN-LAST:event_jPanel1MouseExited
+        this.panelBoton.setBackground(Colores.cabeceraExited());
+    }//GEN-LAST:event_panelBotonMouseExited
+
+    private void labelAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAceptarMouseClicked
+        // TODO add your handling code here:
+        if((this.gatoSeleccionado.length()>0)&&(this.nombreTextField.getText().length()>4)){
+            System.out.println(this.gatoSeleccionado+" "+this.nombreTextField.getText());
+            this.setVisible(false);
+            Persistencia.setGatoUsuario(gatoSeleccionado);
+            Persistencia.setNombreUsuario(this.nombreTextField.getText());
+            Persistencia.setLicencia(true);
+            new MenuPrincipal().setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_labelAceptarMouseClicked
+
+    private void labelAceptarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAceptarMouseEntered
+        // TODO add your handling code here:
+        this.panelBoton.setBackground(Colores.cabeceraEntered());
+    }//GEN-LAST:event_labelAceptarMouseEntered
+
+    private void labelAceptarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAceptarMouseExited
+        // TODO add your handling code here:
+        this.panelBoton.setBackground(Colores.cabeceraExited());
+    }//GEN-LAST:event_labelAceptarMouseExited
 
     /**
      * @param args the command line arguments
@@ -336,12 +383,12 @@ public class MenuConfigInicial extends javax.swing.JFrame {
     private javax.swing.JLabel cabeceraLabel;
     private javax.swing.JPanel contenedor;
     private javax.swing.JPanel interiorScroll;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelAceptar;
+    private javax.swing.JTextField nombreTextField;
+    private javax.swing.JLabel nombreTitulo;
+    private javax.swing.JPanel panelBoton;
+    private javax.swing.JScrollPane scrollImagenPerfil;
+    private javax.swing.JLabel titulo2;
+    private javax.swing.JLabel titulo3;
     // End of variables declaration//GEN-END:variables
 }
