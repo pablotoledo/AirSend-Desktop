@@ -7,6 +7,7 @@ package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
 import airsendtfg.librerias.utilidades.Sistema;
+import airsendtfg.recursos.Persistencia;
 import airsendtfg.utilidades.FileDrop;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -36,6 +37,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.esteticaBasica();
         this.hiloWifiProgreso();
         this.cargarGridLayout();
+        System.out.println(Persistencia.getGatoUsuario());
     }
 
     /**

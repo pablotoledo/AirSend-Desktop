@@ -32,6 +32,7 @@ public class MenuConfigInicial extends javax.swing.JFrame {
     private JPanel panelSeleccionado = new JPanel();
     private String gatoSeleccionado ="";
     private Map<JPanel, String> nombreMap = new HashMap<JPanel, String>();
+    
     /**
      * Creates new form menuConfigInicial
      */
