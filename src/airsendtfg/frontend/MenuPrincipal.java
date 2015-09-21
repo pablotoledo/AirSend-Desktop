@@ -36,7 +36,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         this.esteticaBasica();
         this.hiloWifiProgreso();
-        this.cargarGridLayout();
+        this.cargarGridLayoutPrueba();
         System.out.println(Persistencia.getGatoUsuario());
     }
 
@@ -85,9 +85,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     //Los métodos cargarGridLayout y crearJPanelPrueba son métodos de prueba
     //de la interfaz
     /**
-     * Método que permite cargar un GridLayout
+     * Método que permite cargar un GridLayout de prueba
      */
-    private void cargarGridLayout() {
+    private void cargarGridLayoutPrueba() {
         //Se establece un panel en 
         interiorScroll.setLayout(new GridLayout(5, 3, 3, 3));
 
