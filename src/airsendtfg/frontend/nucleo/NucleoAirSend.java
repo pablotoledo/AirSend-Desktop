@@ -27,6 +27,9 @@ public class NucleoAirSend {
     //nucleoTransferencia
     //nucleoNegociacion
     
+    public static void cargarNucleos(){
+        nucleoSondeo = new NucleoSondeo();
+    }
     
     
 }

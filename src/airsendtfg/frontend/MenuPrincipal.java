@@ -6,6 +6,7 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.frontend.nucleo.NucleoAirSend;
 import airsendtfg.librerias.utilidades.Sistema;
 import airsendtfg.recursos.Persistencia;
 import airsendtfg.utilidades.FileDrop;
@@ -34,6 +35,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * Creates new form menuPrincipal
      */
     public MenuPrincipal() {
+        NucleoAirSend.cargarNucleos();
         this.esteticaBasica();
         this.hiloWifiProgreso();
         this.cargarGridLayoutPrueba();
