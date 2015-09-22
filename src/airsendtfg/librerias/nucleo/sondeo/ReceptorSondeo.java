@@ -20,13 +20,16 @@ import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +42,50 @@ public class ReceptorSondeo implements Runnable {
 
     private DatagramSocket socket;
     private ArrayList<MensajeSondeoJSON> lista = new ArrayList();
+    private ArrayList<String> listaIPsActual = new ArrayList();
 
+    
+        /**
+     * Este método lista todas las IPs a las que está conectado el sistema y si
+     * hay cambios lo refleja en el atributo de la clase
+     */
+    private void listarIPsLocales() {
+        ArrayList nueva = this.listaIPs();
+        if (!this.listaIPsActual.equals(nueva)) {
+            //Log.sondeoReceptor("Cambio de interfaces de red detectado!");
+            this.listaIPsActual = nueva;
+        } else {
+           // Log.sondeoReceptor("La lista de interfaces de red del sistema actual no ha variado");
+        }
+    }
+
+    /**
+     * Este método devuelve una lista de IPs de las interfaces de red del
+     * sistema actual
+     *
+     * @return
+     */
+    private ArrayList listaIPs() {
+        ArrayList<String> listaActual = new ArrayList();
+        try {
+            //Log.sondeoReceptor("Se listan las IPs locales y se almacenan para descartar mensajes locales");
+            Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
+            for (NetworkInterface netint : Collections.list(nets)) {
+                //Log.error("Nombre de interfaz " + netint.getDisplayName());
+                Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
+                for (InetAddress inetAddress : Collections.list(inetAddresses)) {
+                    //Log.sondeoReceptor("IPs " + inetAddress.getHostAddress());
+                    if (!listaActual.contains(inetAddress.getHostAddress())) {
+                        listaActual.add(inetAddress.getHostAddress());
+                    }
+                }
+            }
+            //Log.sondeoReceptor("Tamaño de la lista de IPs locales de los interfaces de red del sistema actual" + listaActual.size());
+        } catch (SocketException ex) {
+            //Log.error(ex.getLocalizedMessage());
+        }
+        return listaActual;
+    }
     public void recibirSondeo() {
         try {
             //Preparamos un socket para recibir datagramas de sondeo
@@ -80,7 +126,7 @@ public class ReceptorSondeo implements Runnable {
         }
         //Solo aquellos mensajes que no sean nuestros pasarán a la lista de dispositivos
         if (bandera) {
-            if ((!mensaje.getDireccionIP().equals("127.0.0.1")) && (!Inet4Address.getLocalHost().getHostAddress().equals(mensaje.getDireccionIP()))) {
+            if (!this.listaIPsActual.contains(mensaje.getDireccionIP())) {
                 this.lista.add(mensaje);
                 System.out.println("!ReceptorSondeo Se crea dispositivo! " + new Gson().toJson(mensaje).toString());
             }
@@ -89,20 +135,23 @@ public class ReceptorSondeo implements Runnable {
 
     @Override
     public void run() {
-        this.mantenerLista();
+        this.mantenerListasActualizadas();
         this.recibirSondeo();
     }
 
     /**
      * Este método genera un hilo anónimo para gestionar que la lista de dispositivos se mantenga actualizada
      */
-    private void mantenerLista() {
+    private void mantenerListasActualizadas() {
         new Thread(
                 new Runnable() {
                     @Override
                     public void run() {
                         try {
                             while (true) {
+                                //Actualizamos la lista de IPs locales
+                                listarIPsLocales();
+                                //Vaciamos elementos viejos de la lista de dispositivos
                                 SimpleDateFormat formateadorTiempo = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                                 Date tiempo = new Date();
                                 for (int i = 0; i < lista.size(); i++) {
@@ -115,7 +164,7 @@ public class ReceptorSondeo implements Runnable {
                                         break;
                                     }
                                 }
-                                Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo * 3);
+                                Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo * 5);
                             }
                         } catch (ParseException | InterruptedException ex) {
                             Logger.getLogger(ReceptorSondeo.class.getName()).log(Level.SEVERE, null, ex);
