@@ -44,8 +44,7 @@ public class ReceptorSondeo implements Runnable {
     private ArrayList<MensajeSondeoJSON> lista = new ArrayList();
     private ArrayList<String> listaIPsActual = new ArrayList();
 
-    
-        /**
+    /**
      * Este método lista todas las IPs a las que está conectado el sistema y si
      * hay cambios lo refleja en el atributo de la clase
      */
@@ -55,7 +54,7 @@ public class ReceptorSondeo implements Runnable {
             //Log.sondeoReceptor("Cambio de interfaces de red detectado!");
             this.listaIPsActual = nueva;
         } else {
-           // Log.sondeoReceptor("La lista de interfaces de red del sistema actual no ha variado");
+            // Log.sondeoReceptor("La lista de interfaces de red del sistema actual no ha variado");
         }
     }
 
@@ -86,9 +85,14 @@ public class ReceptorSondeo implements Runnable {
         }
         return listaActual;
     }
+
+    /**
+     * Este método se encarga de procesar datagramas
+     */
     public void recibirSondeo() {
         try {
             //Preparamos un socket para recibir datagramas de sondeo
+            this.listarIPsLocales();
             socket = new DatagramSocket(NucleoSondeo.puertoBroadcast, InetAddress.getByName("0.0.0.0"));
             socket.setBroadcast(true);
             while (true) {
@@ -107,7 +111,6 @@ public class ReceptorSondeo implements Runnable {
                 mensajeJSON.setDireccionIP(packet.getAddress().getHostAddress());
                 //System.err.println(new Gson().toJson(mensajeJSON).toString());
                 this.procesarMensajeSondeoJSON(mensajeJSON);
-
             }
         } catch (IOException | JsonSyntaxException ex) {
             Logger.getLogger(ReceptorSondeo.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,7 +143,8 @@ public class ReceptorSondeo implements Runnable {
     }
 
     /**
-     * Este método genera un hilo anónimo para gestionar que la lista de dispositivos se mantenga actualizada
+     * Este método genera un hilo anónimo para gestionar que la lista de
+     * dispositivos se mantenga actualizada
      */
     private void mantenerListasActualizadas() {
         new Thread(
@@ -176,6 +180,6 @@ public class ReceptorSondeo implements Runnable {
 
     public ArrayList<MensajeSondeoJSON> getLista() {
         return lista;
-    } 
+    }
 
 }
