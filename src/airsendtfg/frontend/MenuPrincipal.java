@@ -7,6 +7,9 @@ package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
 import airsendtfg.frontend.nucleo.NucleoAirSend;
+import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
+import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
+import airsendtfg.librerias.nucleo.sondeo.ReceptorSondeo;
 import airsendtfg.librerias.utilidades.Sistema;
 import airsendtfg.recursos.Persistencia;
 import airsendtfg.utilidades.FileDrop;
@@ -16,6 +19,13 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -30,6 +40,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private Thread hiloWifiProgreso;
     private int x, y;
     private FileDrop dragAndDrop;
+    
 
     /**
      * Creates new form menuPrincipal
@@ -38,7 +49,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         NucleoAirSend.cargarNucleos();
         this.esteticaBasica();
         this.hiloWifiProgreso();
-        this.cargarGridLayoutPrueba();
+        //this.cargarGridLayoutPrueba();
+        hiloCargarLayout();
         System.out.println(Persistencia.getGatoUsuario());
     }
 
@@ -92,12 +104,38 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void cargarGridLayoutPrueba() {
         //Se establece un panel en 
         interiorScroll.setLayout(new GridLayout(5, 3, 3, 3));
-
         for (int i = 0; i < 12; i++) {
             interiorScroll.add(new Sistema("Fulanito","cat_banjo.png","192.168.1.50").getjPanel());
         }
     }
 
+    private void cargarGridLayout(ArrayList<MensajeSondeoJSON> listaMensajes){
+        interiorScroll.setLayout(new GridLayout(5,3,3,3));
+        for(MensajeSondeoJSON mensaje:listaMensajes){
+            interiorScroll.add(new Sistema(mensaje.getNombreUsuario(),"cat_banjo.png",mensaje.getNombreEquipo()).getjPanel());
+        }
+    }
+    
+    private void hiloCargarLayout(){
+        new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                                Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
+                                cargarGridLayout(NucleoAirSend.getListaDispositivos());
+                            while (true) {
+                                cargarGridLayout(NucleoAirSend.getListaDispositivos());
+                                Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo * 5);
+                            }
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(ReceptorSondeo.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+        ).start();
+    }
+    
     /**
      * Método para crear un JPanel para crear un objeto que representa a un
      * equipo

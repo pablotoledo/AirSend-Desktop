@@ -15,7 +15,9 @@
  */
 package airsendtfg.frontend.nucleo;
 
+import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,5 +33,8 @@ public class NucleoAirSend {
         nucleoSondeo = new NucleoSondeo();
     }
     
+    public static ArrayList<MensajeSondeoJSON> getListaDispositivos(){
+        return nucleoSondeo.getListaElementos();
+    }
     
 }
