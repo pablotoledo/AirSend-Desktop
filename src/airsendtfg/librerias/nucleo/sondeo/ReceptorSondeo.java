@@ -118,22 +118,24 @@ public class ReceptorSondeo implements Runnable {
     }
 
     private void procesarMensajeSondeoJSON(MensajeSondeoJSON mensaje) throws UnknownHostException {
-        /*Con este método se añade un dispositivo a nuestra lista
-         si se cumple
-         - No está en la lista
-         - Su IP no es la local 127.0.0.1
-         */
-        boolean bandera = true;
-        for (MensajeSondeoJSON disp : this.lista) {
-            bandera = !disp.igual(mensaje);
-        }
         //Solo aquellos mensajes que no sean nuestros pasarán a la lista de dispositivos
-        if (bandera) {
+        if (!listaContiene(mensaje)) {
             if (!this.listaIPsActual.contains(mensaje.getDireccionIP())) {
                 this.lista.add(mensaje);
                 System.out.println("!ReceptorSondeo Se crea dispositivo! " + new Gson().toJson(mensaje).toString());
             }
         }
+    }
+    
+    private boolean listaContiene(MensajeSondeoJSON mensaje){
+        boolean bandera = false;
+        for (MensajeSondeoJSON disp : this.lista) {
+            bandera = disp.igual(mensaje);
+            if(bandera==true){
+                return bandera;
+            }
+        }
+        return bandera;
     }
 
     @Override

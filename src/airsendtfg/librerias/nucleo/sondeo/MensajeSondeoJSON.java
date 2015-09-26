@@ -18,7 +18,6 @@ package airsendtfg.librerias.nucleo.sondeo;
 import airsendtfg.recursos.Persistencia;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,11 +35,14 @@ public class MensajeSondeoJSON {
     private String tiempo;
     private String iconoUsuario;
 
+    /**
+     * Constructor de clase
+     */
     public MensajeSondeoJSON() {
         try {
             this.sistemaOperativo = System.getProperty("os.name");;
             this.nombreEquipo = InetAddress.getLocalHost().getHostName();
-            this.nombreUsuario = System.getProperty("user.name");
+            this.nombreUsuario = Persistencia.getNombreUsuario();
             this.direccionIP = "";
             this.iconoUsuario = Persistencia.getGatoUsuario();
             this.tiempo = new Timestamp(System.currentTimeMillis()).toString();
@@ -49,6 +51,7 @@ public class MensajeSondeoJSON {
         }
     }
 
+    //Getters para la clase GSON
     public String getIconoUsuario() {
         return iconoUsuario;
     }
@@ -77,6 +80,7 @@ public class MensajeSondeoJSON {
         this.direccionIP = direccionIP;
     }
 
+    //Comparador de clase bajo criterios específicos
     public boolean igual(MensajeSondeoJSON entrada) {
         return entrada.sistemaOperativo.equals(this.sistemaOperativo) && entrada.getNombreEquipo().equals(this.nombreEquipo) && entrada.getNombreUsuario().equals(this.nombreUsuario);
     }

@@ -19,6 +19,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 /**
+ * Clase de abstracción para la el sondeo que aisla la lógica interna a las
+ * capas superiores
  *
  * @author Pablo
  */
@@ -27,14 +29,16 @@ public class NucleoSondeo {
     public static int puertoBroadcast = 8585;
     public static String dirBroadcast = "255.255.255.255";
     public static int tiempoSleppLoopSondeo = 3000;
-    
+
     private Thread hiloEmisorSondeo;
     private Thread hiloReceptorSondeo;
     private EmisorSondeo emisorSondeo;
     private ReceptorSondeo receptoSondeo;
-    
-    
-    public NucleoSondeo(){
+
+    /**
+     * Constructor
+     */
+    public NucleoSondeo() {
         this.emisorSondeo = new EmisorSondeo();
         this.receptoSondeo = new ReceptorSondeo();
         this.hiloEmisorSondeo = new Thread(this.emisorSondeo);
@@ -42,11 +46,13 @@ public class NucleoSondeo {
         this.hiloEmisorSondeo.start();
         this.hiloReceptorSondeo.start();
     }
-    
-    public ArrayList<MensajeSondeoJSON> getListaElementos(){
+
+    /**
+     * Permite objetener una lista de elementos recibidos y actualizada
+     * @return Lista de elementos recibidos y actualizada
+     */
+    public ArrayList<MensajeSondeoJSON> getListaElementos() {
         return this.receptoSondeo.getLista();
     }
 
-    
-    
 }

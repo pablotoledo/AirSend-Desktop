@@ -1,7 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Pablo.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package airsendtfg.frontend;
 
@@ -12,7 +22,7 @@ import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
 import airsendtfg.librerias.nucleo.sondeo.ReceptorSondeo;
 import airsendtfg.librerias.utilidades.Sistema;
 import airsendtfg.recursos.Persistencia;
-import airsendtfg.utilidades.FileDrop;
+import airsendtfg.librerias.utilidades.FileDrop;
 import java.awt.GridLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -33,7 +43,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private int x, y;
     private FileDrop dragAndDrop;
     private Map<JPanel, MensajeSondeoJSON> diccionarioElementos = new HashMap<JPanel, MensajeSondeoJSON>();
-    
 
     /**
      * Creates new form menuPrincipal
@@ -90,40 +99,49 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     /**
-     * Método que dada la lista de mensajes de sondeo, representa en la interfaz lo que ocurre
-     * además actualiza el valor del diccionario de elementos
-     * @param listaMensajes 
+     * Método que dada la lista de mensajes de sondeo, representa en la interfaz
+     * lo que ocurre además actualiza el valor del diccionario de elementos y
+     * asigna el código del dragAndDrop
+     *
+     * @param listaMensajes
      */
-    private void cargarGridLayout(ArrayList<MensajeSondeoJSON> listaMensajes){
+    private void cargarGridLayout(ArrayList<MensajeSondeoJSON> listaMensajes) {
         this.diccionarioElementos.clear();
         interiorScroll.removeAll();
-        interiorScroll.setLayout(new GridLayout(5,3,3,3));
-        for(MensajeSondeoJSON mensaje:listaMensajes){
-            JPanel temporal = new Sistema(mensaje.getNombreUsuario(),mensaje.getIconoUsuario(),mensaje.getNombreEquipo()).getjPanel();
+        interiorScroll.setLayout(new GridLayout(5, 3, 3, 3));
+        for (MensajeSondeoJSON mensaje : listaMensajes) {
+            final JPanel temporal = new Sistema(mensaje.getNombreUsuario(), mensaje.getIconoUsuario(), mensaje.getNombreEquipo()).getjPanel();
             diccionarioElementos.put(temporal, mensaje);
             interiorScroll.add(temporal);
+            this.dragAndDrop = new airsendtfg.librerias.utilidades.FileDrop(System.out, temporal, /*dragBorder,*/ new airsendtfg.librerias.utilidades.FileDrop.Listener() {
+                        public void filesDropped(java.io.File[] files) {
+                            System.out.println(files.length + " " + files[0].getName() + diccionarioElementos.get(temporal).getIconoUsuario());
+                            EnviarVentana ventana = new EnviarVentana();
+                            ventana.setVisible(true);
+
+                        }
+                    });
         }
         revalidate();
         repaint();
     }
-    
-    
+
     /**
      * Método encargado de crear un hilo que refresque continuamente la pantalla
      * con los dispositivos disponibles
      */
-    private void hiloCargarLayout(){
+    private void hiloCargarLayout() {
         new Thread(
                 new Runnable() {
                     @Override
                     public void run() {
                         try {
-                                Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
-                                cargarGridLayout(NucleoAirSend.getListaDispositivos());
+                            Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
+                            cargarGridLayout(NucleoAirSend.getListaDispositivos());
                             while (true) {
-                                System.err.println("Refrescando elementos en pantalla - "+NucleoAirSend.getListaDispositivos().size());
+                                System.err.println("Refrescando elementos en pantalla - " + NucleoAirSend.getListaDispositivos().size());
                                 cargarGridLayout(NucleoAirSend.getListaDispositivos());
-                                Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo * 2);                                
+                                Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo * 2);
                             }
                         } catch (InterruptedException ex) {
                             Logger.getLogger(ReceptorSondeo.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,7 +150,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 }
         ).start();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

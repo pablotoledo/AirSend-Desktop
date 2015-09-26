@@ -1,11 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Pablo.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package airsendtfg.librerias.utilidades;
 
-import airsendtfg.frontend.EnviarVentana;
 import airsendtfg.frontend.img.Colores;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.image.BufferedImage;
@@ -16,11 +25,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import airsendtfg.utilidades.FileDrop;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.io.File;
-import java.net.URL;
 
 /**
  *
@@ -34,6 +40,12 @@ public class Sistema {
     private JPanel jPanel;
     private FileDrop dragAndDrop;
     
+    /**
+     * Clase constructora para generar un JPanel que represente a un dispositivo
+     * @param nombre
+     * @param imagen
+     * @param ip 
+     */
     public Sistema(String nombre, String imagen, String ip){
         try {
             this.nombre = nombre;
@@ -45,21 +57,25 @@ public class Sistema {
         }
     }
 
+    //Getter
     public JPanel getjPanel() {
         return jPanel;
     }
 
+    /**
+     * Método que carga la estética de un JPanel
+     * @throws IOException 
+     */
     private void cargarjPanel() throws IOException {
         this.jPanel = new JPanel();
-
         this.jPanel.setBackground(Colores.cabeceraExited());
-        //imagen
+        //Imagen en el JPanel
         Gatos.cargarListas();
-        String direccion = Gatos.getGatoPeque(imagen);
         BufferedImage myPicture = ImageIO.read( ClassLoader.getSystemResource(Gatos.getGatoPeque(imagen)) );
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         this.jPanel.add(picLabel);
 
+        //Configurando estética del JPanel
         JPanel contenedor = new JPanel();
         contenedor.setBackground(Colores.cabeceraExited());
         contenedor.setLayout(new GridLayout(2, 1, 3, 3));
@@ -74,18 +90,8 @@ public class Sistema {
         ipDispositivo.setText(ip);
         ipDispositivo.setForeground(Color.WHITE);
         contenedor.add(ipDispositivo);
-
-        this.dragAndDrop = new airsendtfg.utilidades.FileDrop(System.out, this.jPanel, /*dragBorder,*/ new airsendtfg.utilidades.FileDrop.Listener() {
-                    public void filesDropped(java.io.File[] files) {
-                        // Código tras soltar archivos new EnviarFrame(lista.get(0),files).setVisible(true);
-                        //Log.info("Archivo volcado al programa " + files.length + " " + files[0].getName());
-                        System.err.println(files.length + " " + files[0].getName());
-                        EnviarVentana ventana = new EnviarVentana();
-                        ventana.setVisible(true);
-                        
-                    }
-                });
         
+        //Comportamiento del ratón sobre el JPanel
         this.jPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jPanel.setBackground(Colores.cabeceraExited());

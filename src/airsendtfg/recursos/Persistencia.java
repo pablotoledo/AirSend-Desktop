@@ -24,6 +24,7 @@ public class Persistencia {
     private static String nombreUsuario;
     private static String gatoUsuario;
 
+    // Setters
     public static void setLicencia(boolean licencia) {
         Persistencia.licencia = licencia;
     }
@@ -36,6 +37,7 @@ public class Persistencia {
         Persistencia.gatoUsuario = gatoUsuario;
     }
 
+    //Getters
     public static boolean isLicencia() {
         return licencia;
     }

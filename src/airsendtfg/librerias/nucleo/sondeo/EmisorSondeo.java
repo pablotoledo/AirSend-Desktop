@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Clase encargada de emitir mensajes de sondeo por la red
  *
  * @author Pablo
  */
@@ -34,13 +35,17 @@ public class EmisorSondeo implements Runnable {
 
     private DatagramSocket socket;
 
+    /**
+     * Método que realiza el trabajo iterativo de enviar un mensaje de sondeo lo
+     * realiza a través de todos los dispositivos de red disponibles
+     */
     private void emitirSondeo() {
         try {
             while (true) {
                 //Preparamos un socket en un puerto aleatorio para enviar el datagrama UDP
                 MensajeSondeoJSON mensaje = new MensajeSondeoJSON();
                 final Gson gson = new Gson();
-                String mensajeJSON =(String) gson.toJson(mensaje);
+                String mensajeJSON = (String) gson.toJson(mensaje);
                 socket = new DatagramSocket();
                 socket.setBroadcast(true);
                 byte[] bufferMensaje = mensajeJSON.getBytes("UTF8");
@@ -75,7 +80,7 @@ public class EmisorSondeo implements Runnable {
                         }
                     }
                 }
-                System.out.println(">>> Sonda enviada en todos los dispositivos de red disponibles "+mensajeJSON);
+                System.out.println(">>> Sonda enviada en todos los dispositivos de red disponibles " + mensajeJSON);
                 socket.close();
                 Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
             }
@@ -84,6 +89,9 @@ public class EmisorSondeo implements Runnable {
         }
     }
 
+    /**
+     * Método de concurrencia de clase
+     */
     @Override
     public void run() {
 

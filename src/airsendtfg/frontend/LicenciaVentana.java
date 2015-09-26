@@ -1,17 +1,32 @@
 /*
+ * Copyright 2015 Pablo.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
 
 
-___________________________________________________________________
+ ___________________________________________________________________
 
-Los Proyectos fin de Grado son trabajos protegidos por la Ley de Propiedad 
-Intelectual (Real Decreto Legislativo 1/1996, 12 abril), y en su caso por la 
-Ley de patentes (Ley 11/1986, de 20 de marzo, de Patentes). 
-En este sentido, por lo tanto, la titularidad de los derechos de propiedad
-intelectual de los Proyectos Fin de Grado corresponde a los/las estudiantes
-que los hayan realizado.
+ Los Proyectos fin de Grado son trabajos protegidos por la Ley de Propiedad 
+ Intelectual (Real Decreto Legislativo 1/1996, 12 abril), y en su caso por la 
+ Ley de patentes (Ley 11/1986, de 20 de marzo, de Patentes). 
+ En este sentido, por lo tanto, la titularidad de los derechos de propiedad
+ intelectual de los Proyectos Fin de Grado corresponde a los/las estudiantes
+ que los hayan realizado.
 
  */
 package airsendtfg.frontend;
@@ -25,7 +40,7 @@ import java.awt.Point;
  * @author Pablo
  */
 public class LicenciaVentana extends javax.swing.JFrame {
-    
+
     private int x, y;
 
     /**
@@ -34,11 +49,11 @@ public class LicenciaVentana extends javax.swing.JFrame {
     public LicenciaVentana() {
         this.esteticaBasica();
     }
-    
+
     /**
      * Método que ajusta la estética del front
      */
-    private void esteticaBasica(){
+    private void esteticaBasica() {
         //Constructor de esta clase, inicializa
         this.setUndecorated(true); // Quita el borde del sistema operativo
         initComponents();
@@ -49,7 +64,6 @@ public class LicenciaVentana extends javax.swing.JFrame {
         this.aceptarContenedor.setBackground(Colores.cabeceraExited());
         this.cancelarContenedor.setBackground(Colores.cabeceraExited());
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
