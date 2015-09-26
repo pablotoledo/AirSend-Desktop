@@ -15,6 +15,7 @@
  */
 package airsendtfg.librerias.nucleo.sondeo;
 
+import airsendtfg.librerias.utilidades.Log;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -80,7 +81,7 @@ public class EmisorSondeo implements Runnable {
                         }
                     }
                 }
-                System.out.println(">>> Sonda enviada en todos los dispositivos de red disponibles " + mensajeJSON);
+                Log.sondeoEmisor(">>> Sonda enviada en todos los dispositivos de red disponibles " + mensajeJSON);
                 socket.close();
                 Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
             }

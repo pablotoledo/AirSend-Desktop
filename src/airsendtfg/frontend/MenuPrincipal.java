@@ -23,6 +23,7 @@ import airsendtfg.librerias.nucleo.sondeo.ReceptorSondeo;
 import airsendtfg.librerias.utilidades.Sistema;
 import airsendtfg.recursos.Persistencia;
 import airsendtfg.librerias.utilidades.FileDrop;
+import airsendtfg.librerias.utilidades.Log;
 import java.awt.GridLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -53,7 +54,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.hiloWifiProgreso();
         //this.cargarGridLayoutPrueba();
         this.hiloCargarLayout();
-        System.out.println(Persistencia.getGatoUsuario());
+        Log.info(Persistencia.getGatoUsuario());
     }
 
     /**
@@ -115,7 +116,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             interiorScroll.add(temporal);
             this.dragAndDrop = new airsendtfg.librerias.utilidades.FileDrop(System.out, temporal, /*dragBorder,*/ new airsendtfg.librerias.utilidades.FileDrop.Listener() {
                         public void filesDropped(java.io.File[] files) {
-                            System.out.println(files.length + " " + files[0].getName() + diccionarioElementos.get(temporal).getIconoUsuario());
+                            Log.info(files.length + " " + files[0].getName() + diccionarioElementos.get(temporal).getIconoUsuario());
                             EnviarVentana ventana = new EnviarVentana();
                             ventana.setVisible(true);
 
@@ -139,7 +140,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                             Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
                             cargarGridLayout(NucleoAirSend.getListaDispositivos());
                             while (true) {
-                                System.err.println("Refrescando elementos en pantalla - " + NucleoAirSend.getListaDispositivos().size());
+                                Log.info("Refrescando elementos en pantalla - " + NucleoAirSend.getListaDispositivos().size());
                                 cargarGridLayout(NucleoAirSend.getListaDispositivos());
                                 Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo * 2);
                             }

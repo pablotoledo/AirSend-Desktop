@@ -16,6 +16,7 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.GridLayout;
@@ -333,7 +334,7 @@ public class MenuConfigInicial extends javax.swing.JFrame {
     private void labelAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAceptarMouseClicked
         // TODO add your handling code here:
         if((this.gatoSeleccionado.length()>0)&&(this.nombreTextField.getText().length()>4)){
-            System.out.println(this.gatoSeleccionado+" "+this.nombreTextField.getText());
+            Log.info(this.gatoSeleccionado+" "+this.nombreTextField.getText());
             this.setVisible(false);
             Persistencia.setGatoUsuario(gatoSeleccionado);
             Persistencia.setNombreUsuario(this.nombreTextField.getText());

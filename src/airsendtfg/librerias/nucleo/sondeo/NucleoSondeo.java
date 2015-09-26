@@ -15,7 +15,6 @@
  */
 package airsendtfg.librerias.nucleo.sondeo;
 
-import com.google.gson.Gson;
 import java.util.ArrayList;
 
 /**

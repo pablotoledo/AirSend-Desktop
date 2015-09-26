@@ -5,13 +5,8 @@
  */
 package airsendtfg;
 
-import airsendtfg.frontend.EnviarVentana;
-import airsendtfg.frontend.MenuConfigInicial;
 import airsendtfg.frontend.LicenciaVentana;
-import airsendtfg.frontend.MenuPrincipal;
-import airsendtfg.frontend.RecibirVentana;
-import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
-import airsendtfg.librerias.nucleo.sondeo.ReceptorSondeo;
+import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;
 
 /**
@@ -31,6 +26,7 @@ public class AirSendTFG {
      */
     public static void main(String[] args) {
         System.out.println("Hello TFG!");
+        Log.inicializar();
         new AirSendTFG().cargarAirSend();
         // TODO code application logic here
         

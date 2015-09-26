@@ -15,6 +15,7 @@
  */
 package airsendtfg.librerias.nucleo.sondeo;
 
+import airsendtfg.librerias.utilidades.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
@@ -122,7 +123,7 @@ public class ReceptorSondeo implements Runnable {
         if (!listaContiene(mensaje)) {
             if (!this.listaIPsActual.contains(mensaje.getDireccionIP())) {
                 this.lista.add(mensaje);
-                System.out.println("!ReceptorSondeo Se crea dispositivo! " + new Gson().toJson(mensaje).toString());
+                Log.sondeoReceptor("!ReceptorSondeo Se crea dispositivo! " + new Gson().toJson(mensaje).toString());
             }
         }
     }
@@ -166,7 +167,7 @@ public class ReceptorSondeo implements Runnable {
                                     diferenciaTiempo = TimeUnit.MILLISECONDS.toSeconds(diferenciaTiempo);
                                     if (diferenciaTiempo > 60) {
                                         lista.remove(i);
-                                        System.err.println("Elemento eliminado de la lista");
+                                        Log.sondeoReceptor("Elemento eliminado de la lista");
                                         break;
                                     }
                                 }
