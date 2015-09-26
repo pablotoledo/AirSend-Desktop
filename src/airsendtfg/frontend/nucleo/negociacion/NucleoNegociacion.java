@@ -15,10 +15,23 @@
  */
 package airsendtfg.frontend.nucleo.negociacion;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Pablo
  */
 public class NucleoNegociacion {
+    //Lista que define los tipos de mensajes posibles
+    public static final String[] tipoMensajes = {"PROPUESTA", "ACEPTADO", "DENEGADO", "COMIENZO"};
     
+    public static Map<String, MensajeNegociacionJSON> listaPropuesta = new HashMap<String, MensajeNegociacionJSON>();
+    public static Map<String, MensajeNegociacionJSON> listaAceptado = new HashMap<String, MensajeNegociacionJSON>();
+    public static Map<String, MensajeNegociacionJSON> listaDenegado = new HashMap<String, MensajeNegociacionJSON>();
+    public static Map<String, MensajeNegociacionJSON> listaComienzo = new HashMap<String, MensajeNegociacionJSON>();
+    
+    public NucleoNegociacion(){
+        
+    }
 }

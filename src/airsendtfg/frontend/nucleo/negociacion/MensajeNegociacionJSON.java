@@ -42,7 +42,7 @@ public class MensajeNegociacionJSON {
     public MensajeNegociacionJSON(File[] listaArchivos, String ipDestino, String idDestinatario){
         this.listaElementos = listaArchivos;
         this.identificadorEmisor = Persistencia.getIdUsuario();
-        this.tamano = Utilidades.calcularTamanoD(listaArchivos);
+        //this.tamano = Utilidades.calcularTamanoD(listaArchivos);
         this.nombreEmisor = Persistencia.getNombreUsuario();
         this.tipoMensaje = this.tipoMensajes[0];
         this.ipDestinatario = ipDestino;
