@@ -34,6 +34,7 @@ public class MensajeSondeoJSON {
     private String direccionIP;
     private String tiempo;
     private String iconoUsuario;
+    private String idEmisor;
 
     /**
      * Constructor de clase
@@ -46,12 +47,18 @@ public class MensajeSondeoJSON {
             this.direccionIP = "";
             this.iconoUsuario = Persistencia.getGatoUsuario();
             this.tiempo = new Timestamp(System.currentTimeMillis()).toString();
+            this.idEmisor = Persistencia.getIdUsuario();
         } catch (UnknownHostException ex) {
             Logger.getLogger(MensajeSondeoJSON.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     //Getters para la clase GSON
+    
+    public String getIdEmisor() {
+        return idEmisor;
+    }
+
     public String getIconoUsuario() {
         return iconoUsuario;
     }
@@ -82,7 +89,7 @@ public class MensajeSondeoJSON {
 
     //Comparador de clase bajo criterios específicos
     public boolean igual(MensajeSondeoJSON entrada) {
-        return entrada.sistemaOperativo.equals(this.sistemaOperativo) && entrada.getNombreEquipo().equals(this.nombreEquipo) && entrada.getNombreUsuario().equals(this.nombreUsuario);
+        return entrada.getIdEmisor().equals(this.idEmisor);
     }
 
 }

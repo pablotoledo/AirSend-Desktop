@@ -23,6 +23,7 @@ public class Persistencia {
     private static boolean licencia;
     private static String nombreUsuario;
     private static String gatoUsuario;
+    private static String idUsuario = java.util.UUID.randomUUID().toString();;
 
     // Setters
     public static void setLicencia(boolean licencia) {
@@ -37,6 +38,10 @@ public class Persistencia {
         Persistencia.gatoUsuario = gatoUsuario;
     }
 
+    public static void setIdUsuario(String idUsuario) {
+        Persistencia.idUsuario = idUsuario;
+    }
+
     //Getters
     public static boolean isLicencia() {
         return licencia;
@@ -49,6 +54,9 @@ public class Persistencia {
     public static String getGatoUsuario() {
         return gatoUsuario;
     }
-    
+
+    public static String getIdUsuario() {
+        return idUsuario;
+    }
     
 }

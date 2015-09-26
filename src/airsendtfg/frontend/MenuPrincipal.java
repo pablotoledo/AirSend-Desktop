@@ -115,11 +115,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
             diccionarioElementos.put(temporal, mensaje);
             interiorScroll.add(temporal);
             this.dragAndDrop = new airsendtfg.librerias.utilidades.FileDrop(System.out, temporal, /*dragBorder,*/ new airsendtfg.librerias.utilidades.FileDrop.Listener() {
-                        public void filesDropped(java.io.File[] files) {
-                            Log.info(files.length + " " + files[0].getName() + diccionarioElementos.get(temporal).getIconoUsuario());
-                            EnviarVentana ventana = new EnviarVentana();
+                        public void filesDropped(java.io.File[] archivos) {
+                            Log.info(archivos.length + " " + archivos[0].getName() + diccionarioElementos.get(temporal).getIconoUsuario());
+                            EnviarVentana ventana = new EnviarVentana(diccionarioElementos.get(temporal),archivos);
                             ventana.setVisible(true);
-
                         }
                     });
         }

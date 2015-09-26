@@ -16,8 +16,18 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
+import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -26,16 +36,32 @@ import java.awt.Point;
 public class EnviarVentana extends javax.swing.JFrame {
 
     private int x, y;
+    private MensajeSondeoJSON idObjetivo;
+    private File[] archivos;
 
+    public void setIdObjetivo(MensajeSondeoJSON idObjetivo) {
+        this.idObjetivo = idObjetivo;
+    }
+    
     /**
      * Creates new form EnviarVentana
      */
-    public EnviarVentana() {
-        this.setUndecorated(true); // Quita el borde del sistema operativo
-        initComponents();
-        this.setSize(600, 320); // Establece el tamaño de la ventana
-        this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
-        this.setLocationRelativeTo(null); // Centramos en la pantalla
+    public EnviarVentana(MensajeSondeoJSON idObjetivo,java.io.File[] archivos) {
+        try {
+            this.setUndecorated(true); // Quita el borde del sistema operativo
+            initComponents();
+            this.setSize(600, 320); // Establece el tamaño de la ventana
+            this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
+            this.setLocationRelativeTo(null); // Centramos en la pantalla
+            BufferedImage myPicture = ImageIO.read( ClassLoader.getSystemResource(Gatos.getGatoPeque(idObjetivo.getIconoUsuario())) );
+            System.err.println(iconoDestino.getComponentCount());
+            iconoDestino.removeAll();
+            iconoDestino.setIcon(new ImageIcon(myPicture));
+            revalidate();
+            repaint();
+        } catch (IOException ex) {
+            Logger.getLogger(EnviarVentana.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -424,41 +450,6 @@ public class EnviarVentana extends javax.swing.JFrame {
         x = evt.getX();
         y = evt.getY();
     }//GEN-LAST:event_cabeceraMousePressed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EnviarVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EnviarVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EnviarVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EnviarVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EnviarVentana().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonCancelar;
