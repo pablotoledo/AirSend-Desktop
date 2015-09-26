@@ -15,6 +15,7 @@
  */
 package airsendtfg.librerias.nucleo.sondeo;
 
+import airsendtfg.recursos.Persistencia;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Date;
@@ -27,23 +28,29 @@ import java.util.logging.Logger;
  * @author Pablo
  */
 public class MensajeSondeoJSON {
-    
+
     private String sistemaOperativo;
     private String nombreEquipo;
     private String nombreUsuario;
     private String direccionIP;
     private String tiempo;
-    
-    public MensajeSondeoJSON(){
+    private String iconoUsuario;
+
+    public MensajeSondeoJSON() {
         try {
-            this.sistemaOperativo =System.getProperty("os.name");;
-            this.nombreEquipo=InetAddress.getLocalHost().getHostName();
-            this.nombreUsuario=System.getProperty("user.name");
-            this.direccionIP="";
+            this.sistemaOperativo = System.getProperty("os.name");;
+            this.nombreEquipo = InetAddress.getLocalHost().getHostName();
+            this.nombreUsuario = System.getProperty("user.name");
+            this.direccionIP = "";
+            this.iconoUsuario = Persistencia.getGatoUsuario();
             this.tiempo = new Timestamp(System.currentTimeMillis()).toString();
         } catch (UnknownHostException ex) {
             Logger.getLogger(MensajeSondeoJSON.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String getIconoUsuario() {
+        return iconoUsuario;
     }
 
     public String getSistemaOperativo() {
@@ -69,11 +76,9 @@ public class MensajeSondeoJSON {
     public void setDireccionIP(String direccionIP) {
         this.direccionIP = direccionIP;
     }
-    
-    public boolean igual(MensajeSondeoJSON entrada){
-        return entrada.sistemaOperativo.equals(this.sistemaOperativo)&&entrada.getNombreEquipo().equals(this.nombreEquipo)&&entrada.getNombreUsuario().equals(this.nombreUsuario);
+
+    public boolean igual(MensajeSondeoJSON entrada) {
+        return entrada.sistemaOperativo.equals(this.sistemaOperativo) && entrada.getNombreEquipo().equals(this.nombreEquipo) && entrada.getNombreUsuario().equals(this.nombreUsuario);
     }
-    
-    
-    
+
 }

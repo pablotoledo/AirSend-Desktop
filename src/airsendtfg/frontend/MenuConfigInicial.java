@@ -31,7 +31,7 @@ public class MenuConfigInicial extends javax.swing.JFrame {
     private int x, y;
     private JPanel panelSeleccionado = new JPanel();
     private String gatoSeleccionado ="";
-    private Map<JPanel, String> nombreMap = new HashMap<JPanel, String>();
+    private Map<JPanel, String> diccionarioJPanelString = new HashMap<JPanel, String>();
     
     /**
      * Creates new form menuConfigInicial
@@ -62,7 +62,7 @@ public class MenuConfigInicial extends javax.swing.JFrame {
             try {
                 JPanel panel = this.iconoUsuario(elemento);
                 this.cargarPropiedadesPanelInterior(panel);
-                this.nombreMap.put(panel, elemento);
+                this.diccionarioJPanelString.put(panel, elemento);
                 interiorScroll.add(panel);
             } catch (IOException ex) {
                 Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,7 +85,7 @@ public class MenuConfigInicial extends javax.swing.JFrame {
                 panelSeleccionado.setBackground(Colores.cabeceraExited());
                 panel.setBackground(Colores.cabeceraEntered());
                 panelSeleccionado = panel;
-                gatoSeleccionado = nombreMap.get(panel).substring(nombreMap.get(panel).lastIndexOf("/")+1,nombreMap.get(panel).lastIndexOf("."));
+                gatoSeleccionado = diccionarioJPanelString.get(panel).substring(diccionarioJPanelString.get(panel).lastIndexOf("/")+1,diccionarioJPanelString.get(panel).lastIndexOf("."));
             }
         });
     }

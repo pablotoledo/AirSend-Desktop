@@ -13,22 +13,14 @@ import airsendtfg.librerias.nucleo.sondeo.ReceptorSondeo;
 import airsendtfg.librerias.utilidades.Sistema;
 import airsendtfg.recursos.Persistencia;
 import airsendtfg.utilidades.FileDrop;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -40,6 +32,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private Thread hiloWifiProgreso;
     private int x, y;
     private FileDrop dragAndDrop;
+    private Map<JPanel, MensajeSondeoJSON> diccionarioElementos = new HashMap<JPanel, MensajeSondeoJSON>();
     
 
     /**
@@ -50,7 +43,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.esteticaBasica();
         this.hiloWifiProgreso();
         //this.cargarGridLayoutPrueba();
-        hiloCargarLayout();
+        this.hiloCargarLayout();
         System.out.println(Persistencia.getGatoUsuario());
     }
 
@@ -96,26 +89,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     }
 
-    //Los métodos cargarGridLayout y crearJPanelPrueba son métodos de prueba
-    //de la interfaz
     /**
-     * Método que permite cargar un GridLayout de prueba
+     * Método que dada la lista de mensajes de sondeo, representa en la interfaz lo que ocurre
+     * además actualiza el valor del diccionario de elementos
+     * @param listaMensajes 
      */
-    private void cargarGridLayoutPrueba() {
-        //Se establece un panel en 
-        interiorScroll.setLayout(new GridLayout(5, 3, 3, 3));
-        for (int i = 0; i < 12; i++) {
-            interiorScroll.add(new Sistema("Fulanito","cat_banjo.png","192.168.1.50").getjPanel());
-        }
-    }
-
     private void cargarGridLayout(ArrayList<MensajeSondeoJSON> listaMensajes){
+        this.diccionarioElementos.clear();
+        interiorScroll.removeAll();
         interiorScroll.setLayout(new GridLayout(5,3,3,3));
         for(MensajeSondeoJSON mensaje:listaMensajes){
-            interiorScroll.add(new Sistema(mensaje.getNombreUsuario(),"cat_banjo.png",mensaje.getNombreEquipo()).getjPanel());
+            JPanel temporal = new Sistema(mensaje.getNombreUsuario(),mensaje.getIconoUsuario(),mensaje.getNombreEquipo()).getjPanel();
+            diccionarioElementos.put(temporal, mensaje);
+            interiorScroll.add(temporal);
         }
+        revalidate();
+        repaint();
     }
     
+    
+    /**
+     * Método encargado de crear un hilo que refresque continuamente la pantalla
+     * con los dispositivos disponibles
+     */
     private void hiloCargarLayout(){
         new Thread(
                 new Runnable() {
@@ -125,8 +121,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                 Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
                                 cargarGridLayout(NucleoAirSend.getListaDispositivos());
                             while (true) {
+                                System.err.println("Refrescando elementos en pantalla - "+NucleoAirSend.getListaDispositivos().size());
                                 cargarGridLayout(NucleoAirSend.getListaDispositivos());
-                                Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo * 5);
+                                Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo * 2);                                
                             }
                         } catch (InterruptedException ex) {
                             Logger.getLogger(ReceptorSondeo.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,36 +133,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ).start();
     }
     
-    /**
-     * Método para crear un JPanel para crear un objeto que representa a un
-     * equipo
-     *
-     * @return
-     * @throws IOException
-     */
-    private JPanel crearJPanelPrueba() throws IOException {
-        JPanel objeto = new JPanel();
-        //objeto.setSize(50, 100);
-        objeto.setBackground(Color.red);
-        //imagen
-        BufferedImage myPicture = ImageIO.read(getClass().getResource("/airsendtfg/recursos/imagenes/ipad128.png"));
-        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        objeto.add(picLabel);
-
-        JLabel texto = new JLabel();
-        texto.setText("hola ");
-        objeto.add(texto);
-
-        this.dragAndDrop = new FileDrop(System.out, objeto, /*dragBorder,*/ new FileDrop.Listener() {
-                    public void filesDropped(java.io.File[] files) {
-                        // Código tras soltar archivos new EnviarFrame(lista.get(0),files).setVisible(true);
-                        //Log.info("Archivo volcado al programa " + files.length + " " + files[0].getName());
-                        System.err.println(files.length + " " + files[0].getName());
-                    }
-                });
-        return objeto;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
