@@ -23,7 +23,7 @@ public class Persistencia {
     private static boolean licencia;
     private static String nombreUsuario;
     private static String gatoUsuario;
-    private static String idUsuario = java.util.UUID.randomUUID().toString();;
+    private static String idUsuario = java.util.UUID.randomUUID().toString();
 
     // Setters
     public static void setLicencia(boolean licencia) {

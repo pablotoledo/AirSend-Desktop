@@ -31,7 +31,13 @@ public class NucleoNegociacion {
     public static Map<String, MensajeNegociacionJSON> listaDenegado = new HashMap<String, MensajeNegociacionJSON>();
     public static Map<String, MensajeNegociacionJSON> listaComienzo = new HashMap<String, MensajeNegociacionJSON>();
     
+    //Puertos
+    public static int puertoNucleoNegociacion = 8586;
+    
     public NucleoNegociacion(){
-        
+        Thread hilo = new Thread(new ReceptorNegociacion());
+        hilo.start();
+        MensajeNegociacionJSON mensaje = new MensajeNegociacionJSON(null, "localhost", "nnininonino");
+        EmisorNegociacion.enviarMensaje("localhost", mensaje);
     }
 }

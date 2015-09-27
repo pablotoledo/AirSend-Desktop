@@ -47,6 +47,7 @@ public class MensajeNegociacionJSON {
         this.tipoMensaje = this.tipoMensajes[0];
         this.ipDestinatario = ipDestino;
         this.identificadorDestinatario = idDestinatario;
+        this.identificadorMensaje = java.util.UUID.randomUUID().toString();
     }
 
     //Setters

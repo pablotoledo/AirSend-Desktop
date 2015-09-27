@@ -15,10 +15,141 @@
  */
 package airsendtfg.frontend.nucleo.negociacion;
 
+import airsendtfg.frontend.RecibirVentana;
+import airsendtfg.librerias.utilidades.Log;
+import com.google.gson.Gson;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 /**
  *
  * @author Pablo
  */
-public class ReceptorNegociacion {
+public class ReceptorNegociacion implements Runnable {
+
+    @Override
+    public void run() {
+        ServerSocket server_socket = null;
+        Socket socket = null;
+        try {
+            server_socket = new ServerSocket(NucleoNegociacion.puertoNucleoNegociacion);
+            while (true) {
+                Log.info("Esperando negociación ....");
+                socket = server_socket.accept();
+                Log.info("Aceptada solicitud de negociacion " + socket.getInetAddress());
+                // Se recibe petición
+                
+                InputStream inputStream = socket.getInputStream();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] content = new byte[2048];
+                int bytesRead = -1;
+                while ((bytesRead = inputStream.read(content)) != -1) {
+                    baos.write(content, 0, bytesRead);
+                }   
+
+                String mensajito = baos.toString();
+                String mensajeString = mensajito.substring(mensajito.indexOf("{"), mensajito.lastIndexOf("}")+1);
+                MensajeNegociacionJSON mensaje = new Gson().fromJson(mensajeString, MensajeNegociacionJSON.class);
+                procesarMensaje(mensaje,socket.getInetAddress().getHostAddress());
+                socket.close();
+            }
+        } catch (Exception ioe) {
+            Log.error(ioe.getLocalizedMessage());
+        }
+    }
+    
+    private void procesarMensaje(MensajeNegociacionJSON mensaje, String dirIPMensaje){
+        //Se comprueba que no este nulo
+                if (mensaje != null) {
+                    //lanzar análisis de casos
+                    if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[0])) {
+                        //Caso de PROPUESTA
+                        mensaje.setIpEmisor(dirIPMensaje);
+                        this.procesarMensajePROPUESTA(mensaje);
+                    } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[1])) {
+                        //Caso de ACEPTADO
+                        this.procesarMensajeACEPTADO(mensaje);
+                    } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[2])) {
+                        //Caso de DENEGADO
+                        this.procesarMensajeDENEGADO(mensaje);
+                    } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[3])) {
+                        //Caso de COMIENZO
+                        this.procesarMensajeCOMIENZO(mensaje);
+                    } else {
+                        Log.debug("Tipo de Mensaje no reconocido: " + mensaje.getTipoMensaje());
+                    }
+                }
+    }
+    
+    /**
+     * Método que aisla el código referente a los mensajes de tipo PROPUESTA,
+     * este método codifica mecanismos necesarios para activar la interfaz 
+     * de la parte receptora
+     *
+     * @param entrada Mensaje de tipo PROPUESTA
+     */
+    private void procesarMensajePROPUESTA(MensajeNegociacionJSON entrada) {
+        //Como el receptor es quien recibe el mensaje, creamos una interfaz
+        new RecibirVentana().setVisible(true);
+        //Agregamos a la lista de recibidos del nucleo de negociación
+        NucleoNegociacion.listaPropuesta.put(entrada.getIdentificadorMensaje(), entrada);
+        Log.info("Mensaje de propuesta " + entrada.getIdentificadorEmisor()+ " procesado");
+    }
+
+    /**
+     * Método que aisla el código referente a los mensajes de tipo ACEPTADO
+     *
+     * @param entrada Mensaje de tipo ACEPTADO
+     */
+    private void procesarMensajeACEPTADO(MensajeNegociacionJSON entrada) {
+        //Como este mensaje lo recibe el emisor, debera comprobar la 
+        //preexistencia de un mensaje de PROPUESTA
+        if (NucleoNegociacion.listaPropuesta.containsKey(entrada.getIdentificadorMensaje())) {
+            //Asignamos el valor de COMIENZO al mensaje almacenado
+            entrada.setTipoMensaje(MensajeNegociacionJSON.tipoMensajes[3]);
+            //Actualizamos los valores en nuestras listas de mensajes
+            NucleoNegociacion.listaPropuesta.remove(entrada.getIdentificadorMensaje());
+            NucleoNegociacion.listaComienzo.put(entrada.getIdentificadorMensaje(), entrada);
+            //Enviamos mensaje de Comienzo
+            EmisorNegociacion.enviarMensaje(entrada.getIpDestinatario(), entrada);
+            Log.info("Mensaje Aceptado recibido con ID: " + entrada.getIdentificadorMensaje());
+        }
+    }
+
+    /**
+     * Método que aisla el código referente a los mensajes de tipo DENEGADO
+     *
+     * @param entrada Mensaje de tipo DENEGADO
+     */
+    private void procesarMensajeDENEGADO(MensajeNegociacionJSON entrada) {
+        //Como este mensaje lo recibe el emisor, hay que comprobar la
+        //preexistencia de un mensaje de Propuesta
+        if (NucleoNegociacion.listaPropuesta.containsKey(entrada.getIdentificadorMensaje())) {
+            //Procesamos la situacion creando los cambios necesarios en las listas
+            NucleoNegociacion.listaPropuesta.remove(entrada.getIdentificadorMensaje());
+            NucleoNegociacion.listaDenegado.put(entrada.getIdentificadorMensaje(), entrada);
+            Log.info("Mensaje Denegado recibido con ID: " + entrada.getIdentificadorMensaje());
+        }
+    }
+
+    /**
+     * Método que aisla el código referente a los mensajes de tipo COMIENZO
+     *
+     * @param entrada Mensaje de tipo COMIENZO
+     */
+    private void procesarMensajeCOMIENZO(MensajeNegociacionJSON entrada) {
+        //Como este mensaje lo recibe el receptor, hay que comprobar la
+        //preexistencia
+        if (NucleoNegociacion.listaAceptado.containsKey(entrada.getIdentificadorMensaje())) {
+            //Actualizamos situación de listas
+            NucleoNegociacion.listaAceptado.remove(entrada.getIdentificadorMensaje());
+            NucleoNegociacion.listaComienzo.put(entrada.getIdentificadorMensaje(), entrada);
+            Log.info("Mensaje Comienzo recibido con ID: " + entrada.getIdentificadorMensaje());
+        }
+    }
     
 }

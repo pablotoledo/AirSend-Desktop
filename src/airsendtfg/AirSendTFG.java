@@ -6,6 +6,7 @@
 package airsendtfg;
 
 import airsendtfg.frontend.LicenciaVentana;
+import airsendtfg.frontend.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;
 
@@ -27,15 +28,10 @@ public class AirSendTFG {
     public static void main(String[] args) {
         System.out.println("Hello TFG!");
         Log.inicializar();
-        new AirSendTFG().cargarAirSend();
+        //new AirSendTFG().cargarAirSend();
         // TODO code application logic here
         
-        /*new MenuPrincipal().setVisible(true);
-        new MenuInicial().setVisible(true);
-        new MenuConfigInicial().setVisible(true);
-        new EnviarVentana().setVisible(true);
-        new RecibirVentana().setVisible(true);*/
-        //new NucleoSondeo();
+        NucleoNegociacion nucleo = new NucleoNegociacion();
         
     }
     
