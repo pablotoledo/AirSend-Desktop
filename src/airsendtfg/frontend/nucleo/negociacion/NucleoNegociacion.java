@@ -34,10 +34,11 @@ public class NucleoNegociacion {
     //Puertos
     public static int puertoNucleoNegociacion = 8586;
     
+    private Thread hiloReceptor;
+    
+    
     public NucleoNegociacion(){
-        Thread hilo = new Thread(new ReceptorNegociacion());
-        hilo.start();
-        MensajeNegociacionJSON mensaje = new MensajeNegociacionJSON(null, "localhost", "nnininonino");
-        EmisorNegociacion.enviarMensaje("localhost", mensaje);
+        this.hiloReceptor = new Thread(new ReceptorNegociacion());
+        this.hiloReceptor.start();
     }
 }

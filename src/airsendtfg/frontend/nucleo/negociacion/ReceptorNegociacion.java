@@ -18,10 +18,8 @@ package airsendtfg.frontend.nucleo.negociacion;
 import airsendtfg.frontend.RecibirVentana;
 import airsendtfg.librerias.utilidades.Log;
 import com.google.gson.Gson;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 

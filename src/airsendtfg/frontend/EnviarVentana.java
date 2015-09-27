@@ -16,6 +16,8 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
+import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.MouseInfo;
@@ -27,7 +29,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  *
@@ -38,6 +39,7 @@ public class EnviarVentana extends javax.swing.JFrame {
     private int x, y;
     private MensajeSondeoJSON idObjetivo;
     private File[] archivos;
+    private MensajeNegociacionJSON mensajeNegociacion;
 
     public void setIdObjetivo(MensajeSondeoJSON idObjetivo) {
         this.idObjetivo = idObjetivo;
@@ -45,6 +47,8 @@ public class EnviarVentana extends javax.swing.JFrame {
     
     /**
      * Creates new form EnviarVentana
+     * @param idObjetivo
+     * @param archivos
      */
     public EnviarVentana(MensajeSondeoJSON idObjetivo,java.io.File[] archivos) {
         try {
@@ -92,6 +96,7 @@ public class EnviarVentana extends javax.swing.JFrame {
         textoTamano = new javax.swing.JLabel();
         textoNArchivos = new javax.swing.JLabel();
         iconoDestino = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 275));
@@ -224,6 +229,11 @@ public class EnviarVentana extends javax.swing.JFrame {
         textoBtnEnviar.setForeground(new java.awt.Color(255, 255, 255));
         textoBtnEnviar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoBtnEnviar.setText("Enviar");
+        textoBtnEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoBtnEnviarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout botonEnviarLayout = new javax.swing.GroupLayout(botonEnviar);
         botonEnviar.setLayout(botonEnviarLayout);
@@ -333,8 +343,10 @@ public class EnviarVentana extends javax.swing.JFrame {
                             .addComponent(textoTitulo1)
                             .addComponent(contenedorTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(iconoDestino)
-                        .addGap(107, 107, 107))
+                        .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(iconoDestino)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25))
                     .addGroup(contenedorLayout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -351,11 +363,15 @@ public class EnviarVentana extends javax.swing.JFrame {
                         .addComponent(iconoEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(contenedorLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(textoTitulo1)
-                        .addGap(18, 18, 18)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contenedorTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(iconoDestino))
+                            .addGroup(contenedorLayout.createSequentialGroup()
+                                .addComponent(textoTitulo1)
+                                .addGap(18, 18, 18)
+                                .addComponent(contenedorTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(contenedorLayout.createSequentialGroup()
+                                .addComponent(iconoDestino)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -451,6 +467,11 @@ public class EnviarVentana extends javax.swing.JFrame {
         y = evt.getY();
     }//GEN-LAST:event_cabeceraMousePressed
 
+    private void textoBtnEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseClicked
+        // TODO add your handling code here:
+        EmisorNegociacion.generarMensajeEmisorQ1(idObjetivo, archivos, WIDTH);
+    }//GEN-LAST:event_textoBtnEnviarMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonCancelar;
     private javax.swing.JPanel botonEnviar;
@@ -459,6 +480,7 @@ public class EnviarVentana extends javax.swing.JFrame {
     private javax.swing.JPanel contenedorTexto;
     private javax.swing.JLabel iconoDestino;
     private javax.swing.JLabel iconoEnviar;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel labelCerrar;
     private javax.swing.JLabel labelMinimizar;
     private javax.swing.JLabel nombrePrograma;
