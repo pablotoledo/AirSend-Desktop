@@ -67,6 +67,20 @@ public class EnviarVentana extends javax.swing.JFrame {
             Logger.getLogger(EnviarVentana.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    /**
+     * 
+     * @param destinatario
+     * @param ip
+     * @param tamano
+     * @param narchivos 
+     */
+    private void asignarValoresText(String destinatario, String ip, String tamano, String narchivos){
+        this.textoDestinatario.setText("Destinatario: "+destinatario);
+        this.textoIP.setText("IP destino: "+ip);
+        this.textoTamano.setText("Tamaño: "+tamano);
+        this.textoNArchivos.setText("Nº Archivos: "+narchivos);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -469,7 +483,7 @@ public class EnviarVentana extends javax.swing.JFrame {
 
     private void textoBtnEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseClicked
         // TODO add your handling code here:
-        EmisorNegociacion.generarMensajeEmisorQ1(idObjetivo, archivos, WIDTH);
+        EmisorNegociacion.generarMensajeEmisorQ1(idObjetivo, archivos);
     }//GEN-LAST:event_textoBtnEnviarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

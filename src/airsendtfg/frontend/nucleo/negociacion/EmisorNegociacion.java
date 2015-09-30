@@ -32,25 +32,26 @@ public class EmisorNegociacion {
 
     /**
      * Permite generar y enviar un mensaje de propuesta de envio
-     * 
+     *
      * @param destino IP de destino
      * @param archivos Listado de ficheros a enviar
      * @param tamano Double
-     * @return 
+     * @return
      */
-    public static String generarMensajeEmisorQ1(MensajeSondeoJSON destino, File[] archivos, double tamano) {
+    public static String generarMensajeEmisorQ1(MensajeSondeoJSON destino, File[] archivos) {
         MensajeNegociacionJSON mensaje = new MensajeNegociacionJSON(archivos, destino.getDireccionIP(), destino.getIdEmisor());
         NucleoNegociacion.listaPropuesta.put(mensaje.getIdentificadorMensaje(), mensaje);
         enviarMensaje(destino.getDireccionIP(), mensaje);
         return mensaje.getIdentificadorMensaje();
     }
 
-   /**
-    * Permite enviar un mensaje para aceptar una propuesta de envío
-    * @param entrada MensajeNegociacionJSON
-    * @param puerto Necesaria una asignación previa
-    */
-    public static void enviarMensajeAceptadoQ1(MensajeNegociacionJSON entrada,int puerto) {
+    /**
+     * Permite enviar un mensaje para aceptar una propuesta de envío
+     *
+     * @param entrada MensajeNegociacionJSON
+     * @param puerto Necesaria una asignación previa
+     */
+    public static void enviarMensajeAceptadoQ1(MensajeNegociacionJSON entrada, int puerto) {
         //Comprobamos que sea un mensaje de propuesta
         if (entrada.getTipoMensaje().equals(MensajeNegociacionJSON.getTipoMensajes()[0])) {
             //Asignamos el valor de tipo al mensaje de entrada

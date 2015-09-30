@@ -40,53 +40,53 @@ public class ReceptorNegociacion implements Runnable {
                 socket = server_socket.accept();
                 Log.info("Aceptada solicitud de negociacion " + socket.getInetAddress());
                 // Se recibe petición
-                
+
                 InputStream inputStream = socket.getInputStream();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 byte[] content = new byte[2048];
                 int bytesRead = -1;
                 while ((bytesRead = inputStream.read(content)) != -1) {
                     baos.write(content, 0, bytesRead);
-                }   
+                }
 
                 String mensajito = baos.toString();
-                String mensajeString = mensajito.substring(mensajito.indexOf("{"), mensajito.lastIndexOf("}")+1);
+                String mensajeString = mensajito.substring(mensajito.indexOf("{"), mensajito.lastIndexOf("}") + 1);
                 MensajeNegociacionJSON mensaje = new Gson().fromJson(mensajeString, MensajeNegociacionJSON.class);
-                procesarMensaje(mensaje,socket.getInetAddress().getHostAddress());
+                procesarMensaje(mensaje, socket.getInetAddress().getHostAddress());
                 socket.close();
             }
         } catch (Exception ioe) {
             Log.error(ioe.getLocalizedMessage());
         }
     }
-    
-    private void procesarMensaje(MensajeNegociacionJSON mensaje, String dirIPMensaje){
+
+    private void procesarMensaje(MensajeNegociacionJSON mensaje, String dirIPMensaje) {
         //Se comprueba que no este nulo
-                if (mensaje != null) {
-                    //lanzar análisis de casos
-                    if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[0])) {
-                        //Caso de PROPUESTA
-                        mensaje.setIpEmisor(dirIPMensaje);
-                        this.procesarMensajePROPUESTA(mensaje);
-                    } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[1])) {
-                        //Caso de ACEPTADO
-                        this.procesarMensajeACEPTADO(mensaje);
-                    } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[2])) {
-                        //Caso de DENEGADO
-                        this.procesarMensajeDENEGADO(mensaje);
-                    } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[3])) {
-                        //Caso de COMIENZO
-                        this.procesarMensajeCOMIENZO(mensaje);
-                    } else {
-                        Log.debug("Tipo de Mensaje no reconocido: " + mensaje.getTipoMensaje());
-                    }
-                }
+        if (mensaje != null) {
+            //lanzar análisis de casos
+            if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[0])) {
+                //Caso de PROPUESTA
+                mensaje.setIpEmisor(dirIPMensaje);
+                this.procesarMensajePROPUESTA(mensaje);
+            } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[1])) {
+                //Caso de ACEPTADO
+                this.procesarMensajeACEPTADO(mensaje);
+            } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[2])) {
+                //Caso de DENEGADO
+                this.procesarMensajeDENEGADO(mensaje);
+            } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[3])) {
+                //Caso de COMIENZO
+                this.procesarMensajeCOMIENZO(mensaje);
+            } else {
+                Log.debug("Tipo de Mensaje no reconocido: " + mensaje.getTipoMensaje());
+            }
+        }
     }
-    
+
     /**
      * Método que aisla el código referente a los mensajes de tipo PROPUESTA,
-     * este método codifica mecanismos necesarios para activar la interfaz 
-     * de la parte receptora
+     * este método codifica mecanismos necesarios para activar la interfaz de la
+     * parte receptora
      *
      * @param entrada Mensaje de tipo PROPUESTA
      */
@@ -95,7 +95,7 @@ public class ReceptorNegociacion implements Runnable {
         new RecibirVentana().setVisible(true);
         //Agregamos a la lista de recibidos del nucleo de negociación
         NucleoNegociacion.listaPropuesta.put(entrada.getIdentificadorMensaje(), entrada);
-        Log.info("Mensaje de propuesta " + entrada.getIdentificadorEmisor()+ " procesado");
+        Log.info("Mensaje de propuesta " + entrada.getIdentificadorEmisor() + " procesado");
     }
 
     /**
@@ -149,5 +149,5 @@ public class ReceptorNegociacion implements Runnable {
             Log.info("Mensaje Comienzo recibido con ID: " + entrada.getIdentificadorMensaje());
         }
     }
-    
+
 }

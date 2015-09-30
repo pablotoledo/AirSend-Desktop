@@ -6,6 +6,9 @@
 package airsendtfg;
 
 import airsendtfg.frontend.LicenciaVentana;
+import airsendtfg.frontend.nucleo.NucleoAirSend;
+import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
+import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;
 
@@ -20,6 +23,12 @@ public class AirSendTFG {
             new LicenciaVentana().setVisible(true);
         }
     }
+    
+    public static void pruebaSondeo1(){
+        NucleoAirSend.cargarNucleos();
+        MensajeSondeoJSON mensaje = new MensajeSondeoJSON();
+        EmisorNegociacion.generarMensajeEmisorQ1(mensaje, null);
+    }
 
     /**
      * @param args the command line arguments
@@ -27,7 +36,8 @@ public class AirSendTFG {
     public static void main(String[] args) {
         System.out.println("Hello TFG!");
         Log.inicializar();
-        new AirSendTFG().cargarAirSend();
+        pruebaSondeo1();
+        //new AirSendTFG().cargarAirSend();
         // TODO code application logic here
         
         

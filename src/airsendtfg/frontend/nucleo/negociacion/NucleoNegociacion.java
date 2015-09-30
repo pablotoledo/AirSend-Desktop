@@ -26,10 +26,10 @@ public class NucleoNegociacion {
     //Lista que define los tipos de mensajes posibles
     public static final String[] tipoMensajes = {"PROPUESTA", "ACEPTADO", "DENEGADO", "COMIENZO"};
     
-    public static Map<String, MensajeNegociacionJSON> listaPropuesta = new HashMap<String, MensajeNegociacionJSON>();
-    public static Map<String, MensajeNegociacionJSON> listaAceptado = new HashMap<String, MensajeNegociacionJSON>();
-    public static Map<String, MensajeNegociacionJSON> listaDenegado = new HashMap<String, MensajeNegociacionJSON>();
-    public static Map<String, MensajeNegociacionJSON> listaComienzo = new HashMap<String, MensajeNegociacionJSON>();
+    protected static Map<String, MensajeNegociacionJSON> listaPropuesta = new HashMap<String, MensajeNegociacionJSON>();
+    protected static Map<String, MensajeNegociacionJSON> listaAceptado = new HashMap<String, MensajeNegociacionJSON>();
+    protected static Map<String, MensajeNegociacionJSON> listaDenegado = new HashMap<String, MensajeNegociacionJSON>();
+    protected static Map<String, MensajeNegociacionJSON> listaComienzo = new HashMap<String, MensajeNegociacionJSON>();
     
     //Puertos
     public static int puertoNucleoNegociacion = 8586;
