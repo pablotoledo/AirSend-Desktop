@@ -19,6 +19,7 @@ import airsendtfg.frontend.img.Colores;
 import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
 import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
+import airsendtfg.librerias.utilidades.Utilidades;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -58,6 +59,7 @@ public class EnviarVentana extends javax.swing.JFrame {
             this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
             this.setLocationRelativeTo(null); // Centramos en la pantalla
             BufferedImage myPicture = ImageIO.read( ClassLoader.getSystemResource(Gatos.getGatoPeque(idObjetivo.getIconoUsuario())) );
+            this.asignarValoresText(idObjetivo.getNombreUsuario(), idObjetivo.getDireccionIP(), Utilidades.calcularTamano(archivos), Utilidades.calcularTamano(archivos));
             System.err.println(iconoDestino.getComponentCount());
             iconoDestino.removeAll();
             iconoDestino.setIcon(new ImageIcon(myPicture));
