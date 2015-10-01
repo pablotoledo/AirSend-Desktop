@@ -40,8 +40,8 @@ public class AirSendTFG {
     public static void main(String[] args) {
         System.out.println("Hello TFG!");
         Log.inicializar();
-        pruebaSondeo1();
-        //new AirSendTFG().cargarAirSend();
+        //pruebaSondeo1();
+        new AirSendTFG().cargarAirSend();
         // TODO code application logic here
         
         

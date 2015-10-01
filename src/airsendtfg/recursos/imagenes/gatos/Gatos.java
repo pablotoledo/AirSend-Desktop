@@ -67,14 +67,23 @@ public class Gatos {
     }
 
     public static ArrayList<String> getListaGatosGrande() {
+        if(listaGatosGrande.isEmpty()){
+            cargarListas();
+        }
         return listaGatosGrande;
     }
 
     public static ArrayList<String> getListaGatosMediano() {
+        if(listaGatosMediano.isEmpty()){
+            cargarListas();
+        }
         return listaGatosMediano;
     }
 
     public static ArrayList<String> getListaGatosPeque() {
+        if(listaGatosPeque.isEmpty()){
+            cargarListas();
+        }
         return listaGatosPeque;
     }
 

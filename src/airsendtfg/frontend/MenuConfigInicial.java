@@ -62,7 +62,6 @@ public class MenuConfigInicial extends javax.swing.JFrame {
         this.setSize(500, 680); // Establece el tamaño de la ventana
         this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
         this.setLocationRelativeTo(null); // Centramos en la pantalla
-        Gatos.cargarListas();
         this.cargarGridLayout();
     }
 
