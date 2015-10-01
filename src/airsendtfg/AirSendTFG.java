@@ -11,6 +11,7 @@ import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;
+import java.io.File;
 
 /**
  *
@@ -27,7 +28,10 @@ public class AirSendTFG {
     public static void pruebaSondeo1(){
         NucleoAirSend.cargarNucleos();
         MensajeSondeoJSON mensaje = new MensajeSondeoJSON();
-        EmisorNegociacion.generarMensajeEmisorQ1(mensaje, null);
+        File archivo = new File("C:\\Users\\jtoledog\\Downloads\\proxy.pac");
+        File[] archivos= new File[1];
+        archivos[0]=archivo;
+        EmisorNegociacion.generarMensajeEmisorQ1(mensaje, archivos);
     }
 
     /**

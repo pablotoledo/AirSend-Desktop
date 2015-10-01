@@ -71,16 +71,16 @@ public class EnviarVentana extends javax.swing.JFrame {
     }
     
     /**
-     * 
-     * @param destinatario
-     * @param ip
-     * @param tamano
-     * @param narchivos 
+     * Asigna valores a los JLabel de la interfaz de usuario
+     * @param destinatario Nombre del destinatario
+     * @param ip IP del destinatario
+     * @param tamano Tamaño de los ficheros a enviar
+     * @param narchivos Número de ficheros a enviar
      */
     private void asignarValoresText(String destinatario, String ip, String tamano, String narchivos){
         this.textoDestinatario.setText("Destinatario: "+destinatario);
         this.textoIP.setText("IP destino: "+ip);
-        this.textoTamano.setText("Tamaño: "+tamano);
+        this.textoTamano.setText("Tamaño: "+tamano+" MB");
         this.textoNArchivos.setText("Nº Archivos: "+narchivos);
     }
 

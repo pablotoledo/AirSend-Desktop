@@ -22,6 +22,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -56,7 +58,8 @@ public class ReceptorNegociacion implements Runnable {
                 socket.close();
             }
         } catch (Exception ioe) {
-            Log.error(ioe.getLocalizedMessage());
+            Logger.getLogger(ReceptorNegociacion.class.getName()).log(Level.SEVERE, null, ioe);
+            Log.error("ReceptorNegociacion"+ioe.getLocalizedMessage());
         }
     }
 
@@ -92,7 +95,7 @@ public class ReceptorNegociacion implements Runnable {
      */
     private void procesarMensajePROPUESTA(MensajeNegociacionJSON entrada) {
         //Como el receptor es quien recibe el mensaje, creamos una interfaz
-        new RecibirVentana().setVisible(true);
+        new RecibirVentana(entrada).setVisible(true);
         //Agregamos a la lista de recibidos del nucleo de negociación
         NucleoNegociacion.listaPropuesta.put(entrada.getIdentificadorMensaje(), entrada);
         Log.info("Mensaje de propuesta " + entrada.getIdentificadorEmisor() + " procesado");

@@ -16,6 +16,7 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
@@ -25,18 +26,37 @@ import java.awt.Point;
  */
 public class RecibirVentana extends javax.swing.JFrame {
     private int x, y;
+    private MensajeNegociacionJSON entrada;
 
     /**
      * Creates new form EnviarVentana
+     * @param entrada Mensaje JSON de entrada
      */
-    public RecibirVentana() {
+    public RecibirVentana(MensajeNegociacionJSON entrada) {
+        this.entrada = entrada; //Asignamos info de entrada
         this.setUndecorated(true); // Quita el borde del sistema operativo
         initComponents();
         this.setSize(600, 350); // Establece el tamaño de la ventana
         this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
         this.setLocationRelativeTo(null); // Centramos en la pantalla
+        this.asignarValoresText(entrada.getNombreEmisor(), entrada.getIpEmisor(),Double.toString(entrada.getTamano()), Integer.toString(entrada.getListaElementos().length));
+    }
+    
+    /**
+     * Asigna valores a los JLabel de la interfaz de usuario
+     * @param destinatario Nombre del emisor
+     * @param ip IP del emisor
+     * @param tamano Tamaño de los ficheros a recibir
+     * @param narchivos Número de ficheros a recibir
+     */
+    public void asignarValoresText(String destinatario, String ip, String tamano, String narchivos){
+        this.textoDestinatario.setText("Nombre: "+destinatario);
+        this.textoIP.setText("IP origen: "+ip);
+        this.textoTamano.setText("Tamaño: "+tamano+" MB");
+        this.textoNArchivos.setText("Nº Archivos: "+narchivos);
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -436,43 +456,6 @@ public class RecibirVentana extends javax.swing.JFrame {
         y = evt.getY();
     }//GEN-LAST:event_cabeceraMousePressed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RecibirVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RecibirVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RecibirVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RecibirVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RecibirVentana().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonCancelar;
