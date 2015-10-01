@@ -50,8 +50,8 @@ public class Utilidades {
      */
     public static double calcularTamanoD(File[] lista) {
         double peso = 0;
-        for (int i = 0; i < lista.length; i++) {
-            peso = peso + extraccionRecursiva(lista[i]);
+        for (File lista1 : lista) {
+            peso = peso + extraccionRecursiva(lista1);
         }
         peso = peso / (1024 * 1024);
         return peso;

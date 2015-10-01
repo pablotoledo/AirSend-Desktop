@@ -135,6 +135,7 @@ public class MenuConfigInicial extends javax.swing.JFrame {
         labelAceptar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Configuración de AirSend");
 
         contenedor.setBackground(new java.awt.Color(18, 23, 28));
 

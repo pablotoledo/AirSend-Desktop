@@ -176,6 +176,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         labelBarraInferior = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("AirSend");
         setBackground(new java.awt.Color(18, 23, 28));
 
         cabecera.setBackground(new java.awt.Color(34, 35, 38));

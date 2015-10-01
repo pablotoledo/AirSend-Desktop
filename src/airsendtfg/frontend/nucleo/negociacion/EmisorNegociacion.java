@@ -35,7 +35,6 @@ public class EmisorNegociacion {
      *
      * @param destino IP de destino
      * @param archivos Listado de ficheros a enviar
-     * @param tamano Double
      * @return
      */
     public static String generarMensajeEmisorQ1(MensajeSondeoJSON destino, File[] archivos) {

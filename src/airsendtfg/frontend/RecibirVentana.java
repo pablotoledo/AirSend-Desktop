@@ -123,6 +123,7 @@ public class RecibirVentana extends javax.swing.JFrame {
         checkConfiar = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Propuesta recibida");
 
         cabecera.setBackground(new java.awt.Color(34, 35, 38));
         cabecera.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {

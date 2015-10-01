@@ -56,6 +56,7 @@ public class EnviarVentana extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.idObjetivo = idObjetivo;
+        this.archivos = archivos;
         this.asignarValoresText(idObjetivo.getNombreUsuario(), idObjetivo.getDireccionIP(), Utilidades.calcularTamano(archivos), Utilidades.calcularTamano(archivos));
         this.asignarGato();
     }
@@ -121,6 +122,7 @@ public class EnviarVentana extends javax.swing.JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Enviar");
         setPreferredSize(new java.awt.Dimension(600, 275));
 
         cabecera.setBackground(new java.awt.Color(34, 35, 38));
