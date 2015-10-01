@@ -58,30 +58,7 @@ public class EmisorSondeo implements Runnable {
                 } catch (Exception e) {
                     System.err.printf(e.getLocalizedMessage());
                 }
-
-                // Se envía el mensaje manualmente por cada red conectada
-                Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
-                while (interfaces.hasMoreElements()) {
-                    NetworkInterface networkInterface = (NetworkInterface) interfaces.nextElement();
-                    if (networkInterface.isLoopback() || !networkInterface.isUp()) {
-                        continue; // Evitamos un posible bucle
-                    }
-                    for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
-                        //Para cada dispositivo
-                        InetAddress broadcast = interfaceAddress.getBroadcast();
-                        if (broadcast == null) {
-                            continue;
-                        }
-                        //Propagamos el mensaje por la red
-                        try {
-                            DatagramPacket enviarDatagrama = new DatagramPacket(bufferMensaje, bufferMensaje.length, broadcast, NucleoSondeo.puertoBroadcast);
-                            socket.send(enviarDatagrama);
-                        } catch (Exception e) {
-                            System.err.printf(e.getLocalizedMessage());
-                        }
-                    }
-                }
-                Log.sondeoEmisor(">>> Sonda enviada en todos los dispositivos de red disponibles " + mensajeJSON);
+                Log.sondeoEmisor(">>> Sonda enviada: " + mensajeJSON);
                 socket.close();
                 Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
             }
