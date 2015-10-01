@@ -17,19 +17,31 @@ package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
 import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
+import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
+import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
+import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Pablo
  */
 public class RecibirVentana extends javax.swing.JFrame {
+
     private int x, y;
     private MensajeNegociacionJSON entrada;
 
+
     /**
      * Creates new form EnviarVentana
+     *
      * @param entrada Mensaje JSON de entrada
      */
     public RecibirVentana(MensajeNegociacionJSON entrada) {
@@ -39,24 +51,47 @@ public class RecibirVentana extends javax.swing.JFrame {
         this.setSize(600, 350); // Establece el tamaño de la ventana
         this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
         this.setLocationRelativeTo(null); // Centramos en la pantalla
-        this.asignarValoresText(entrada.getNombreEmisor(), entrada.getIpEmisor(),Double.toString(entrada.getTamano()), Integer.toString(entrada.getListaElementos().length));
+        this.asignarGato();
+        this.asignarValoresText(entrada.getNombreEmisor(), entrada.getIpEmisor(), Double.toString(entrada.getTamano()), Integer.toString(entrada.getListaElementos().length));
     }
-    
+
+    /**
+     * Asignación de imagen de gato en la interfaz
+     */
+    private void asignarGato() {
+        try {
+            //Buscamos la imagen asociada al emisor, sino devolvemos una por defecto
+            String gato = "cat_banjo.png";
+            for (MensajeSondeoJSON emisor : NucleoSondeo.getListaElementos()) {
+                if (emisor.getIdEmisor().equals(entrada.getIdentificadorEmisor())) {
+                    gato = emisor.getIconoUsuario();
+                }
+            }
+            BufferedImage myPicture = ImageIO.read(ClassLoader.getSystemResource(Gatos.getGatoPeque(gato)) );
+            iconoDestino.removeAll();
+            iconoDestino.setIcon(new ImageIcon(myPicture));
+            revalidate();
+            repaint();
+        } catch (Exception ex) {
+            Logger.getLogger(EnviarVentana.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * Asigna valores a los JLabel de la interfaz de usuario
+     *
      * @param destinatario Nombre del emisor
      * @param ip IP del emisor
      * @param tamano Tamaño de los ficheros a recibir
      * @param narchivos Número de ficheros a recibir
      */
-    public void asignarValoresText(String destinatario, String ip, String tamano, String narchivos){
-        this.textoDestinatario.setText("Nombre: "+destinatario);
-        this.textoIP.setText("IP origen: "+ip);
-        this.textoTamano.setText("Tamaño: "+tamano+" MB");
-        this.textoNArchivos.setText("Nº Archivos: "+narchivos);
+    public void asignarValoresText(String destinatario, String ip, String tamano, String narchivos) {
+        this.textoDestinatario.setText("Nombre: " + destinatario);
+        this.textoIP.setText("IP origen: " + ip);
+        this.textoTamano.setText("Tamaño: " + tamano + " MB");
+        this.textoNArchivos.setText("Nº Archivos: " + narchivos);
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -289,12 +324,12 @@ public class RecibirVentana extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoDestinatario)
-                    .addComponent(textoIP)
-                    .addComponent(textoNArchivos)
-                    .addComponent(textoTamano))
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textoDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoTamano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoNArchivos, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,7 +378,7 @@ public class RecibirVentana extends javax.swing.JFrame {
                             .addGroup(contenedorLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkConfiar)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(129, Short.MAX_VALUE))))
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

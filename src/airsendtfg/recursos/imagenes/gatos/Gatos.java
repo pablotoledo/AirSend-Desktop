@@ -79,6 +79,9 @@ public class Gatos {
     }
 
     private static String getGato(String nombre, ArrayList<String> tipo) {
+        if(listaGatosPeque.isEmpty()){
+            cargarListas();
+        }
         for (String elemento : tipo) {
             if (elemento.contains(nombre)) {
                 return elemento;

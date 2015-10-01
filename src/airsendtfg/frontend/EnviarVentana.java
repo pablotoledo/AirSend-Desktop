@@ -42,9 +42,7 @@ public class EnviarVentana extends javax.swing.JFrame {
     private File[] archivos;
     private MensajeNegociacionJSON mensajeNegociacion;
 
-    public void setIdObjetivo(MensajeSondeoJSON idObjetivo) {
-        this.idObjetivo = idObjetivo;
-    }
+
     
     /**
      * Creates new form EnviarVentana
@@ -52,22 +50,14 @@ public class EnviarVentana extends javax.swing.JFrame {
      * @param archivos
      */
     public EnviarVentana(MensajeSondeoJSON idObjetivo,java.io.File[] archivos) {
-        try {
-            this.setUndecorated(true); // Quita el borde del sistema operativo
-            initComponents();
-            this.setSize(600, 320); // Establece el tamaño de la ventana
-            this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
-            this.setLocationRelativeTo(null); // Centramos en la pantalla
-            BufferedImage myPicture = ImageIO.read( ClassLoader.getSystemResource(Gatos.getGatoPeque(idObjetivo.getIconoUsuario())) );
-            this.asignarValoresText(idObjetivo.getNombreUsuario(), idObjetivo.getDireccionIP(), Utilidades.calcularTamano(archivos), Utilidades.calcularTamano(archivos));
-            System.err.println(iconoDestino.getComponentCount());
-            iconoDestino.removeAll();
-            iconoDestino.setIcon(new ImageIcon(myPicture));
-            revalidate();
-            repaint();
-        } catch (IOException ex) {
-            Logger.getLogger(EnviarVentana.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.setUndecorated(true);
+        initComponents();
+        this.setSize(600, 320);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.idObjetivo = idObjetivo;
+        this.asignarValoresText(idObjetivo.getNombreUsuario(), idObjetivo.getDireccionIP(), Utilidades.calcularTamano(archivos), Utilidades.calcularTamano(archivos));
+        this.asignarGato();
     }
     
     /**
@@ -82,6 +72,22 @@ public class EnviarVentana extends javax.swing.JFrame {
         this.textoIP.setText("IP destino: "+ip);
         this.textoTamano.setText("Tamaño: "+tamano+" MB");
         this.textoNArchivos.setText("Nº Archivos: "+narchivos);
+    }
+    
+    /**
+     * Asignación de imagen de gato en la interfaz
+     */
+    private void asignarGato(){
+        try {
+            BufferedImage myPicture = ImageIO.read( ClassLoader.getSystemResource(Gatos.getGatoPeque(idObjetivo.getIconoUsuario())) );
+            System.err.println(iconoDestino.getComponentCount());
+            iconoDestino.removeAll();
+            iconoDestino.setIcon(new ImageIcon(myPicture));
+            revalidate();
+            repaint();
+        } catch (IOException ex) {
+            Logger.getLogger(EnviarVentana.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -322,12 +328,12 @@ public class EnviarVentana extends javax.swing.JFrame {
             contenedorTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorTextoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(contenedorTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoDestinatario)
-                    .addComponent(textoIP)
-                    .addComponent(textoNArchivos)
-                    .addComponent(textoTamano))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addGroup(contenedorTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textoDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(textoIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoTamano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoNArchivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         contenedorTextoLayout.setVerticalGroup(
             contenedorTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -28,7 +28,7 @@ public class AirSendTFG {
     public static void pruebaSondeo1(){
         NucleoAirSend.cargarNucleos();
         MensajeSondeoJSON mensaje = new MensajeSondeoJSON();
-        File archivo = new File("C:\\Users\\jtoledog\\Downloads\\proxy.pac");
+        File archivo = new File("C:\\Users\\jtoledog\\Downloads\\azure.pdf");
         File[] archivos= new File[1];
         archivos[0]=archivo;
         EmisorNegociacion.generarMensajeEmisorQ1(mensaje, archivos);

@@ -29,10 +29,10 @@ public class NucleoSondeo {
     public static String dirBroadcast = "255.255.255.255";
     public static int tiempoSleppLoopSondeo = 3000;
 
-    private Thread hiloEmisorSondeo;
-    private Thread hiloReceptorSondeo;
-    private EmisorSondeo emisorSondeo;
-    private ReceptorSondeo receptoSondeo;
+    private static Thread hiloEmisorSondeo;
+    private static Thread hiloReceptorSondeo;
+    private static EmisorSondeo emisorSondeo;
+    private static ReceptorSondeo receptoSondeo;
 
     /**
      * Constructor
@@ -50,8 +50,8 @@ public class NucleoSondeo {
      * Permite objetener una lista de elementos recibidos y actualizada
      * @return Lista de elementos recibidos y actualizada
      */
-    public ArrayList<MensajeSondeoJSON> getListaElementos() {
-        return this.receptoSondeo.getLista();
+    public static ArrayList<MensajeSondeoJSON> getListaElementos() {
+        return receptoSondeo.getLista();
     }
 
 }
