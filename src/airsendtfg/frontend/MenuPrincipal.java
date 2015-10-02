@@ -139,7 +139,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                             Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
                             cargarGridLayout(NucleoAirSend.getListaDispositivos());
                             while (true) {
-                                Log.info("Refrescando elementos en pantalla - " + NucleoAirSend.getListaDispositivos().size());
+                                //Log.info("Refrescando elementos en pantalla - " + NucleoAirSend.getListaDispositivos().size());
                                 cargarGridLayout(NucleoAirSend.getListaDispositivos());
                                 Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo * 2);
                             }

@@ -51,7 +51,7 @@ public class RecibirVentana extends javax.swing.JFrame {
         this.entrada = entrada; //Asignamos info de entrada
         this.setUndecorated(true); // Quita el borde del sistema operativo
         initComponents();
-        this.setSize(600, 350); // Establece el tamaño de la ventana
+        this.setSize(750, 400); // Establece el tamaño de la ventana
         this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
         this.setLocationRelativeTo(null); // Centramos en la pantalla
         this.asignarGato();
@@ -391,7 +391,7 @@ public class RecibirVentana extends javax.swing.JFrame {
                             .addGroup(contenedorLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkConfiar)))
-                        .addContainerGap(134, Short.MAX_VALUE))
+                        .addContainerGap(250, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textoEstado)
