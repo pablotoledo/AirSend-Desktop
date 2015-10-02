@@ -16,7 +16,9 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
 import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
+import airsendtfg.frontend.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
@@ -37,6 +39,7 @@ public class RecibirVentana extends javax.swing.JFrame {
 
     private int x, y;
     private MensajeNegociacionJSON entrada;
+    private String estado = NucleoNegociacion.tipoMensajes[0];
 
 
     /**
@@ -121,6 +124,7 @@ public class RecibirVentana extends javax.swing.JFrame {
         textoNArchivos = new javax.swing.JLabel();
         iconoDestino = new javax.swing.JLabel();
         checkConfiar = new javax.swing.JCheckBox();
+        textoEstado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Propuesta recibida");
@@ -253,6 +257,11 @@ public class RecibirVentana extends javax.swing.JFrame {
         textoBtnEnviar.setForeground(new java.awt.Color(255, 255, 255));
         textoBtnEnviar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoBtnEnviar.setText("Recibir");
+        textoBtnEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoBtnEnviarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout botonEnviarLayout = new javax.swing.GroupLayout(botonEnviar);
         botonEnviar.setLayout(botonEnviarLayout);
@@ -353,6 +362,9 @@ public class RecibirVentana extends javax.swing.JFrame {
         checkConfiar.setText("Confiar en este usuario en futuras ocasiones");
         checkConfiar.setBorder(null);
 
+        textoEstado.setForeground(new java.awt.Color(255, 255, 255));
+        textoEstado.setText("Estado:");
+
         javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
         contenedor.setLayout(contenedorLayout);
         contenedorLayout.setHorizontalGroup(
@@ -374,12 +386,16 @@ public class RecibirVentana extends javax.swing.JFrame {
                             .addGroup(contenedorLayout.createSequentialGroup()
                                 .addGap(55, 55, 55)
                                 .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)
+                                .addGap(40, 40, 40)
                                 .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(contenedorLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkConfiar)))
-                        .addContainerGap(129, Short.MAX_VALUE))))
+                        .addContainerGap(134, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoEstado)
+                        .addContainerGap())))
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,11 +413,12 @@ public class RecibirVentana extends javax.swing.JFrame {
                             .addComponent(iconoDestino))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(checkConfiar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(contenedorLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(textoEstado)))
                 .addContainerGap())
         );
 
@@ -492,6 +509,15 @@ public class RecibirVentana extends javax.swing.JFrame {
         y = evt.getY();
     }//GEN-LAST:event_cabeceraMousePressed
 
+    private void textoBtnEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseClicked
+        // TODO add your handling code here:
+        if(estado.equals(NucleoNegociacion.tipoMensajes[0])){
+            //falta asignación de puerto y crear objeto de recepcion de datos
+            EmisorNegociacion.enviarMensajeAceptadoQ1(entrada, 8888);
+            this.textoEstado.setText("Estado: Propuesta aceptada");
+        }
+    }//GEN-LAST:event_textoBtnEnviarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonCancelar;
@@ -510,6 +536,7 @@ public class RecibirVentana extends javax.swing.JFrame {
     private javax.swing.JLabel textoBtnCancelar;
     private javax.swing.JLabel textoBtnEnviar;
     private javax.swing.JLabel textoDestinatario;
+    private javax.swing.JLabel textoEstado;
     private javax.swing.JLabel textoIP;
     private javax.swing.JLabel textoNArchivos;
     private javax.swing.JLabel textoTamano;

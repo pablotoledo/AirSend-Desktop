@@ -41,6 +41,7 @@ public class EnviarVentana extends javax.swing.JFrame {
     private MensajeSondeoJSON idObjetivo;
     private File[] archivos;
     private MensajeNegociacionJSON mensajeNegociacion;
+    private boolean enviarPulsado = false;
 
 
     
@@ -73,6 +74,7 @@ public class EnviarVentana extends javax.swing.JFrame {
         this.textoIP.setText("IP destino: "+ip);
         this.textoTamano.setText("Tamaño: "+tamano+" MB");
         this.textoNArchivos.setText("Nº Archivos: "+narchivos);
+        this.textoEstado.setText("Estado: Esperando su confirmación");
     }
     
     /**
@@ -120,6 +122,7 @@ public class EnviarVentana extends javax.swing.JFrame {
         textoNArchivos = new javax.swing.JLabel();
         iconoDestino = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
+        textoEstado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Enviar");
@@ -335,7 +338,7 @@ public class EnviarVentana extends javax.swing.JFrame {
                     .addComponent(textoIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoTamano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoNArchivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contenedorTextoLayout.setVerticalGroup(
             contenedorTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,6 +355,9 @@ public class EnviarVentana extends javax.swing.JFrame {
         );
 
         iconoDestino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/recursos/imagenes/gatos/64x64/cat_box.png"))); // NOI18N
+
+        textoEstado.setForeground(new java.awt.Color(255, 255, 255));
+        textoEstado.setText("Estado:");
 
         javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
         contenedor.setLayout(contenedorLayout);
@@ -376,7 +382,9 @@ public class EnviarVentana extends javax.swing.JFrame {
                         .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoEstado)
+                        .addContainerGap())))
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,9 +406,14 @@ public class EnviarVentana extends javax.swing.JFrame {
                                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                            .addGroup(contenedorLayout.createSequentialGroup()
+                                .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 12, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(textoEstado)))))
                 .addContainerGap())
         );
 
@@ -493,7 +506,11 @@ public class EnviarVentana extends javax.swing.JFrame {
 
     private void textoBtnEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseClicked
         // TODO add your handling code here:
-        EmisorNegociacion.generarMensajeEmisorQ1(idObjetivo, archivos);
+        if(!enviarPulsado){
+            EmisorNegociacion.generarMensajeEmisorQ1(idObjetivo, archivos);
+            this.enviarPulsado = true;
+            this.textoEstado.setText("Estado: Propuesta enviada");
+        }
     }//GEN-LAST:event_textoBtnEnviarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -513,6 +530,7 @@ public class EnviarVentana extends javax.swing.JFrame {
     private javax.swing.JLabel textoBtnCancelar;
     private javax.swing.JLabel textoBtnEnviar;
     private javax.swing.JLabel textoDestinatario;
+    private javax.swing.JLabel textoEstado;
     private javax.swing.JLabel textoIP;
     private javax.swing.JLabel textoNArchivos;
     private javax.swing.JLabel textoTamano;
