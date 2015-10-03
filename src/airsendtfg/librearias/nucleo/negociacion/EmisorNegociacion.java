@@ -113,6 +113,17 @@ public class EmisorNegociacion {
         }
     }
 
+    public static void enviarMensajeTerminadoQ1(MensajeNegociacionJSON entrada) {
+        //Asignamos el valor de tipo al mensaje de entrada
+        entrada.setTipoMensaje(MensajeNegociacionJSON.tipoMensajes[4]);
+        //Actualizamos el mensaje en la lista de listaPropuestaEnviada
+        NucleoNegociacion.listaComienzo.remove(entrada.getIdentificadorMensaje());
+        NucleoNegociacion.listaTerminado.put(entrada.getIdentificadorMensaje(), entrada);
+        //Enviamos mensaje al receptor
+        enviarMensaje(entrada.getIpDestinatario(), entrada);
+        Log.info("Mensaje " + entrada.getIdentificadorMensaje() + " modificado a TERMINADO y enviado");
+    }
+
     /**
      * Método auxiliar que permite enviar un objeto mensaje a la dirección
      * determinada

@@ -15,6 +15,7 @@
  */
 package airsendtfg.librerias.nucleo.transferencia;
 
+import airsendtfg.librearias.nucleo.negociacion.EmisorNegociacion;
 import airsendtfg.librearias.nucleo.negociacion.MensajeNegociacionJSON;
 import airsendtfg.librearias.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.utilidades.Log;
@@ -45,6 +46,9 @@ public class EmisorTransferencia implements Runnable {
     //Socket
     private Socket socketDatos;
 
+    //Valor para JProgressBar
+    private int progreso;
+    
     /**
      * Método constructor que precisa de ciertos objetos para trabajar
      * correctamente de la EnviarInterfaz que lo va a crear.
@@ -54,6 +58,12 @@ public class EmisorTransferencia implements Runnable {
     public EmisorTransferencia(MensajeNegociacionJSON mensaje) {
         this.mensaje = mensaje;
     }
+
+    public int getProgreso() {
+        return progreso;
+    }
+    
+    
 
     /**
      * Método main a ejecutarse cuando se lance esta clase como hilo concurrente
@@ -110,6 +120,8 @@ public class EmisorTransferencia implements Runnable {
         //Cerramos de forma protocolaria el socket y el flujo de compresión
         zos.close();
         socketDatos.close();
+        //Avisamos que hemos terminado
+        EmisorNegociacion.enviarMensajeTerminadoQ1(mensaje);
     }
 
     /**
@@ -167,6 +179,8 @@ public class EmisorTransferencia implements Runnable {
         byte buffer[] = new byte[1024];
         while ((len = in.read(buffer)) > 0) {
             zos.write(buffer, 0, len);
+            int valor = (int) len ;
+            this.progreso = (valor/1024)+this.progreso;
         }
         //Cerramos el flujo de lectura
         in.close();

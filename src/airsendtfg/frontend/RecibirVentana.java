@@ -23,6 +23,7 @@ import airsendtfg.librearias.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.nucleo.transferencia.ReceptorTransferencia;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
+import airsendtfg.librerias.utilidades.Utilidades;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -32,6 +33,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -61,6 +63,7 @@ public class RecibirVentana extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // Centramos en la pantalla
         this.asignarGato();
         this.asignarValoresText(entrada.getNombreEmisor(), entrada.getIpEmisor(), Double.toString(entrada.getTamano()), Integer.toString(entrada.getListaElementos().length));
+        this.barra.setMaximum((int) entrada.getTamano());
     }
 
     /**
@@ -102,7 +105,15 @@ public class RecibirVentana extends javax.swing.JFrame {
     }
     
     public void setTextoEstado(String textoEstado) {
-        this.textoEstado.setText(estado);
+        this.textoEstado.setText(textoEstado);
+    }
+    
+    public void setValorBarra(int valor){
+        this.barra.setValue(valor);
+    }
+
+    public JProgressBar getBarra() {
+        return barra;
     }
 
 
@@ -136,6 +147,7 @@ public class RecibirVentana extends javax.swing.JFrame {
         textoEstado = new javax.swing.JLabel();
         iconoDestino = new javax.swing.JLabel();
         checkConfiar = new javax.swing.JCheckBox();
+        barra = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Propuesta recibida");
@@ -415,10 +427,15 @@ public class RecibirVentana extends javax.swing.JFrame {
                                 .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contenedorLayout.createSequentialGroup()
                                 .addComponent(textoTitulo1)
-                                .addComponent(checkConfiar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(157, Short.MAX_VALUE))))
+                                .addGap(114, 114, 114)))
+                        .addContainerGap(157, Short.MAX_VALUE))
+                    .addGroup(contenedorLayout.createSequentialGroup()
+                        .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkConfiar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,13 +451,15 @@ public class RecibirVentana extends javax.swing.JFrame {
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(iconoDestino))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkConfiar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(checkConfiar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 5, Short.MAX_VALUE)))
+                        .addGap(12, 12, 12)))
                 .addContainerGap())
         );
 
@@ -581,6 +600,7 @@ public class RecibirVentana extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar barra;
     private javax.swing.JPanel botonCancelar;
     private javax.swing.JPanel botonEnviar;
     private javax.swing.JPanel cabecera;

@@ -42,6 +42,9 @@ public class ReceptorTransferencia implements Runnable {
     private String rutaFichero = System.getProperty("user.home");
     private String nombreFichero;
     
+    //Valor para JProgressBar
+    private int progreso;
+    
     /**
      * Método constructor
      *
@@ -115,7 +118,7 @@ public class ReceptorTransferencia implements Runnable {
                 byte buf[] = new byte[buffer];
                 Log.info("Transmisión: Recibiendo flujo de datos");
                 while ((n = entrada.read(buf)) >= 0) {
-                    int valor = (int) f.length() / (1024 * 1024);
+                    this.progreso = (n/1024)+this.progreso;
                     sin.write(buf, 0, n);
                 }
                 sin.close();

@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -67,6 +68,7 @@ public class EnviarVentana extends javax.swing.JFrame {
         this.archivos = archivos;
         this.asignarValoresText(idObjetivo.getNombreUsuario(), idObjetivo.getDireccionIP(), Utilidades.calcularTamano(archivos), Utilidades.calcularTamano(archivos));
         this.asignarGato();
+        this.barra.setMaximum((int) Utilidades.calcularTamanoD(archivos)*1024);
     }
     
     /**
@@ -99,9 +101,17 @@ public class EnviarVentana extends javax.swing.JFrame {
             Logger.getLogger(EnviarVentana.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void setValorBarra(int valor){
+        this.barra.setValue(valor);
+    }
 
     public void setTextoEstado(String textoEstado) {
-        this.textoEstado.setText(estado);
+        this.textoEstado.setText(textoEstado);
+    }
+
+    public JProgressBar getBarra() {
+        return barra;
     }
 
     
@@ -133,7 +143,7 @@ public class EnviarVentana extends javax.swing.JFrame {
         textoTamano = new javax.swing.JLabel();
         textoNArchivos = new javax.swing.JLabel();
         iconoDestino = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        barra = new javax.swing.JProgressBar();
         textoEstado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -406,7 +416,7 @@ public class EnviarVentana extends javax.swing.JFrame {
                                 .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(barra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(contenedorLayout.createSequentialGroup()
                                 .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(textoTitulo1)
@@ -433,7 +443,7 @@ public class EnviarVentana extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoEstado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -533,12 +543,12 @@ public class EnviarVentana extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(this.estado.equals(MensajeNegociacionJSON.tipoMensajes[0])&&(!this.enviarPulsado)){
             this.mensajeNegociacion = EmisorNegociacion.generarMensajeEmisorQ1(idObjetivo, archivos);
-            this.actualizarEnviar = new ActualizarEnviar(EnviarVentana.this,this.mensajeNegociacion);
-            this.hiloActualizarEnviar = new Thread(this.actualizarEnviar);
-            this.hiloActualizarEnviar.start();
             this.tranferencia = new EmisorTransferencia(this.mensajeNegociacion);
             this.hiloTransferencia = new Thread(this.tranferencia);
             this.hiloTransferencia.start();
+            this.actualizarEnviar = new ActualizarEnviar(EnviarVentana.this,this.mensajeNegociacion, this.tranferencia);
+            this.hiloActualizarEnviar = new Thread(this.actualizarEnviar);
+            this.hiloActualizarEnviar.start();
             this.enviarPulsado = true;
             this.textoEstado.setText("Estado: Propuesta enviada");
         }
@@ -570,6 +580,7 @@ public class EnviarVentana extends javax.swing.JFrame {
     }//GEN-LAST:event_textoBtnCancelarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar barra;
     private javax.swing.JPanel botonCancelar;
     private javax.swing.JPanel botonEnviar;
     private javax.swing.JPanel cabecera;
@@ -577,7 +588,6 @@ public class EnviarVentana extends javax.swing.JFrame {
     private javax.swing.JPanel contenedorTexto;
     private javax.swing.JLabel iconoDestino;
     private javax.swing.JLabel iconoEnviar;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel labelCerrar;
     private javax.swing.JLabel labelMinimizar;
     private javax.swing.JLabel nombrePrograma;

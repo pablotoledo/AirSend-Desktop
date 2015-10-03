@@ -36,23 +36,29 @@ public class ActualizarRecibir implements Runnable{
     
     private void actualizarEstado(){
         MensajeNegociacionJSON mensaje;
-        String estado;
+        
         while(true){
             try {
                 mensaje = NucleoNegociacion.recuperarMensaje(this.mensaje.getIdentificadorMensaje());
-                estado = mensaje.getTipoMensaje();
-                if(estado.equals(mensaje.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[0]))){
+                String estado = mensaje.getTipoMensaje();
+                if(estado.equals(MensajeNegociacionJSON.tipoMensajes[0])){
                     this.ventana.setTextoEstado("Estado: Propuesta enviada");
                 }
-                if(estado.equals(mensaje.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[1]))){
+                if(estado.equals(MensajeNegociacionJSON.tipoMensajes[1])){
                     this.ventana.setTextoEstado("Estado: Propuesta aceptada");
                 }
-                if(estado.equals(mensaje.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[2]))){
+                if(estado.equals(MensajeNegociacionJSON.tipoMensajes[2])){
                     this.ventana.setTextoEstado("Estado: Propuesta denegada");
                     break;
                 }
-                if(estado.equals(mensaje.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[3]))){
+                if(estado.equals(MensajeNegociacionJSON.tipoMensajes[3])){
                     this.ventana.setTextoEstado("Estado: Transferencia en progreso");
+                }
+                if(estado.equals(MensajeNegociacionJSON.tipoMensajes[4])){
+                    this.ventana.setTextoEstado("Estado: Transferencia completada");
+                    this.ventana.getBarra().setMaximum(1);
+                    this.ventana.getBarra().setValue(1);
+                    break;
                 }
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {

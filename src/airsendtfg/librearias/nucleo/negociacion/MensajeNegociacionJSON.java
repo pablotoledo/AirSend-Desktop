@@ -37,7 +37,7 @@ public class MensajeNegociacionJSON {
     private int puertoReceptorTransferencia; // Puerto asignado para comenzar a recibir datos
     
     //Lista que define los tipos de mensajes posibles
-    public static final String[] tipoMensajes = {"PROPUESTA", "ACEPTADO", "DENEGADO", "COMIENZO"};
+    public static final String[] tipoMensajes = {"PROPUESTA", "ACEPTADO", "DENEGADO", "COMIENZO","TERMINADO"};
     
     public MensajeNegociacionJSON(File[] listaArchivos, String ipDestino, String idDestinatario){
         this.listaElementos = listaArchivos;

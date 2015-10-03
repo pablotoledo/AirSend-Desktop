@@ -80,6 +80,9 @@ public class ReceptorNegociacion implements Runnable {
             } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[3])) {
                 //Caso de COMIENZO
                 this.procesarMensajeCOMIENZO(mensaje);
+            } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[4])){
+                //Caso de TERMINADO
+                this.procesarMensajeTERMINADO(mensaje);
             } else {
                 Log.debug("Tipo de Mensaje no reconocido: " + mensaje.getTipoMensaje());
             }
@@ -150,6 +153,17 @@ public class ReceptorNegociacion implements Runnable {
             NucleoNegociacion.listaAceptado.remove(entrada.getIdentificadorMensaje());
             NucleoNegociacion.listaComienzo.put(entrada.getIdentificadorMensaje(), entrada);
             Log.info("Mensaje Comienzo recibido con ID: " + entrada.getIdentificadorMensaje());
+        }
+    }
+
+    private void procesarMensajeTERMINADO(MensajeNegociacionJSON entrada) {
+        //Como este mensaje lo recibe el receptor, hay que comprobar la
+        //preexistencia
+        if (NucleoNegociacion.listaComienzo.containsKey(entrada.getIdentificadorMensaje())) {
+            //Actualizamos situación de listas
+            NucleoNegociacion.listaComienzo.remove(entrada.getIdentificadorMensaje());
+            NucleoNegociacion.listaTerminado.put(entrada.getIdentificadorMensaje(), entrada);
+            Log.info("Mensaje Terminado recibido con ID: " + entrada.getIdentificadorMensaje());
         }
     }
 

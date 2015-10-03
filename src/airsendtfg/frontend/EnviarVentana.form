@@ -214,7 +214,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="botonCancelar" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jProgressBar1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="barra" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="textoTitulo1" min="-2" max="-2" attributes="0"/>
@@ -251,7 +251,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="textoEstado" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
+                          <Component id="barra" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="botonEnviar" min="-2" max="-2" attributes="0"/>
@@ -458,7 +458,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+        <Component class="javax.swing.JProgressBar" name="barra">
         </Component>
         <Component class="javax.swing.JLabel" name="textoEstado">
           <Properties>

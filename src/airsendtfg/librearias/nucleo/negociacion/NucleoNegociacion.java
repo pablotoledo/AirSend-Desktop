@@ -24,12 +24,13 @@ import java.util.Map;
  */
 public class NucleoNegociacion {
     //Lista que define los tipos de mensajes posibles
-    public static final String[] tipoMensajes = {"PROPUESTA", "ACEPTADO", "DENEGADO", "COMIENZO"};
+    public static final String[] tipoMensajes = {"PROPUESTA", "ACEPTADO", "DENEGADO", "COMIENZO","TERMINADO"};
     
     protected static Map<String, MensajeNegociacionJSON> listaPropuesta = new HashMap<String, MensajeNegociacionJSON>();
     protected static Map<String, MensajeNegociacionJSON> listaAceptado = new HashMap<String, MensajeNegociacionJSON>();
     protected static Map<String, MensajeNegociacionJSON> listaDenegado = new HashMap<String, MensajeNegociacionJSON>();
     protected static Map<String, MensajeNegociacionJSON> listaComienzo = new HashMap<String, MensajeNegociacionJSON>();
+    protected static Map<String, MensajeNegociacionJSON> listaTerminado = new HashMap<String, MensajeNegociacionJSON>();
     
     //Puertos
     public static int puertoNucleoNegociacion = 8586;
@@ -54,6 +55,9 @@ public class NucleoNegociacion {
         }
         if(listaComienzo.containsKey(key)){
             return listaComienzo.get(key);
+        }
+        if(listaTerminado.containsKey(key)){
+            return listaTerminado.get(key);
         }
         return null;
     }
