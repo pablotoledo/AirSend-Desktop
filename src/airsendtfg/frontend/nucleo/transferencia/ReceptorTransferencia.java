@@ -118,12 +118,14 @@ public class ReceptorTransferencia implements Runnable {
                     int valor = (int) f.length() / (1024 * 1024);
                     sin.write(buf, 0, n);
                 }
+                sin.close();
             }   // sin.close ();
             Thread.sleep(5000);
             entrada.close();
             transferencia.close();
             Log.info("Transmisión: Se cierra la conexión con el emisor");
             socketRecepcion.close();
+            
             Log.info("Transmisión: Se cierra y libera el puerto " + this.puerto);
         } catch (IOException e) {
             Log.error("Fallo en la conexión: " + e);
