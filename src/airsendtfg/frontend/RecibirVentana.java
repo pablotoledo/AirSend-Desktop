@@ -529,6 +529,7 @@ public class RecibirVentana extends javax.swing.JFrame {
                 chooser.setAcceptAllFileFilterUsed(false);
                 //falta asignación de puerto y crear objeto de recepcion de datos
                 this.receptor = new ReceptorTransferencia(entrada);
+                this.receptor.setRutaFichero(ruta);
                 this.hiloReceptor = new Thread(this.receptor);
                 this.hiloReceptor.start();
                 EmisorNegociacion.enviarMensajeAceptadoQ1(entrada, this.receptor.getPuerto());

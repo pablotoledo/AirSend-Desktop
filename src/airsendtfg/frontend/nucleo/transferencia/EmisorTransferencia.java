@@ -62,13 +62,14 @@ public class EmisorTransferencia implements Runnable {
     public void run() {
         while (true) {
             try {
-                if (NucleoNegociacion.recuperarMensaje(mensaje.getIdentificadorMensaje()).equals(NucleoNegociacion.tipoMensajes[3])) {
-                    mensaje = NucleoNegociacion.recuperarMensaje(mensaje.getIdentificadorMensaje());
+                MensajeNegociacionJSON mensajeGuardado = NucleoNegociacion.recuperarMensaje(mensaje.getIdentificadorMensaje());
+                if (mensajeGuardado.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[3])) {
+                    mensaje = mensajeGuardado;
                     transmitir(this.mensaje.getListaElementos());
                     break;
                 }
-                if (NucleoNegociacion.recuperarMensaje(mensaje.getIdentificadorMensaje()).equals(NucleoNegociacion.tipoMensajes[2])) {
-                    mensaje = NucleoNegociacion.recuperarMensaje(mensaje.getIdentificadorMensaje());
+                if (mensajeGuardado.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[2])) {
+                    mensaje = mensajeGuardado;
                     break;
                 }
                 Thread.sleep(500);
