@@ -56,7 +56,7 @@ public class EnviarVentana extends javax.swing.JFrame {
     public EnviarVentana(MensajeSondeoJSON idObjetivo,java.io.File[] archivos) {
         this.setUndecorated(true);
         initComponents();
-        this.setSize(600, 320);
+        //this.setSize(800, 320);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.idObjetivo = idObjetivo;
@@ -129,7 +129,6 @@ public class EnviarVentana extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Enviar");
-        setPreferredSize(new java.awt.Dimension(600, 275));
 
         cabecera.setBackground(new java.awt.Color(34, 35, 38));
         cabecera.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -263,6 +262,12 @@ public class EnviarVentana extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 textoBtnEnviarMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                textoBtnEnviarMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                textoBtnEnviarMouseEntered(evt);
+            }
         });
 
         javax.swing.GroupLayout botonEnviarLayout = new javax.swing.GroupLayout(botonEnviar);
@@ -271,7 +276,7 @@ public class EnviarVentana extends javax.swing.JFrame {
             botonEnviarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonEnviarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoBtnEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addComponent(textoBtnEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                 .addContainerGap())
         );
         botonEnviarLayout.setVerticalGroup(
@@ -298,6 +303,14 @@ public class EnviarVentana extends javax.swing.JFrame {
         textoBtnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         textoBtnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoBtnCancelar.setText("Cancelar");
+        textoBtnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                textoBtnCancelarMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                textoBtnCancelarMouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout botonCancelarLayout = new javax.swing.GroupLayout(botonCancelar);
         botonCancelar.setLayout(botonCancelarLayout);
@@ -305,7 +318,7 @@ public class EnviarVentana extends javax.swing.JFrame {
             botonCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonCancelarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addComponent(textoBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         botonCancelarLayout.setVerticalGroup(
@@ -369,25 +382,26 @@ public class EnviarVentana extends javax.swing.JFrame {
             .addGroup(contenedorLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(iconoEnviar)
+                .addGap(18, 18, 18)
                 .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenedorLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoTitulo1)
-                            .addComponent(contenedorTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(iconoDestino)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25))
-                    .addGroup(contenedorLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(6, 6, 6)
                         .addComponent(textoEstado)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorLayout.createSequentialGroup()
+                        .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(contenedorLayout.createSequentialGroup()
+                                .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(contenedorLayout.createSequentialGroup()
+                                .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textoTitulo1)
+                                    .addComponent(contenedorTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(iconoDestino)))
+                        .addGap(107, 107, 107))))
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,20 +417,16 @@ public class EnviarVentana extends javax.swing.JFrame {
                                 .addComponent(textoTitulo1)
                                 .addGap(18, 18, 18)
                                 .addComponent(contenedorTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(contenedorLayout.createSequentialGroup()
-                                .addComponent(iconoDestino)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(iconoDestino))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textoEstado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(contenedorLayout.createSequentialGroup()
-                                .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 12, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(textoEstado)))))
+                            .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -518,6 +528,26 @@ public class EnviarVentana extends javax.swing.JFrame {
             this.textoEstado.setText("Estado: Propuesta enviada");
         }
     }//GEN-LAST:event_textoBtnEnviarMouseClicked
+
+    private void textoBtnEnviarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseEntered
+        // TODO add your handling code here:
+        this.botonEnviar.setBackground(Colores.cabeceraEntered());
+    }//GEN-LAST:event_textoBtnEnviarMouseEntered
+
+    private void textoBtnEnviarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseExited
+        // TODO add your handling code here:
+        this.botonEnviar.setBackground(Colores.cabeceraExited());
+    }//GEN-LAST:event_textoBtnEnviarMouseExited
+
+    private void textoBtnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnCancelarMouseEntered
+        // TODO add your handling code here:
+        this.botonCancelar.setBackground(Colores.cabeceraEntered());
+    }//GEN-LAST:event_textoBtnCancelarMouseEntered
+
+    private void textoBtnCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnCancelarMouseExited
+        // TODO add your handling code here:
+        this.botonCancelar.setBackground(Colores.cabeceraExited());
+    }//GEN-LAST:event_textoBtnCancelarMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonCancelar;

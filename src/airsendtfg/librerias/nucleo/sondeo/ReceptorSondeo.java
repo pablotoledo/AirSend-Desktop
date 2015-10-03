@@ -122,7 +122,7 @@ public class ReceptorSondeo implements Runnable {
         //Solo aquellos mensajes que no sean nuestros pasarán a la lista de dispositivos
         if (!listaContiene(mensaje)) {
             if (!this.listaIPsActual.contains(mensaje.getDireccionIP())) {
-                this.lista.add(mensaje);
+                getLista().add(mensaje);
                 Log.sondeoReceptor("!ReceptorSondeo Se crea dispositivo! " + new Gson().toJson(mensaje).toString());
             }
         }
@@ -130,7 +130,7 @@ public class ReceptorSondeo implements Runnable {
     
     private boolean listaContiene(MensajeSondeoJSON mensaje){
         boolean bandera = false;
-        for (MensajeSondeoJSON disp : this.lista) {
+        for (MensajeSondeoJSON disp : getLista()) {
             bandera = disp.igual(mensaje);
             if(bandera==true){
                 return bandera;
@@ -181,8 +181,8 @@ public class ReceptorSondeo implements Runnable {
         ).start();
     }
 
-    public ArrayList<MensajeSondeoJSON> getLista() {
+    public synchronized ArrayList<MensajeSondeoJSON> getLista() {
         return lista;
     }
-
+    
 }

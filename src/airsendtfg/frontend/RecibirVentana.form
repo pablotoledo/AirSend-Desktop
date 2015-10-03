@@ -200,36 +200,27 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Component id="iconoEnviar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textoTitulo1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPanel1" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jPanel1" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="iconoDestino" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                                  <Component id="botonEnviar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="botonCancelar" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="checkConfiar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="botonEnviar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="botonCancelar" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="textoTitulo1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkConfiar" alignment="0" min="-2" pref="311" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="250" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="textoEstado" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="157" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -258,8 +249,7 @@
                               <Component id="botonEnviar" min="-2" max="-2" attributes="0"/>
                               <Component id="botonCancelar" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="11" max="32767" attributes="0"/>
-                          <Component id="textoEstado" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -299,7 +289,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textoBtnEnviar" pref="109" max="32767" attributes="0"/>
+                      <Component id="textoBtnEnviar" pref="138" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -325,6 +315,8 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textoBtnEnviarMouseClicked"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textoBtnEnviarMouseExited"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textoBtnEnviarMouseEntered"/>
               </Events>
             </Component>
           </SubComponents>
@@ -346,7 +338,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textoBtnCancelar" pref="109" max="32767" attributes="0"/>
+                      <Component id="textoBtnCancelar" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -385,11 +377,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="textoDestinatario" max="32767" attributes="0"/>
-                          <Component id="textoIP" alignment="0" max="32767" attributes="0"/>
-                          <Component id="textoTamano" alignment="0" max="32767" attributes="0"/>
-                          <Component id="textoNArchivos" alignment="0" pref="200" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="textoDestinatario" max="32767" attributes="0"/>
+                              <Component id="textoIP" alignment="0" max="32767" attributes="0"/>
+                              <Component id="textoTamano" alignment="0" max="32767" attributes="0"/>
+                              <Component id="textoNArchivos" alignment="0" pref="200" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="textoEstado" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -406,7 +401,8 @@
                       <Component id="textoTamano" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="textoNArchivos" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
+                      <Component id="textoEstado" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -444,6 +440,14 @@
                 <Property name="text" type="java.lang.String" value="N&#xba; Archivos:"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="textoEstado">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Estado:"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="iconoDestino">
@@ -466,14 +470,9 @@
               <Border info="null"/>
             </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="textoEstado">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Estado:"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkConfiarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

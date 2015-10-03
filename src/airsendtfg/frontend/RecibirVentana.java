@@ -26,7 +26,6 @@ import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -55,7 +54,7 @@ public class RecibirVentana extends javax.swing.JFrame {
         this.entrada = entrada; //Asignamos info de entrada
         this.setUndecorated(true); // Quita el borde del sistema operativo
         initComponents();
-        this.setSize(750, 400); // Establece el tamaño de la ventana
+        //this.setSize(750, 400); // Establece el tamaño de la ventana
         this.setResizable(false); // Evitamos que se pueda cambiar el tamaño de la ventana
         this.setLocationRelativeTo(null); // Centramos en la pantalla
         this.asignarGato();
@@ -126,9 +125,9 @@ public class RecibirVentana extends javax.swing.JFrame {
         textoIP = new javax.swing.JLabel();
         textoTamano = new javax.swing.JLabel();
         textoNArchivos = new javax.swing.JLabel();
+        textoEstado = new javax.swing.JLabel();
         iconoDestino = new javax.swing.JLabel();
         checkConfiar = new javax.swing.JCheckBox();
-        textoEstado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Propuesta recibida");
@@ -265,6 +264,12 @@ public class RecibirVentana extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 textoBtnEnviarMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                textoBtnEnviarMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                textoBtnEnviarMouseEntered(evt);
+            }
         });
 
         javax.swing.GroupLayout botonEnviarLayout = new javax.swing.GroupLayout(botonEnviar);
@@ -273,7 +278,7 @@ public class RecibirVentana extends javax.swing.JFrame {
             botonEnviarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonEnviarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoBtnEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addComponent(textoBtnEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addContainerGap())
         );
         botonEnviarLayout.setVerticalGroup(
@@ -307,7 +312,7 @@ public class RecibirVentana extends javax.swing.JFrame {
             botonCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonCancelarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addComponent(textoBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         botonCancelarLayout.setVerticalGroup(
@@ -332,17 +337,22 @@ public class RecibirVentana extends javax.swing.JFrame {
         textoNArchivos.setForeground(new java.awt.Color(255, 255, 255));
         textoNArchivos.setText("Nº Archivos:");
 
+        textoEstado.setForeground(new java.awt.Color(255, 255, 255));
+        textoEstado.setText("Estado:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textoDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoTamano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoNArchivos, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(textoDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoTamano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoNArchivos, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                    .addComponent(textoEstado))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -356,7 +366,8 @@ public class RecibirVentana extends javax.swing.JFrame {
                 .addComponent(textoTamano)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoNArchivos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(textoEstado))
         );
 
         iconoDestino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/recursos/imagenes/gatos/64x64/cat_box.png"))); // NOI18N
@@ -365,9 +376,11 @@ public class RecibirVentana extends javax.swing.JFrame {
         checkConfiar.setForeground(new java.awt.Color(255, 255, 255));
         checkConfiar.setText("Confiar en este usuario en futuras ocasiones");
         checkConfiar.setBorder(null);
-
-        textoEstado.setForeground(new java.awt.Color(255, 255, 255));
-        textoEstado.setText("Estado:");
+        checkConfiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkConfiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
         contenedor.setLayout(contenedorLayout);
@@ -376,30 +389,23 @@ public class RecibirVentana extends javax.swing.JFrame {
             .addGroup(contenedorLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(iconoEnviar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenedorLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoTitulo1)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(iconoDestino)
-                        .addGap(107, 107, 107))
+                        .addGap(105, 105, 105))
                     .addGroup(contenedorLayout.createSequentialGroup()
-                        .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(contenedorLayout.createSequentialGroup()
-                                .addGap(55, 55, 55)
+                        .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenedorLayout.createSequentialGroup()
                                 .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(contenedorLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkConfiar)))
-                        .addContainerGap(250, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(textoEstado)
-                        .addContainerGap())))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textoTitulo1)
+                                .addComponent(checkConfiar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(157, Short.MAX_VALUE))))
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,8 +427,7 @@ public class RecibirVentana extends javax.swing.JFrame {
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(textoEstado)))
+                        .addGap(0, 5, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -538,6 +543,20 @@ public class RecibirVentana extends javax.swing.JFrame {
         }
         this.estado = entrada.getTipoMensaje();
     }//GEN-LAST:event_textoBtnEnviarMouseClicked
+
+    private void checkConfiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkConfiarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkConfiarActionPerformed
+
+    private void textoBtnEnviarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseEntered
+        // TODO add your handling code here:
+        this.botonEnviar.setBackground(Colores.cabeceraEntered());
+    }//GEN-LAST:event_textoBtnEnviarMouseEntered
+
+    private void textoBtnEnviarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseExited
+        // TODO add your handling code here:
+        this.botonEnviar.setBackground(Colores.cabeceraExited());
+    }//GEN-LAST:event_textoBtnEnviarMouseExited
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
