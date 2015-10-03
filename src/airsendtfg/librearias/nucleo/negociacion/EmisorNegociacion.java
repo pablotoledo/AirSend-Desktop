@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package airsendtfg.frontend.nucleo.negociacion;
+package airsendtfg.librearias.nucleo.negociacion;
 
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.utilidades.Log;

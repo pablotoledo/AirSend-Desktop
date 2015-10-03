@@ -7,7 +7,7 @@ package airsendtfg;
 
 import airsendtfg.frontend.LicenciaVentana;
 import airsendtfg.frontend.nucleo.NucleoAirSend;
-import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
+import airsendtfg.librearias.nucleo.negociacion.EmisorNegociacion;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;

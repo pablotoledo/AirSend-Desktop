@@ -15,7 +15,7 @@
  */
 package airsendtfg.frontend.nucleo;
 
-import airsendtfg.frontend.nucleo.negociacion.NucleoNegociacion;
+import airsendtfg.librearias.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
 import java.util.ArrayList;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package airsendtfg.frontend.nucleo.negociacion;
+package airsendtfg.librearias.nucleo.negociacion;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +42,7 @@ public class NucleoNegociacion {
         this.hiloReceptor.start();
     }
     
-    public static MensajeNegociacionJSON recuperarMensaje(String key){
+    public synchronized static MensajeNegociacionJSON recuperarMensaje(String key){
         if(listaPropuesta.containsKey(key)){
             return listaPropuesta.get(key);
         }

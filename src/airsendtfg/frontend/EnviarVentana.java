@@ -15,10 +15,11 @@
  */
 package airsendtfg.frontend;
 
+import airsendtfg.frontend.clasesAuxiliares.ActualizarEnviar;
 import airsendtfg.frontend.img.Colores;
-import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
-import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
-import airsendtfg.frontend.nucleo.transferencia.EmisorTransferencia;
+import airsendtfg.librearias.nucleo.negociacion.EmisorNegociacion;
+import airsendtfg.librearias.nucleo.negociacion.MensajeNegociacionJSON;
+import airsendtfg.librerias.nucleo.transferencia.EmisorTransferencia;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.utilidades.Utilidades;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
@@ -31,6 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -46,6 +48,8 @@ public class EnviarVentana extends javax.swing.JFrame {
     private boolean enviarPulsado;
     private Thread hiloTransferencia;
     private EmisorTransferencia tranferencia;
+    private Thread hiloActualizarEnviar;
+    private ActualizarEnviar actualizarEnviar;
 
     
     /**
@@ -96,6 +100,11 @@ public class EnviarVentana extends javax.swing.JFrame {
         }
     }
 
+    public void setTextoEstado(String textoEstado) {
+        this.textoEstado.setText(estado);
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -304,6 +313,9 @@ public class EnviarVentana extends javax.swing.JFrame {
         textoBtnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoBtnCancelar.setText("Cancelar");
         textoBtnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoBtnCancelarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 textoBtnCancelarMouseExited(evt);
             }
@@ -521,6 +533,9 @@ public class EnviarVentana extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(this.estado.equals(MensajeNegociacionJSON.tipoMensajes[0])&&(!this.enviarPulsado)){
             this.mensajeNegociacion = EmisorNegociacion.generarMensajeEmisorQ1(idObjetivo, archivos);
+            this.actualizarEnviar = new ActualizarEnviar(EnviarVentana.this,this.mensajeNegociacion);
+            this.hiloActualizarEnviar = new Thread(this.actualizarEnviar);
+            this.hiloActualizarEnviar.start();
             this.tranferencia = new EmisorTransferencia(this.mensajeNegociacion);
             this.hiloTransferencia = new Thread(this.tranferencia);
             this.hiloTransferencia.start();
@@ -548,6 +563,11 @@ public class EnviarVentana extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.botonCancelar.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_textoBtnCancelarMouseExited
+
+    private void textoBtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnCancelarMouseClicked
+        // TODO add your handling code here:
+        this.hiloActualizarEnviar.interrupt();
+    }//GEN-LAST:event_textoBtnCancelarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonCancelar;

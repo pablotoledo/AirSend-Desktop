@@ -15,11 +15,12 @@
  */
 package airsendtfg.frontend;
 
+import airsendtfg.frontend.clasesAuxiliares.ActualizarRecibir;
 import airsendtfg.frontend.img.Colores;
-import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
-import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
-import airsendtfg.frontend.nucleo.negociacion.NucleoNegociacion;
-import airsendtfg.frontend.nucleo.transferencia.ReceptorTransferencia;
+import airsendtfg.librearias.nucleo.negociacion.EmisorNegociacion;
+import airsendtfg.librearias.nucleo.negociacion.MensajeNegociacionJSON;
+import airsendtfg.librearias.nucleo.negociacion.NucleoNegociacion;
+import airsendtfg.librerias.nucleo.transferencia.ReceptorTransferencia;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
@@ -43,7 +44,8 @@ public class RecibirVentana extends javax.swing.JFrame {
     private String estado = NucleoNegociacion.tipoMensajes[0];
     private ReceptorTransferencia receptor;
     private Thread hiloReceptor;
-
+    private Thread hiloActualizarRecibir;
+    private ActualizarRecibir actualizarRecibir;
 
     /**
      * Creates new form EnviarVentana
@@ -96,7 +98,13 @@ public class RecibirVentana extends javax.swing.JFrame {
         this.textoIP.setText("IP origen: " + ip);
         this.textoTamano.setText("Tamaño: " + tamano + " MB");
         this.textoNArchivos.setText("Nº Archivos: " + narchivos);
+        this.textoEstado.setText("Estado: Propuesta recibida");
     }
+    
+    public void setTextoEstado(String textoEstado) {
+        this.textoEstado.setText(estado);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -305,6 +313,11 @@ public class RecibirVentana extends javax.swing.JFrame {
         textoBtnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         textoBtnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoBtnCancelar.setText("Cancelar");
+        textoBtnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoBtnCancelarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout botonCancelarLayout = new javax.swing.GroupLayout(botonCancelar);
         botonCancelar.setLayout(botonCancelarLayout);
@@ -537,6 +550,9 @@ public class RecibirVentana extends javax.swing.JFrame {
                 this.receptor.setRutaFichero(ruta);
                 this.hiloReceptor = new Thread(this.receptor);
                 this.hiloReceptor.start();
+                this.actualizarRecibir = new ActualizarRecibir(this,this.entrada);
+                this.hiloActualizarRecibir = new Thread(this.actualizarRecibir);
+                this.hiloActualizarRecibir.start();
                 EmisorNegociacion.enviarMensajeAceptadoQ1(entrada, this.receptor.getPuerto());
                 this.textoEstado.setText("Estado: Propuesta aceptada");
             }
@@ -557,6 +573,11 @@ public class RecibirVentana extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.botonEnviar.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_textoBtnEnviarMouseExited
+
+    private void textoBtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnCancelarMouseClicked
+        // TODO add your handling code here:
+        this.hiloActualizarRecibir.interrupt();
+    }//GEN-LAST:event_textoBtnCancelarMouseClicked
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

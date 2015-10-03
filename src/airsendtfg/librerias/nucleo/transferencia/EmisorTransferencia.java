@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package airsendtfg.frontend.nucleo.transferencia;
+package airsendtfg.librerias.nucleo.transferencia;
 
-import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
-import airsendtfg.frontend.nucleo.negociacion.NucleoNegociacion;
+import airsendtfg.librearias.nucleo.negociacion.MensajeNegociacionJSON;
+import airsendtfg.librearias.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.utilidades.Log;
 import java.io.File;
 import java.io.FileInputStream;
