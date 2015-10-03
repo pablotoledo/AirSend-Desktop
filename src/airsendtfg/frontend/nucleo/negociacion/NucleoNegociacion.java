@@ -41,4 +41,20 @@ public class NucleoNegociacion {
         this.hiloReceptor = new Thread(new ReceptorNegociacion());
         this.hiloReceptor.start();
     }
+    
+    public static MensajeNegociacionJSON recuperarMensaje(String key){
+        if(listaPropuesta.containsKey(key)){
+            return listaPropuesta.get(key);
+        }
+        if(listaAceptado.containsKey(key)){
+            return listaAceptado.get(key);
+        }
+        if(listaDenegado.containsKey(key)){
+            return listaDenegado.get(key);
+        }
+        if(listaComienzo.containsKey(key)){
+            return listaComienzo.get(key);
+        }
+        return null;
+    }
 }

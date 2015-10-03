@@ -37,11 +37,11 @@ public class EmisorNegociacion {
      * @param archivos Listado de ficheros a enviar
      * @return
      */
-    public static String generarMensajeEmisorQ1(MensajeSondeoJSON destino, File[] archivos) {
+    public static MensajeNegociacionJSON generarMensajeEmisorQ1(MensajeSondeoJSON destino, File[] archivos) {
         MensajeNegociacionJSON mensaje = new MensajeNegociacionJSON(archivos, destino.getDireccionIP(), destino.getIdEmisor());
         NucleoNegociacion.listaPropuesta.put(mensaje.getIdentificadorMensaje(), mensaje);
         enviarMensaje(destino.getDireccionIP(), mensaje);
-        return mensaje.getIdentificadorMensaje();
+        return mensaje;
     }
 
     /**
@@ -120,7 +120,7 @@ public class EmisorNegociacion {
      * @param direccion String - IP de destino
      * @param mensaje Mensaje - objeto a enviar
      */
-    public static void enviarMensaje(String direccion, MensajeNegociacionJSON mensaje) {
+    protected static void enviarMensaje(String direccion, MensajeNegociacionJSON mensaje) {
         try {
             // Se envia mensaje proponiendo el envío de datos
             Socket socket = new Socket(InetAddress.getByName(direccion), NucleoNegociacion.puertoNucleoNegociacion);

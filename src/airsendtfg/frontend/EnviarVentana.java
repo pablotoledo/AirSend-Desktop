@@ -18,6 +18,7 @@ package airsendtfg.frontend;
 import airsendtfg.frontend.img.Colores;
 import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
 import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
+import airsendtfg.frontend.nucleo.transferencia.EmisorTransferencia;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.utilidades.Utilidades;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
@@ -41,8 +42,10 @@ public class EnviarVentana extends javax.swing.JFrame {
     private MensajeSondeoJSON idObjetivo;
     private File[] archivos;
     private MensajeNegociacionJSON mensajeNegociacion;
-    private boolean enviarPulsado = false;
-
+    private String estado = MensajeNegociacionJSON.tipoMensajes[0];
+    private boolean enviarPulsado;
+    private Thread hiloTransferencia;
+    private EmisorTransferencia tranferencia;
 
     
     /**
@@ -506,8 +509,11 @@ public class EnviarVentana extends javax.swing.JFrame {
 
     private void textoBtnEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseClicked
         // TODO add your handling code here:
-        if(!enviarPulsado){
-            EmisorNegociacion.generarMensajeEmisorQ1(idObjetivo, archivos);
+        if(this.estado.equals(MensajeNegociacionJSON.tipoMensajes[0])&&(!this.enviarPulsado)){
+            this.mensajeNegociacion = EmisorNegociacion.generarMensajeEmisorQ1(idObjetivo, archivos);
+            this.tranferencia = new EmisorTransferencia(this.mensajeNegociacion);
+            this.hiloTransferencia = new Thread(this.tranferencia);
+            this.hiloTransferencia.start();
             this.enviarPulsado = true;
             this.textoEstado.setText("Estado: Propuesta enviada");
         }

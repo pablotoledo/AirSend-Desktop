@@ -19,6 +19,7 @@ import airsendtfg.frontend.img.Colores;
 import airsendtfg.frontend.nucleo.negociacion.EmisorNegociacion;
 import airsendtfg.frontend.nucleo.negociacion.MensajeNegociacionJSON;
 import airsendtfg.frontend.nucleo.negociacion.NucleoNegociacion;
+import airsendtfg.frontend.nucleo.transferencia.ReceptorTransferencia;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
@@ -30,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -40,6 +42,8 @@ public class RecibirVentana extends javax.swing.JFrame {
     private int x, y;
     private MensajeNegociacionJSON entrada;
     private String estado = NucleoNegociacion.tipoMensajes[0];
+    private ReceptorTransferencia receptor;
+    private Thread hiloReceptor;
 
 
     /**
@@ -511,14 +515,30 @@ public class RecibirVentana extends javax.swing.JFrame {
 
     private void textoBtnEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseClicked
         // TODO add your handling code here:
-        if(estado.equals(NucleoNegociacion.tipoMensajes[0])){
-            //falta asignación de puerto y crear objeto de recepcion de datos
-            EmisorNegociacion.enviarMensajeAceptadoQ1(entrada, 8888);
-            this.textoEstado.setText("Estado: Propuesta aceptada");
+        if (estado.equals(NucleoNegociacion.tipoMensajes[0])) {
+            //Invocamos a JFileChooser para permitir al usuario elegir donde
+            //guardar los archivos
+            JFileChooser chooser = new JFileChooser();
+            //Establecemos propiedades
+            chooser.setCurrentDirectory(new java.io.File("."));
+            chooser.setDialogTitle("Selecciona carpeta de destino");
+            chooser.setApproveButtonText("Seleccionar");
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                String ruta = chooser.getCurrentDirectory() + "/" + chooser.getSelectedFile().getName() + "/";
+                chooser.setAcceptAllFileFilterUsed(false);
+                //falta asignación de puerto y crear objeto de recepcion de datos
+                this.receptor = new ReceptorTransferencia(entrada);
+                this.hiloReceptor = new Thread(this.receptor);
+                this.hiloReceptor.start();
+                EmisorNegociacion.enviarMensajeAceptadoQ1(entrada, this.receptor.getPuerto());
+                this.textoEstado.setText("Estado: Propuesta aceptada");
+            }
         }
+        this.estado = entrada.getTipoMensaje();
     }//GEN-LAST:event_textoBtnEnviarMouseClicked
 
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonCancelar;
     private javax.swing.JPanel botonEnviar;
