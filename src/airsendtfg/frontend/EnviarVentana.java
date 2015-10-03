@@ -80,7 +80,7 @@ public class EnviarVentana extends javax.swing.JFrame {
         this.textoDestinatario.setText("Destinatario: "+destinatario);
         this.textoIP.setText("IP destino: "+ip);
         this.textoTamano.setText("Tamaño: "+tamano+" MB");
-        this.textoNArchivos.setText("Nº Archivos: "+narchivos);
+        this.textoNArchivos.setText("Nº Elementos: "+this.archivos.length);
         this.textoEstado.setText("Estado: Esperando su confirmación");
     }
     

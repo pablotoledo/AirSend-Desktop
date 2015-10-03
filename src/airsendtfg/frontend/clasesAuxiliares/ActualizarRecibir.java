@@ -41,17 +41,17 @@ public class ActualizarRecibir implements Runnable{
             try {
                 mensaje = NucleoNegociacion.recuperarMensaje(this.mensaje.getIdentificadorMensaje());
                 estado = mensaje.getTipoMensaje();
-                if(estado.equals(mensaje.equals(NucleoNegociacion.tipoMensajes[0]))){
+                if(estado.equals(mensaje.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[0]))){
                     this.ventana.setTextoEstado("Estado: Propuesta enviada");
                 }
-                if(estado.equals(mensaje.equals(NucleoNegociacion.tipoMensajes[1]))){
+                if(estado.equals(mensaje.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[1]))){
                     this.ventana.setTextoEstado("Estado: Propuesta aceptada");
                 }
-                if(estado.equals(mensaje.equals(NucleoNegociacion.tipoMensajes[2]))){
+                if(estado.equals(mensaje.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[2]))){
                     this.ventana.setTextoEstado("Estado: Propuesta denegada");
                     break;
                 }
-                if(estado.equals(mensaje.equals(NucleoNegociacion.tipoMensajes[3]))){
+                if(estado.equals(mensaje.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[3]))){
                     this.ventana.setTextoEstado("Estado: Transferencia en progreso");
                 }
                 Thread.sleep(1000);

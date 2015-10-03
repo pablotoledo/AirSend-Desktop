@@ -97,7 +97,7 @@ public class RecibirVentana extends javax.swing.JFrame {
         this.textoDestinatario.setText("Nombre: " + destinatario);
         this.textoIP.setText("IP origen: " + ip);
         this.textoTamano.setText("Tamaño: " + tamano + " MB");
-        this.textoNArchivos.setText("Nº Archivos: " + narchivos);
+        this.textoNArchivos.setText("Nº Elementos: " + narchivos);
         this.textoEstado.setText("Estado: Propuesta recibida");
     }
     
