@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package airsendtfg.frontend.nucleo;
+package airsendtfg.librerias.nucleo;
 
-import airsendtfg.librearias.nucleo.negociacion.NucleoNegociacion;
+import airsendtfg.librerias.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
 import java.util.ArrayList;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package airsendtfg.librearias.nucleo.negociacion;
+package airsendtfg.librerias.nucleo.negociacion;
 
 import airsendtfg.librerias.utilidades.Utilidades;
 import airsendtfg.recursos.Persistencia;

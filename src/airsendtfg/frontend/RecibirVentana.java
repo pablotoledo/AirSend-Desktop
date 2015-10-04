@@ -17,9 +17,9 @@ package airsendtfg.frontend;
 
 import airsendtfg.frontend.clasesAuxiliares.ActualizarRecibir;
 import airsendtfg.frontend.img.Colores;
-import airsendtfg.librearias.nucleo.negociacion.EmisorNegociacion;
-import airsendtfg.librearias.nucleo.negociacion.MensajeNegociacionJSON;
-import airsendtfg.librearias.nucleo.negociacion.NucleoNegociacion;
+import airsendtfg.librerias.nucleo.negociacion.EmisorNegociacion;
+import airsendtfg.librerias.nucleo.negociacion.MensajeNegociacionJSON;
+import airsendtfg.librerias.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.nucleo.transferencia.ReceptorTransferencia;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;

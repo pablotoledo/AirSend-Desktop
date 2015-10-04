@@ -15,9 +15,9 @@
  */
 package airsendtfg.librerias.nucleo.transferencia;
 
-import airsendtfg.librearias.nucleo.negociacion.EmisorNegociacion;
-import airsendtfg.librearias.nucleo.negociacion.MensajeNegociacionJSON;
-import airsendtfg.librearias.nucleo.negociacion.NucleoNegociacion;
+import airsendtfg.librerias.nucleo.negociacion.EmisorNegociacion;
+import airsendtfg.librerias.nucleo.negociacion.MensajeNegociacionJSON;
+import airsendtfg.librerias.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.utilidades.Log;
 import java.io.File;
 import java.io.FileInputStream;

@@ -16,7 +16,7 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
-import airsendtfg.frontend.nucleo.NucleoAirSend;
+import airsendtfg.librerias.nucleo.NucleoAirSend;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
 import airsendtfg.librerias.nucleo.sondeo.ReceptorSondeo;
