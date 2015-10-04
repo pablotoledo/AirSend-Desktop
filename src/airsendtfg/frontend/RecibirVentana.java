@@ -48,6 +48,7 @@ public class RecibirVentana extends javax.swing.JFrame {
     private Thread hiloReceptor;
     private Thread hiloActualizarRecibir;
     private ActualizarRecibir actualizarRecibir;
+    private String ruta;
 
     /**
      * Creates new form EnviarVentana
@@ -63,7 +64,7 @@ public class RecibirVentana extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // Centramos en la pantalla
         this.asignarGato();
         this.asignarValoresText(entrada.getNombreEmisor(), entrada.getIpEmisor(), Double.toString(entrada.getTamano()), Integer.toString(entrada.getListaElementos().length));
-        this.barra.setMaximum((int) entrada.getTamano());
+        this.barra.setMaximum((int) entrada.getTamano()*1024);
     }
 
     /**
@@ -115,6 +116,11 @@ public class RecibirVentana extends javax.swing.JFrame {
     public JProgressBar getBarra() {
         return barra;
     }
+
+    public ReceptorTransferencia getReceptor() {
+        return receptor;
+    }
+
 
 
     /**
@@ -562,7 +568,7 @@ public class RecibirVentana extends javax.swing.JFrame {
             chooser.setApproveButtonText("Seleccionar");
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                String ruta = chooser.getCurrentDirectory() + "/" + chooser.getSelectedFile().getName() + "/";
+                this.ruta = chooser.getCurrentDirectory() + "/" + chooser.getSelectedFile().getName() + "/";
                 chooser.setAcceptAllFileFilterUsed(false);
                 //falta asignación de puerto y crear objeto de recepcion de datos
                 this.receptor = new ReceptorTransferencia(entrada);

@@ -53,6 +53,7 @@ public class ActualizarRecibir implements Runnable{
                 }
                 if(estado.equals(MensajeNegociacionJSON.tipoMensajes[3])){
                     this.ventana.setTextoEstado("Estado: Transferencia en progreso");
+                    this.ventana.setValorBarra(this.ventana.getReceptor().getProgreso());
                 }
                 if(estado.equals(MensajeNegociacionJSON.tipoMensajes[4])){
                     this.ventana.setTextoEstado("Estado: Transferencia completada");

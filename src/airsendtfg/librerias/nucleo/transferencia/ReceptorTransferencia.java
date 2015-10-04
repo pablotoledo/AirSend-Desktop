@@ -57,6 +57,10 @@ public class ReceptorTransferencia implements Runnable {
         Log.info("Asignado futuro hilo de recepción de datos");
     }
 
+    public int getProgreso() {
+        return progreso;
+    }
+
     /**
      * Método que permite inicializar la ruta donde recibir los archivos
      *
