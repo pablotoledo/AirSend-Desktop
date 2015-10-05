@@ -257,6 +257,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
 
         labelConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airsendtfg/frontend/img/ventana/config.png"))); // NOI18N
+        labelConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelConfiguracionMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelConfiguracionMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelConfiguracionMouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelConfiguracionLayout = new javax.swing.GroupLayout(panelConfiguracion);
         panelConfiguracion.setLayout(panelConfiguracionLayout);
@@ -441,6 +452,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Point point = MouseInfo.getPointerInfo().getLocation();
         setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_cabeceraMouseDragged
+
+    private void labelConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelConfiguracionMouseClicked
+        // TODO add your handling code here:
+        new Configuracion().setVisible(true);
+    }//GEN-LAST:event_labelConfiguracionMouseClicked
+
+    private void labelConfiguracionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelConfiguracionMouseEntered
+        // TODO add your handling code here:
+        this.panelConfiguracion.setBackground(Colores.cabeceraEntered());
+    }//GEN-LAST:event_labelConfiguracionMouseEntered
+
+    private void labelConfiguracionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelConfiguracionMouseExited
+        // TODO add your handling code here:
+        this.panelConfiguracion.setBackground(Colores.cabeceraExited());
+    }//GEN-LAST:event_labelConfiguracionMouseExited
 
     /**
      * @param args the command line arguments
