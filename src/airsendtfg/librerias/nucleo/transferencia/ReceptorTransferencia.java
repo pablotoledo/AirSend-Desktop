@@ -57,6 +57,11 @@ public class ReceptorTransferencia implements Runnable {
         Log.info("Asignado futuro hilo de recepción de datos");
     }
 
+    /**
+     * Método que devuelve el progreso en número de bytes de la transferencia
+     * actual
+     * @return (int) Bytes
+     */
     public int getProgreso() {
         return progreso;
     }

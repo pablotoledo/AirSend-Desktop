@@ -54,6 +54,7 @@ public class EmisorSondeo implements Runnable {
                     socket.send(sendPacket);
                 } catch (Exception e) {
                     System.err.printf(e.getLocalizedMessage());
+                    Log.error("Ocurrió un error al enviar el datagrama de sondeo: "+mensajeJSON);
                 }
                 Log.sondeoEmisor(">>> Sonda enviada: " + mensajeJSON);
                 socket.close();
@@ -69,8 +70,6 @@ public class EmisorSondeo implements Runnable {
      */
     @Override
     public void run() {
-
         this.emitirSondeo();
     }
-
 }

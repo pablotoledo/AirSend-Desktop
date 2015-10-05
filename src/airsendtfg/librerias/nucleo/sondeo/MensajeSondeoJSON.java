@@ -23,21 +23,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Esta clase estructurará el mensaje a enviar para el broadcast que permita
+ * anunciar dentro de la red nuestra presencia
  * @author Pablo
  */
 public class MensajeSondeoJSON {
 
-    private String sistemaOperativo;
-    private String nombreEquipo;
-    private String nombreUsuario;
-    private String direccionIP;
-    private String tiempo;
-    private String iconoUsuario;
-    private String idEmisor;
+    private String sistemaOperativo; //Innecesario ¿?
+    private String nombreEquipo; //Nombre del equipo
+    private String nombreUsuario; //Nombre del usuario actual del sistema
+    private String direccionIP; //IP Local, generalmente se asigna en destino
+    private String tiempo; //Timestamp para permitir descartes de mensajes por antigüedad
+    private String iconoUsuario; //Nombre del icono del que hace uso el usuario
+    private String idEmisor; //Id local del usuario asignada por AirSend
 
     /**
-     * Constructor de clase
+     * Constructor de clase, se asignan automáticamente todos los valores posibles
      */
     public MensajeSondeoJSON() {
         try {
@@ -54,40 +55,75 @@ public class MensajeSondeoJSON {
     }
 
     //Getters para la clase GSON
-    
+    /**
+     * Id única del usuario, asignada por AirSend
+     * @return (String) ID de AirSend
+     */
     public String getIdEmisor() {
         return idEmisor;
     }
 
+    /**
+     * Icono de usuario
+     * @return (String) Icono
+     */
     public String getIconoUsuario() {
         return iconoUsuario;
     }
 
+    /**
+     * Sistema operativo del emisor del mensaje de sondeo
+     * @return (String) Icono de usuario
+     */
     public String getSistemaOperativo() {
         return sistemaOperativo;
     }
 
+    /**
+     * Nombre del sistema o equipo
+     * @return (String) Nombre del equipo
+     */
     public String getNombreEquipo() {
         return nombreEquipo;
     }
 
+    /**
+     * Nombre del usuario del sistema
+     * @return (String) UserName
+     */
     public String getNombreUsuario() {
         return nombreUsuario;
     }
 
+    /**
+     * Dirección IP, generalmente asignado una vez alcanza un equipo de destino
+     * @return (String) Dirección IP
+     */
     public String getDireccionIP() {
         return direccionIP;
     }
 
+    /**
+     * Timestamp de origen
+     * @return (String) TimeStamp
+     */
     public String getTiempo() {
         return tiempo;
     }
 
+    /**
+     * Asigna la dirección IP de origen del mensaje
+     * @param direccionIP (String) IP
+     */
     public void setDireccionIP(String direccionIP) {
         this.direccionIP = direccionIP;
     }
 
-    //Comparador de clase bajo criterios específicos
+    /**
+     * Comparador de clase bajo el criterio de idEmisor
+     * @param entrada
+     * @return 
+     */
     public boolean igual(MensajeSondeoJSON entrada) {
         return entrada.getIdEmisor().equals(this.idEmisor);
     }

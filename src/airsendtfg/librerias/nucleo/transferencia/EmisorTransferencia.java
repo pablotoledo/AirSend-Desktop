@@ -37,7 +37,6 @@ import java.util.zip.ZipOutputStream;
 public class EmisorTransferencia implements Runnable {
 
     //Nivel de compresión (Valorar establecer un valor en función del sistema)
-
     private int nivelCompresion = 3;
 
     //Objetos que provienen de otras clases
@@ -48,7 +47,7 @@ public class EmisorTransferencia implements Runnable {
 
     //Valor para JProgressBar
     private int progreso;
-    
+
     /**
      * Método constructor que precisa de ciertos objetos para trabajar
      * correctamente de la EnviarInterfaz que lo va a crear.
@@ -59,17 +58,24 @@ public class EmisorTransferencia implements Runnable {
         this.mensaje = mensaje;
     }
 
+    /**
+     * Método que devuelve el progreso en número de bytes de la transferencia
+     * actual
+     * @return (int) Bytes
+     */
     public int getProgreso() {
         return progreso;
     }
-    
-    
 
     /**
      * Método main a ejecutarse cuando se lance esta clase como hilo concurrente
      */
     @Override
     public void run() {
+        /*
+        Hasta que no se recibe un mensaje de ACEPTADO o DENEGADO esperamos de forma
+        activa a que se de una respuesta
+        */
         while (true) {
             try {
                 MensajeNegociacionJSON mensajeGuardado = NucleoNegociacion.recuperarMensaje(mensaje.getIdentificadorMensaje());
@@ -84,7 +90,7 @@ public class EmisorTransferencia implements Runnable {
                 }
                 Thread.sleep(500);
             } catch (UnknownHostException ex) {
-            //Cuando la dirección del receptor no se puede resolver cuando se va
+                //Cuando la dirección del receptor no se puede resolver cuando se va
                 //a realizar la creación del socket
                 Log.error("Fallo de envío: IP de destino no resuelta para el mensaje " + this.mensaje.getIdentificadorMensaje());
                 Logger.getLogger(EmisorTransferencia.class.getName()).log(Level.SEVERE, null, ex);
@@ -96,7 +102,6 @@ public class EmisorTransferencia implements Runnable {
                 Logger.getLogger(EmisorTransferencia.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
 
     /**
@@ -179,8 +184,8 @@ public class EmisorTransferencia implements Runnable {
         byte buffer[] = new byte[1024];
         while ((len = in.read(buffer)) > 0) {
             zos.write(buffer, 0, len);
-            int valor = (int) len ;
-            this.progreso = (valor/1024)+this.progreso;
+            int valor = (int) len;
+            this.progreso = (valor / 1024) + this.progreso;
         }
         //Cerramos el flujo de lectura
         in.close();
