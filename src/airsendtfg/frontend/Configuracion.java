@@ -16,8 +16,20 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.recursos.imagenes.gatos.Gatos;
+import java.awt.GridLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -26,6 +38,9 @@ import java.awt.Point;
 public class Configuracion extends javax.swing.JFrame {
 
     private int x, y;
+    private JPanel panelSeleccionado = new JPanel();
+    private String gatoSeleccionado ="";
+    private Map<JPanel, String> diccionarioJPanelString = new HashMap<JPanel, String>();
     
     /**
      * Creates new form Configuracion
@@ -34,6 +49,55 @@ public class Configuracion extends javax.swing.JFrame {
         this.setUndecorated(true); //Quitamos el borde del sistema operativo
         initComponents();
         this.setLocationRelativeTo(null); // Centramos en la pantalla
+        this.cargarGridLayout();
+    }
+    
+    private void cargarGridLayout() {
+        //Se establece un panel en 
+        interiorScroll.setLayout(new GridLayout(17, 3, 3, 3));
+        for (String elemento : Gatos.getListaGatosPeque()) {
+            try {
+                JPanel panel = this.iconoUsuario(elemento);
+                this.cargarPropiedadesPanelInterior(panel);
+                this.diccionarioJPanelString.put(panel, elemento);
+                interiorScroll.add(panel);
+            } catch (IOException ex) {
+                Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    private void cargarPropiedadesPanelInterior(final JPanel panel){
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                //panel.setBackground(Colores.cabeceraExited());
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                //panel.setBackground(Colores.cabeceraEntered());
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                //Cuando seleccionamos un elemento de la lista nos quedamos con el
+                // en el caso de que otro elemento esté seleccionado previamente
+                // contemplamos esta situación para que tenga otro color
+                panelSeleccionado.setBackground(Colores.cabeceraExited());
+                panel.setBackground(Colores.cabeceraEntered());
+                panelSeleccionado = panel;
+                gatoSeleccionado = diccionarioJPanelString.get(panel).substring(diccionarioJPanelString.get(panel).lastIndexOf("/")+1,diccionarioJPanelString.get(panel).lastIndexOf("."));
+            }
+        });
+    }
+    
+    private JPanel iconoUsuario(String ubicacion) throws IOException {
+        JPanel objeto = new JPanel();
+        //objeto.setSize(50, 100);
+        objeto.setBackground(Colores.cabeceraExited());
+        //imagen
+        BufferedImage myPicture = ImageIO.read(ClassLoader.getSystemResource(ubicacion));
+        // ImageIO.read( ClassLoader.getSystemResource(ubicacion) );
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        add(picLabel);
+        objeto.add(picLabel);
+        return objeto;
     }
 
     /**
@@ -53,8 +117,15 @@ public class Configuracion extends javax.swing.JFrame {
         nombrePrograma = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        scrollImagenPerfil = new javax.swing.JScrollPane();
+        interiorScroll = new javax.swing.JPanel();
+        titulo3 = new javax.swing.JLabel();
+        nombreTextField = new javax.swing.JTextField();
+        nombreTitulo = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setForeground(java.awt.Color.black);
 
         cabecera.setBackground(new java.awt.Color(34, 35, 38));
         cabecera.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -139,7 +210,7 @@ public class Configuracion extends javax.swing.JFrame {
             cabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cabeceraLayout.createSequentialGroup()
                 .addGap(98, 98, 98)
-                .addComponent(nombrePrograma, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addComponent(nombrePrograma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(panelMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -158,36 +229,102 @@ public class Configuracion extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+        jPanel1.setBackground(new java.awt.Color(18, 23, 28));
+
+        scrollImagenPerfil.setBackground(new java.awt.Color(102, 102, 102));
+
+        interiorScroll.setBackground(new java.awt.Color(18, 23, 28));
+
+        javax.swing.GroupLayout interiorScrollLayout = new javax.swing.GroupLayout(interiorScroll);
+        interiorScroll.setLayout(interiorScrollLayout);
+        interiorScrollLayout.setHorizontalGroup(
+            interiorScrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 466, Short.MAX_VALUE)
+        );
+        interiorScrollLayout.setVerticalGroup(
+            interiorScrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 421, Short.MAX_VALUE)
+        );
+
+        scrollImagenPerfil.setViewportView(interiorScroll);
+
+        titulo3.setForeground(new java.awt.Color(255, 255, 255));
+        titulo3.setText("Selecciona un imagen para tu perfil");
+
+        nombreTextField.setBackground(new java.awt.Color(102, 102, 102));
+        nombreTextField.setForeground(new java.awt.Color(255, 255, 255));
+        nombreTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreTextFieldActionPerformed(evt);
+            }
+        });
+
+        nombreTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        nombreTitulo.setText("Un nombre para tu equipo:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 367, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollImagenPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nombreTitulo)
+                            .addComponent(titulo3))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(nombreTextField))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(nombreTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(titulo3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollImagenPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jTabbedPane1.addTab("Configuración de usuario", jPanel1);
+
+        jPanel2.setBackground(new java.awt.Color(18, 23, 28));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 505, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 395, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Aplicación", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cabecera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jTabbedPane1))
         );
 
         pack();
@@ -236,6 +373,10 @@ public class Configuracion extends javax.swing.JFrame {
         y = evt.getY();
     }//GEN-LAST:event_cabeceraMousePressed
 
+    private void nombreTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreTextFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -273,12 +414,18 @@ public class Configuracion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cabecera;
+    private javax.swing.JPanel interiorScroll;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labelCerrar;
     private javax.swing.JLabel labelMinimizar;
     private javax.swing.JLabel nombrePrograma;
+    private javax.swing.JTextField nombreTextField;
+    private javax.swing.JLabel nombreTitulo;
     private javax.swing.JPanel panelCerrar;
     private javax.swing.JPanel panelMinimizar;
+    private javax.swing.JScrollPane scrollImagenPerfil;
+    private javax.swing.JLabel titulo3;
     // End of variables declaration//GEN-END:variables
 }
