@@ -24,6 +24,7 @@ public class Persistencia {
     private static String nombreUsuario;
     private static String gatoUsuario;
     private static String idUsuario = java.util.UUID.randomUUID().toString();
+    private static String rutaDescarga = System.getProperty("user.home");
 
     // Setters
     public static void setLicencia(boolean licencia) {
@@ -41,6 +42,10 @@ public class Persistencia {
     public static void setIdUsuario(String idUsuario) {
         Persistencia.idUsuario = idUsuario;
     }
+    
+    public static void setRutaDescarga(String rutaDescarga){
+        Persistencia.rutaDescarga = rutaDescarga;
+    }
 
     //Getters
     public static boolean isLicencia() {
@@ -57,6 +62,10 @@ public class Persistencia {
 
     public static String getIdUsuario() {
         return idUsuario;
+    }
+    
+    public static String getRutaDescarga(){
+        return rutaDescarga;
     }
     
 }
