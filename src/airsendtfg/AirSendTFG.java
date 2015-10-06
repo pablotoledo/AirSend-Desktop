@@ -5,6 +5,7 @@
  */
 package airsendtfg;
 
+import airsendtfg.frontend.Configuracion;
 import airsendtfg.frontend.LicenciaVentana;
 import airsendtfg.librerias.nucleo.NucleoAirSend;
 import airsendtfg.librerias.nucleo.negociacion.EmisorNegociacion;
@@ -41,9 +42,9 @@ public class AirSendTFG {
         System.out.println("Hello TFG!");
         Log.inicializar();
         //pruebaSondeo1();
-        new AirSendTFG().cargarAirSend();
+        //new AirSendTFG().cargarAirSend();
         // TODO code application logic here
-        
+        new Configuracion().setVisible(true);
         
         
     }
