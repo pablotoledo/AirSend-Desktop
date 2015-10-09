@@ -15,17 +15,94 @@
  */
 package airsendtfg.recursos;
 
+import com.google.gson.Gson;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Pablo
  */
-public class Persistencia {
+public class Persistencia implements Serializable{
     private static boolean licencia;
     private static String nombreUsuario;
     private static String gatoUsuario;
     private static String idUsuario = java.util.UUID.randomUUID().toString();
     private static String rutaDescarga = System.getProperty("user.home");
-
+    
+    private boolean licenciaP;
+    private String nombreUsuarioP;
+    private String gatoUsuarioP;
+    private String idUsuarioP;
+    private String rutaDescargaP;
+    
+    
+    public static boolean existeFichero(){
+        File fichero = new File(System.getProperty("user.home")+"/AirSend.dat");
+        return fichero.exists();
+    }
+    public static void guardarPersistencia() {
+        FileOutputStream fout = null;
+        try {
+            Persistencia objeto = new Persistencia();
+            boolean pene = existeFichero();
+            objeto.setLicenciaP(licencia);
+            objeto.setNombreUsuarioP(nombreUsuario);
+            objeto.setGatoUsuarioP(gatoUsuario);
+            objeto.setIdUsuarioP(idUsuario);
+            objeto.setRutaDescargaP(rutaDescarga);
+            fout = new FileOutputStream(System.getProperty("user.home")+"/AirSend.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(objeto);
+            oos.close();
+            System.out.println("Done");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fout.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public static void cargarPersistencia(){
+        FileInputStream fout = null;
+        try {
+            Persistencia objeto = new Persistencia();
+            fout = new FileInputStream(System.getProperty("user.home")+"/AirSend.dat");
+            ObjectInputStream oos = new ObjectInputStream(fout);
+            objeto = (Persistencia) oos.readObject();
+            oos.close();
+            licencia = objeto.isLicenciaP();
+            nombreUsuario = objeto.getNombreUsuarioP();
+            gatoUsuario = objeto.getGatoUsuarioP();
+            idUsuario = objeto.getIdUsuarioP();
+            System.out.println("Done");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fout.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     // Setters
     public static void setLicencia(boolean licencia) {
         Persistencia.licencia = licencia;
@@ -67,5 +144,47 @@ public class Persistencia {
     public static String getRutaDescarga(){
         return rutaDescarga;
     }
+
+    public boolean isLicenciaP() {
+        return licenciaP;
+    }
+
+    public String getNombreUsuarioP() {
+        return nombreUsuarioP;
+    }
+
+    public String getGatoUsuarioP() {
+        return gatoUsuarioP;
+    }
+
+    public String getIdUsuarioP() {
+        return idUsuarioP;
+    }
+
+    public String getRutaDescargaP() {
+        return rutaDescargaP;
+    }
+
+    public void setLicenciaP(boolean licenciaP) {
+        this.licenciaP = licenciaP;
+    }
+
+    public void setNombreUsuarioP(String nombreUsuarioP) {
+        this.nombreUsuarioP = nombreUsuarioP;
+    }
+
+    public void setGatoUsuarioP(String gatoUsuarioP) {
+        this.gatoUsuarioP = gatoUsuarioP;
+    }
+
+    public void setIdUsuarioP(String idUsuarioP) {
+        this.idUsuarioP = idUsuarioP;
+    }
+
+    public void setRutaDescargaP(String rutaDescargaP) {
+        this.rutaDescargaP = rutaDescargaP;
+    }
+    
+    
     
 }

@@ -7,6 +7,7 @@ package airsendtfg;
 
 import airsendtfg.frontend.Configuracion;
 import airsendtfg.frontend.LicenciaVentana;
+import airsendtfg.frontend.MenuPrincipal;
 import airsendtfg.librerias.nucleo.NucleoAirSend;
 import airsendtfg.librerias.nucleo.negociacion.EmisorNegociacion;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
@@ -21,8 +22,11 @@ import java.io.File;
 public class AirSendTFG {
     
     public void cargarAirSend(){
-        if(!Persistencia.isLicencia()){
+        if(!Persistencia.existeFichero()){
             new LicenciaVentana().setVisible(true);
+        }else{
+            Persistencia.cargarPersistencia();
+            new MenuPrincipal().setVisible(true);
         }
     }
     
@@ -42,11 +46,10 @@ public class AirSendTFG {
         System.out.println("Hello TFG!");
         Log.inicializar();
         //pruebaSondeo1();
-        //new AirSendTFG().cargarAirSend();
+        new AirSendTFG().cargarAirSend();
         // TODO code application logic here
-        new Configuracion().setVisible(true);
-        
-        
+        //new Configuracion().setVisible(true);
+       
     }
     
 }

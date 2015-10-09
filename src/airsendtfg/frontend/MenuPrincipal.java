@@ -49,6 +49,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * Creates new form menuPrincipal
      */
     public MenuPrincipal() {
+        Persistencia.guardarPersistencia();
         NucleoAirSend.cargarNucleos();
         this.esteticaBasica();
         this.hiloWifiProgreso();
