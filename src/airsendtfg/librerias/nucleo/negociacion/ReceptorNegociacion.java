@@ -16,7 +16,10 @@
 package airsendtfg.librerias.nucleo.negociacion;
 
 import airsendtfg.frontend.RecibirVentana;
+import airsendtfg.frontend.clasesAuxiliares.ActualizarRecibir;
+import airsendtfg.librerias.nucleo.transferencia.ReceptorTransferencia;
 import airsendtfg.librerias.utilidades.Log;
+import airsendtfg.recursos.Persistencia;
 import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -99,11 +102,28 @@ public class ReceptorNegociacion implements Runnable {
     private void procesarMensajePROPUESTA(MensajeNegociacionJSON entrada) {
         //Como el receptor es quien recibe el mensaje, creamos una interfaz
         new RecibirVentana(entrada).setVisible(true);
-        //Agregamos a la lista de recibidos del nucleo de negociación
-        NucleoNegociacion.listaPropuesta.put(entrada.getIdentificadorMensaje(), entrada);
-        Log.info("Mensaje de propuesta " + entrada.getIdentificadorEmisor() + " procesado");
+        //Comprobamos si se trata de un origen de confianza
+        if(!Persistencia.getListaDispositivosConfianza().containsKey(entrada.getIdentificadorEmisor())){
+            //Agregamos a la lista de recibidos del nucleo de negociación
+            NucleoNegociacion.listaPropuesta.put(entrada.getIdentificadorMensaje(), entrada);
+            Log.info("Mensaje de propuesta " + entrada.getIdentificadorEmisor() + " procesado");
+        }else{
+            this.recibirDeEmisorDeConfianza(entrada);
+        }
     }
 
+    /**
+     * Este método se encarga de recibir un mensaje desde un dispositivo de confianza
+     */
+    private void recibirDeEmisorDeConfianza(MensajeNegociacionJSON entrada){
+        ReceptorTransferencia receptor = new ReceptorTransferencia(entrada);
+        receptor.setRutaFichero(Persistencia.getRutaDescarga());
+        Thread hiloReceptor = new Thread(receptor);
+        hiloReceptor.start();
+        EmisorNegociacion.enviarMensajeAceptadoQ1(entrada, receptor.getPuerto());
+        Log.info("Mensaje de propuesta de dispositivo de confianza" + entrada.getIdentificadorEmisor() + " procesado");
+    }
+    
     /**
      * Método que aisla el código referente a los mensajes de tipo ACEPTADO
      *

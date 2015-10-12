@@ -15,7 +15,7 @@
  */
 package airsendtfg.recursos;
 
-import com.google.gson.Gson;
+import airsendtfg.librerias.nucleo.negociacion.MensajeNegociacionJSON;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,8 +24,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 
 /**
  *
@@ -37,12 +40,15 @@ public class Persistencia implements Serializable{
     private static String gatoUsuario;
     private static String idUsuario = java.util.UUID.randomUUID().toString();
     private static String rutaDescarga = System.getProperty("user.home");
+    private static Map<String, MensajeNegociacionJSON> listaDispositivosConfianza = new HashMap<String, MensajeNegociacionJSON>();
     
     private boolean licenciaP;
     private String nombreUsuarioP;
     private String gatoUsuarioP;
     private String idUsuarioP;
     private String rutaDescargaP;
+    private Map<String, MensajeNegociacionJSON> listaDispositivosConfianzaP;
+
     
     
     public static boolean existeFichero(){
@@ -59,11 +65,12 @@ public class Persistencia implements Serializable{
             objeto.setGatoUsuarioP(gatoUsuario);
             objeto.setIdUsuarioP(idUsuario);
             objeto.setRutaDescargaP(rutaDescarga);
+            objeto.setListaDispositivosConfianzaP(listaDispositivosConfianza);
             fout = new FileOutputStream(System.getProperty("user.home")+"/AirSend.dat");
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(objeto);
             oos.close();
-            System.out.println("Done");
+            System.out.println("Guardado");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -89,7 +96,8 @@ public class Persistencia implements Serializable{
             nombreUsuario = objeto.getNombreUsuarioP();
             gatoUsuario = objeto.getGatoUsuarioP();
             idUsuario = objeto.getIdUsuarioP();
-            System.out.println("Done");
+            listaDispositivosConfianza = objeto.getListaDispositivosConfianzaP();
+            System.out.println("Cargado");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException | ClassNotFoundException ex) {
@@ -183,6 +191,22 @@ public class Persistencia implements Serializable{
 
     public void setRutaDescargaP(String rutaDescargaP) {
         this.rutaDescargaP = rutaDescargaP;
+    }
+
+    public static Map<String, MensajeNegociacionJSON> getListaDispositivosConfianza() {
+        return listaDispositivosConfianza;
+    }
+
+    public Map<String, MensajeNegociacionJSON> getListaDispositivosConfianzaP() {
+        return listaDispositivosConfianzaP;
+    }
+
+    public static void setListaDispositivosConfianza(Map<String, MensajeNegociacionJSON> listaDispositivosConfianza) {
+        Persistencia.listaDispositivosConfianza = listaDispositivosConfianza;
+    }
+
+    public void setListaDispositivosConfianzaP(Map<String, MensajeNegociacionJSON> listaDispositivosConfianzaP) {
+        this.listaDispositivosConfianzaP = listaDispositivosConfianzaP;
     }
     
     

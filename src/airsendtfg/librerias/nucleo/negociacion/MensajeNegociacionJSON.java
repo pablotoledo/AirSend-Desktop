@@ -18,12 +18,13 @@ package airsendtfg.librerias.nucleo.negociacion;
 import airsendtfg.librerias.utilidades.Utilidades;
 import airsendtfg.recursos.Persistencia;
 import java.io.File;
+import java.io.Serializable;
 
 /**
  *
  * @author Pablo
  */
-public class MensajeNegociacionJSON {
+public class MensajeNegociacionJSON implements Serializable{
     
     private String identificadorMensaje; //Identificador único del mensaje actual
     private String identificadorEmisor; //Identificador del sistema que enviará los archivos

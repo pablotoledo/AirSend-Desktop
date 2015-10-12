@@ -23,7 +23,9 @@ import airsendtfg.librerias.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.nucleo.transferencia.ReceptorTransferencia;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
+import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.librerias.utilidades.Utilidades;
+import airsendtfg.recursos.Persistencia;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -570,7 +572,6 @@ public class RecibirVentana extends javax.swing.JFrame {
             if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                 this.ruta = chooser.getCurrentDirectory() + "/" + chooser.getSelectedFile().getName() + "/";
                 chooser.setAcceptAllFileFilterUsed(false);
-                //falta asignación de puerto y crear objeto de recepcion de datos
                 this.receptor = new ReceptorTransferencia(entrada);
                 this.receptor.setRutaFichero(ruta);
                 this.hiloReceptor = new Thread(this.receptor);
@@ -580,6 +581,11 @@ public class RecibirVentana extends javax.swing.JFrame {
                 this.hiloActualizarRecibir.start();
                 EmisorNegociacion.enviarMensajeAceptadoQ1(entrada, this.receptor.getPuerto());
                 this.textoEstado.setText("Estado: Propuesta aceptada");
+            }
+            if(this.checkConfiar.isSelected()){
+                Persistencia.getListaDispositivosConfianza().put(entrada.getIdentificadorEmisor(), entrada);
+                Persistencia.guardarPersistencia();
+                Log.info("Añadido "+entrada.getIdentificadorEmisor()+" a la lista de dipositivos de confianza");
             }
         }
         this.estado = entrada.getTipoMensaje();

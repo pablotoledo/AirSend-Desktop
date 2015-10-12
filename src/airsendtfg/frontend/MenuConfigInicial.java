@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -341,6 +342,11 @@ public class MenuConfigInicial extends javax.swing.JFrame {
             Persistencia.setLicencia(true);
             new MenuPrincipal().setVisible(true);
             this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Es necesario que el nombre tenga al menos 5 letras y seleccione una imagen",
+                    "Requisitos",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_labelAceptarMouseClicked
 
