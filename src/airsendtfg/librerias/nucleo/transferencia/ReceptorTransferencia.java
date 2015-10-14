@@ -17,6 +17,7 @@ package airsendtfg.librerias.nucleo.transferencia;
 
 import airsendtfg.librerias.nucleo.negociacion.MensajeNegociacionJSON;
 import airsendtfg.librerias.utilidades.Log;
+import airsendtfg.recursos.Persistencia;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,6 +25,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -39,7 +42,7 @@ public class ReceptorTransferencia implements Runnable {
     private MensajeNegociacionJSON mensaje;
     
     //Ruta y nombre de fichero
-    private String rutaFichero = System.getProperty("user.home");
+    private String rutaFichero = Persistencia.getRutaDescarga();
     private String nombreFichero;
     
     //Valor para JProgressBar
@@ -114,7 +117,8 @@ public class ReceptorTransferencia implements Runnable {
         Socket transferencia = null;
         int buffer = 3000;
         InputStream entrada;
-        String fichero = this.rutaFichero + this.nombreFichero + ".zip";
+        String timeStamp = new SimpleDateFormat(" hhmm - ddmmyyyy").format(new Date());
+        String fichero = this.rutaFichero + this.nombreFichero +timeStamp+ ".zip";
         try {
             Log.info("Transmisión: A la espera concurrente para recibir datos");
             transferencia = socketRecepcion.accept(); // Espera conexiones de clientes. Crea socket "transferencia"

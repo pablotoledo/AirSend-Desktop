@@ -25,6 +25,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -105,9 +106,10 @@ public class ReceptorNegociacion implements Runnable {
         //Comprobamos si se trata de un origen de confianza
         if(!Persistencia.getListaDispositivosConfianza().containsKey(entrada.getIdentificadorEmisor())){
             //Agregamos a la lista de recibidos del nucleo de negociación
-            NucleoNegociacion.listaPropuesta.put(entrada.getIdentificadorMensaje(), entrada);
+            NucleoNegociacion.listaPropuesta.put(entrada.getIdentificadorEmisor(), entrada);
             Log.info("Mensaje de propuesta " + entrada.getIdentificadorEmisor() + " procesado");
         }else{
+            //Si se trata de un origen de confianza tratamos este evento de forma individual
             this.recibirDeEmisorDeConfianza(entrada);
         }
     }
@@ -121,7 +123,7 @@ public class ReceptorNegociacion implements Runnable {
         Thread hiloReceptor = new Thread(receptor);
         hiloReceptor.start();
         EmisorNegociacion.enviarMensajeAceptadoQ1(entrada, receptor.getPuerto());
-        Log.info("Mensaje de propuesta de dispositivo de confianza" + entrada.getIdentificadorEmisor() + " procesado");
+        Log.info("Mensaje de propuesta de dispositivo de confianza " + entrada.getIdentificadorEmisor() + " procesado");
     }
     
     /**

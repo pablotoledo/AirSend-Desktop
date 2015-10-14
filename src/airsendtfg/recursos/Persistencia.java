@@ -39,7 +39,7 @@ public class Persistencia implements Serializable{
     private static String nombreUsuario;
     private static String gatoUsuario;
     private static String idUsuario = java.util.UUID.randomUUID().toString();
-    private static String rutaDescarga = System.getProperty("user.home");
+    private static String rutaDescarga = System.getProperty("user.home")+"/";
     private static Map<String, MensajeNegociacionJSON> listaDispositivosConfianza = new HashMap<String, MensajeNegociacionJSON>();
     
     private boolean licenciaP;

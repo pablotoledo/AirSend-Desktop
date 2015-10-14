@@ -16,6 +16,7 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.librerias.nucleo.negociacion.MensajeNegociacionJSON;
 import airsendtfg.recursos.Persistencia;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.GridLayout;
@@ -28,6 +29,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -60,6 +62,7 @@ public class Configuracion extends javax.swing.JFrame {
         this.confIcono.setText(confIcono.getText() + Persistencia.getGatoUsuario());
         this.confIDUsuario.setText(confIDUsuario.getText() + Persistencia.getIdUsuario());
         this.confRutaDescarga.setText(confRutaDescarga.getText() + Persistencia.getRutaDescarga());
+        this.cargarJList();
     }
 
     private void cargarGridLayout() {
@@ -110,6 +113,28 @@ public class Configuracion extends javax.swing.JFrame {
         add(picLabel);
         objeto.add(picLabel);
         return objeto;
+    }
+
+    private void cargarJList() {
+        Map<String, MensajeNegociacionJSON> listaDispositivos = Persistencia.getListaDispositivosConfianza();
+        DefaultListModel modelo = new DefaultListModel();
+        for (String key : listaDispositivos.keySet()) {
+            String prueba = listaDispositivos.get(key).getIdentificadorEmisor();
+            modelo.addElement(listaDispositivos.get(key).getNombreEmisor() + " " + listaDispositivos.get(key).getIdentificadorEmisor());
+        }
+        jList1.setModel(modelo);
+        
+    }
+
+    private void eliminarDispositivoConfianza() {
+        if (this.jList1.getSelectedValue() != null){
+        String elemento = (String) this.jList1.getSelectedValue();
+        elemento = elemento.substring(elemento.lastIndexOf(" ")+1, elemento.length());
+        Persistencia.getListaDispositivosConfianza().remove(elemento);
+        Persistencia.guardarPersistencia();
+        this.jList1.removeAll();
+        this.cargarJList();
+        }
     }
 
     /**
@@ -415,11 +440,6 @@ public class Configuracion extends javax.swing.JFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jList1);
 
         aceptar2.setBackground(new java.awt.Color(102, 102, 102));
@@ -462,7 +482,12 @@ public class Configuracion extends javax.swing.JFrame {
                 .addComponent(cancelar1l1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jToggleButton1.setText("jToggleButton1");
+        jToggleButton1.setText("Eliminar como dispositivo de confianza");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout dispositivosConfianzaLayout = new javax.swing.GroupLayout(dispositivosConfianza);
         dispositivosConfianza.setLayout(dispositivosConfianzaLayout);
@@ -623,7 +648,7 @@ public class Configuracion extends javax.swing.JFrame {
 
     private void aceptar1lMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptar1lMouseClicked
         // TODO add your handling code here:
-        if ((this.gatoSeleccionado.length()>0)&&(this.nombreTextField.getText().length() > 4)) {
+        if ((this.gatoSeleccionado.length() > 0) && (this.nombreTextField.getText().length() > 4)) {
             Persistencia.setNombreUsuario(this.nombreTextField.getText());
             Persistencia.setGatoUsuario(gatoSeleccionado);
             Persistencia.guardarPersistencia();
@@ -634,6 +659,11 @@ public class Configuracion extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_aceptar1lMouseClicked
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        this.eliminarDispositivoConfianza();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
