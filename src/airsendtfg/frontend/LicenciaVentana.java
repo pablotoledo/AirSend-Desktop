@@ -12,14 +12,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
-
-
- ___________________________________________________________________
 
  Los Proyectos fin de Grado son trabajos protegidos por la Ley de Propiedad 
  Intelectual (Real Decreto Legislativo 1/1996, 12 abril), y en su caso por la 
@@ -110,14 +102,15 @@ public class LicenciaVentana extends javax.swing.JFrame {
         titulo.setText("Bienvenido a AirSend");
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Licencia y política de uso");
+        jLabel1.setText("Licencia:");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        textoCondiciones.setBackground(new java.awt.Color(153, 153, 153));
         textoCondiciones.setColumns(20);
         textoCondiciones.setForeground(new java.awt.Color(255, 255, 255));
         textoCondiciones.setRows(5);
-        textoCondiciones.setText("Esta obra es licenciada bajo Copyright (Todos los derechos reservados)\n\nAutor:\nJuan Pablo Toledo Gavagnin\njpablotoledo92@gmail.com\n\n___________________________________________________________________");
+        textoCondiciones.setText("\nCopyright 2015 Juan Pablo Toledo Gavagnin\n\nLa titularidad de los derechos de propiedad intelectual de los Proyectos\nFin de Grado corresponde a los/las estudiantes que los hayan realizado.\n\nLey de Propiedad Intelectual (Real Decreto Legislativo 1/1996, 12 abril),\ny en su caso por la Ley de patentes (Ley 11/1986, de 20 de marzo, de \nPatentes).\n");
         jScrollPane1.setViewportView(textoCondiciones);
 
         cancelarContenedor.setBackground(new java.awt.Color(102, 102, 102));
@@ -199,14 +192,14 @@ public class LicenciaVentana extends javax.swing.JFrame {
                 .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(icono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addGroup(contenedorLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(contenedorLayout.createSequentialGroup()
                         .addComponent(cancelarContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(aceptarContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(aceptarContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(contenedorLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         contenedorLayout.setVerticalGroup(
@@ -242,91 +235,42 @@ public class LicenciaVentana extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void iconoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconoMousePressed
-        // TODO add your handling code here:
         x = evt.getX();
         y = evt.getY();
     }//GEN-LAST:event_iconoMousePressed
 
     private void iconoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconoMouseDragged
-        // TODO add your handling code here:
         Point point = MouseInfo.getPointerInfo().getLocation();
         setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_iconoMouseDragged
 
     private void aceptarContenedorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarContenedorMouseEntered
-        // TODO add your handling code here:
         this.aceptarContenedor.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_aceptarContenedorMouseEntered
 
     private void aceptarContenedorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarContenedorMouseExited
-        // TODO add your handling code here:
         this.aceptarContenedor.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_aceptarContenedorMouseExited
 
     private void cancelarContenedorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarContenedorMouseEntered
-        // TODO add your handling code here:
         this.cancelarContenedor.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_cancelarContenedorMouseEntered
 
     private void cancelarContenedorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarContenedorMouseExited
-        // TODO add your handling code here:
         this.cancelarContenedor.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_cancelarContenedorMouseExited
 
     private void cancelarContenedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarContenedorMouseClicked
-        // TODO add your handling code here:
         System.exit(0);
         setDefaultCloseOperation(this.EXIT_ON_CLOSE);
     }//GEN-LAST:event_cancelarContenedorMouseClicked
 
     private void aceptarContenedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarContenedorMouseClicked
-        // TODO add your handling code here:
+
         this.setVisible(false);
         new MenuConfigInicial().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_aceptarContenedorMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LicenciaVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LicenciaVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LicenciaVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LicenciaVentana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LicenciaVentana().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel aceptarContenedor;

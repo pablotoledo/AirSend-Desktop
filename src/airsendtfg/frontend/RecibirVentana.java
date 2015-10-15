@@ -24,7 +24,6 @@ import airsendtfg.librerias.nucleo.transferencia.ReceptorTransferencia;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
 import airsendtfg.librerias.utilidades.Log;
-import airsendtfg.librerias.utilidades.Utilidades;
 import airsendtfg.recursos.Persistencia;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.MouseInfo;
@@ -490,76 +489,62 @@ public class RecibirVentana extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCerrarMouseClicked
-        // TODO add your handling code here:
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_panelCerrarMouseClicked
 
     private void panelCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCerrarMouseExited
-        // TODO add your handling code here:
         this.panelCerrar.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_panelCerrarMouseExited
 
     private void panelCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCerrarMouseEntered
-        // TODO add your handling code here:
         this.panelCerrar.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_panelCerrarMouseEntered
 
     private void panelMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMinimizarMouseClicked
-        // TODO add your handling code here:
         this.setExtendedState(ICONIFIED);
     }//GEN-LAST:event_panelMinimizarMouseClicked
 
     private void panelMinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMinimizarMouseExited
-        // TODO add your handling code here:
         this.panelMinimizar.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_panelMinimizarMouseExited
 
     private void panelMinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMinimizarMouseEntered
-        // TODO add your handling code here:
         this.panelMinimizar.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_panelMinimizarMouseEntered
 
     private void botonCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMouseEntered
-        // TODO add your handling code here:
         this.botonCancelar.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_botonCancelarMouseEntered
 
     private void botonCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMouseExited
-        // TODO add your handling code here:
         this.botonCancelar.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_botonCancelarMouseExited
 
     private void botonEnviarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEnviarMouseEntered
-        // TODO add your handling code here:
         this.botonEnviar.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_botonEnviarMouseEntered
 
     private void botonEnviarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEnviarMouseExited
-        // TODO add your handling code here:
         this.botonEnviar.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_botonEnviarMouseExited
 
     private void botonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMouseClicked
-        // TODO add your handling code here:
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_botonCancelarMouseClicked
 
     private void cabeceraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cabeceraMouseDragged
-        // TODO add your handling code here:
         Point point = MouseInfo.getPointerInfo().getLocation();
         setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_cabeceraMouseDragged
 
     private void cabeceraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cabeceraMousePressed
-        // TODO add your handling code here:
         x = evt.getX();
         y = evt.getY();
     }//GEN-LAST:event_cabeceraMousePressed
 
     private void textoBtnEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseClicked
-        // TODO add your handling code here:
         if (estado.equals(NucleoNegociacion.tipoMensajes[0])) {
             //Invocamos a JFileChooser para permitir al usuario elegir donde
             //guardar los archivos
@@ -587,6 +572,7 @@ public class RecibirVentana extends javax.swing.JFrame {
                 Persistencia.guardarPersistencia();
                 Log.info("Añadido "+entrada.getIdentificadorEmisor()+" a la lista de dipositivos de confianza");
             }
+            this.textoBtnEnviar.setForeground(Colores.cabeceraExited());
         }
         this.estado = entrada.getTipoMensaje();
     }//GEN-LAST:event_textoBtnEnviarMouseClicked
@@ -596,17 +582,14 @@ public class RecibirVentana extends javax.swing.JFrame {
     }//GEN-LAST:event_checkConfiarActionPerformed
 
     private void textoBtnEnviarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseEntered
-        // TODO add your handling code here:
         this.botonEnviar.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_textoBtnEnviarMouseEntered
 
     private void textoBtnEnviarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnEnviarMouseExited
-        // TODO add your handling code here:
         this.botonEnviar.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_textoBtnEnviarMouseExited
 
     private void textoBtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnCancelarMouseClicked
-        // TODO add your handling code here:
         this.hiloActualizarRecibir.interrupt();
     }//GEN-LAST:event_textoBtnCancelarMouseClicked
 

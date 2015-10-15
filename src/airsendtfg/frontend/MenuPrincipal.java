@@ -340,6 +340,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addComponent(nombrePrograma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        scrollFondo.setHorizontalScrollBar(null);
+
         interiorScroll.setBackground(new java.awt.Color(18, 23, 28));
 
         javax.swing.GroupLayout interiorScrollLayout = new javax.swing.GroupLayout(interiorScroll);
@@ -394,17 +396,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCerrarMouseEntered
-        // TODO add your handling code here:
         this.panelCerrar.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_panelCerrarMouseEntered
 
     private void panelMinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMinimizarMouseEntered
-        // TODO add your handling code here:
         this.panelMinimizar.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_panelMinimizarMouseEntered
 
     private void panelConfiguracionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConfiguracionMouseEntered
-        // TODO add your handling code here:
         this.panelConfiguracion.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_panelConfiguracionMouseEntered
 
@@ -413,17 +412,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_panelProgresoMouseEntered
 
     private void panelCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCerrarMouseExited
-        // TODO add your handling code here:
         this.panelCerrar.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_panelCerrarMouseExited
 
     private void panelMinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMinimizarMouseExited
-        // TODO add your handling code here:
         this.panelMinimizar.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_panelMinimizarMouseExited
 
     private void panelConfiguracionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelConfiguracionMouseExited
-        // TODO add your handling code here:
         this.panelConfiguracion.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_panelConfiguracionMouseExited
 
@@ -432,78 +428,35 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_panelProgresoMouseExited
 
     private void panelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCerrarMouseClicked
-        // TODO add your handling code here:
         System.exit(0);
         setDefaultCloseOperation(this.EXIT_ON_CLOSE);
     }//GEN-LAST:event_panelCerrarMouseClicked
 
     private void panelMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMinimizarMouseClicked
-        // TODO add your handling code here:
         this.setExtendedState(ICONIFIED);
     }//GEN-LAST:event_panelMinimizarMouseClicked
 
     private void cabeceraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cabeceraMousePressed
-        // TODO add your handling code here:
         x = evt.getX();
         y = evt.getY();
     }//GEN-LAST:event_cabeceraMousePressed
 
     private void cabeceraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cabeceraMouseDragged
-        // TODO add your handling code here:
         Point point = MouseInfo.getPointerInfo().getLocation();
         setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_cabeceraMouseDragged
 
     private void labelConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelConfiguracionMouseClicked
-        // TODO add your handling code here:
         new Configuracion().setVisible(true);
     }//GEN-LAST:event_labelConfiguracionMouseClicked
 
     private void labelConfiguracionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelConfiguracionMouseEntered
-        // TODO add your handling code here:
         this.panelConfiguracion.setBackground(Colores.cabeceraEntered());
     }//GEN-LAST:event_labelConfiguracionMouseEntered
 
     private void labelConfiguracionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelConfiguracionMouseExited
-        // TODO add your handling code here:
         this.panelConfiguracion.setBackground(Colores.cabeceraExited());
     }//GEN-LAST:event_labelConfiguracionMouseExited
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barraInferior;

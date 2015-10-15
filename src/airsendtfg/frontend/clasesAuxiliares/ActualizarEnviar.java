@@ -19,8 +19,6 @@ import airsendtfg.frontend.EnviarVentana;
 import airsendtfg.librerias.nucleo.negociacion.MensajeNegociacionJSON;
 import airsendtfg.librerias.nucleo.negociacion.NucleoNegociacion;
 import airsendtfg.librerias.nucleo.transferencia.EmisorTransferencia;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
