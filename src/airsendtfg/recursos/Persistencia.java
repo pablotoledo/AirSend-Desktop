@@ -117,7 +117,10 @@ public class Persistencia implements Serializable{
     }
 
     public static void setNombreUsuario(String nombreUsuario) {
-        Persistencia.nombreUsuario = nombreUsuario;
+        if(nombreUsuario.length()>10)
+            Persistencia.nombreUsuario = nombreUsuario.substring(0, 9);
+        else
+            Persistencia.nombreUsuario = nombreUsuario;
     }
 
     public static void setGatoUsuario(String gatoUsuario) {

@@ -17,6 +17,7 @@ package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
 import airsendtfg.librerias.nucleo.negociacion.MensajeNegociacionJSON;
+import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;
 import airsendtfg.recursos.imagenes.gatos.Gatos;
 import java.awt.GridLayout;
@@ -31,6 +32,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -122,17 +124,17 @@ public class Configuracion extends javax.swing.JFrame {
             String prueba = listaDispositivos.get(key).getIdentificadorEmisor();
             modelo.addElement(listaDispositivos.get(key).getNombreEmisor() + " " + listaDispositivos.get(key).getIdentificadorEmisor());
         }
-        jList1.setModel(modelo);
+        JListDispositivosConfianza.setModel(modelo);
         
     }
 
     private void eliminarDispositivoConfianza() {
-        if (this.jList1.getSelectedValue() != null){
-        String elemento = (String) this.jList1.getSelectedValue();
+        if (this.JListDispositivosConfianza.getSelectedValue() != null){
+        String elemento = (String) this.JListDispositivosConfianza.getSelectedValue();
         elemento = elemento.substring(elemento.lastIndexOf(" ")+1, elemento.length());
         Persistencia.getListaDispositivosConfianza().remove(elemento);
         Persistencia.guardarPersistencia();
-        this.jList1.removeAll();
+        this.JListDispositivosConfianza.removeAll();
         this.cargarJList();
         }
     }
@@ -164,17 +166,17 @@ public class Configuracion extends javax.swing.JFrame {
         cancelar1 = new javax.swing.JPanel();
         cancelar1l = new javax.swing.JLabel();
         dispositivosConfianza = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelDispositivosConfianza = new javax.swing.JLabel();
         fieldRutaDescarga = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        cambiarCarpetaBox = new javax.swing.JPanel();
+        cambiarCarpetaLabel = new javax.swing.JLabel();
+        scrollJList = new javax.swing.JScrollPane();
+        JListDispositivosConfianza = new javax.swing.JList();
         aceptar2 = new javax.swing.JPanel();
         aceptar1l1 = new javax.swing.JLabel();
         cancelar2 = new javax.swing.JPanel();
         cancelar1l1 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        eliminarDispositivoConfianzaButtom = new javax.swing.JToggleButton();
         configuracionActual = new javax.swing.JPanel();
         confNombre = new javax.swing.JLabel();
         confIcono = new javax.swing.JLabel();
@@ -287,6 +289,7 @@ public class Configuracion extends javax.swing.JFrame {
         );
 
         tablero.setBackground(new java.awt.Color(0, 0, 0));
+        tablero.setForeground(new java.awt.Color(255, 255, 255));
 
         configuracionEquipo.setBackground(new java.awt.Color(18, 23, 28));
 
@@ -409,38 +412,44 @@ public class Configuracion extends javax.swing.JFrame {
 
         dispositivosConfianza.setBackground(new java.awt.Color(18, 23, 28));
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Ruta donde se guardarán los archivos que envíen los dispositivos de confianza:");
+        labelDispositivosConfianza.setForeground(new java.awt.Color(255, 255, 255));
+        labelDispositivosConfianza.setText("Ruta donde se guardarán los archivos que envíen los dispositivos de confianza:");
 
         fieldRutaDescarga.setEditable(false);
         fieldRutaDescarga.setBackground(new java.awt.Color(102, 102, 102));
         fieldRutaDescarga.setForeground(new java.awt.Color(255, 255, 255));
         fieldRutaDescarga.setText("ruta de descarga");
+        fieldRutaDescarga.setEnabled(false);
         fieldRutaDescarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldRutaDescargaActionPerformed(evt);
             }
         });
 
-        jPanel5.setBackground(new java.awt.Color(102, 102, 102));
+        cambiarCarpetaBox.setBackground(new java.awt.Color(102, 102, 102));
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Cambiar...");
-        jLabel2.setToolTipText("");
+        cambiarCarpetaLabel.setForeground(new java.awt.Color(255, 255, 255));
+        cambiarCarpetaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cambiarCarpetaLabel.setText("Cambiar...");
+        cambiarCarpetaLabel.setToolTipText("");
+        cambiarCarpetaLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cambiarCarpetaLabelMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+        javax.swing.GroupLayout cambiarCarpetaBoxLayout = new javax.swing.GroupLayout(cambiarCarpetaBox);
+        cambiarCarpetaBox.setLayout(cambiarCarpetaBoxLayout);
+        cambiarCarpetaBoxLayout.setHorizontalGroup(
+            cambiarCarpetaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cambiarCarpetaLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        cambiarCarpetaBoxLayout.setVerticalGroup(
+            cambiarCarpetaBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cambiarCarpetaLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jScrollPane2.setViewportView(jList1);
+        scrollJList.setViewportView(JListDispositivosConfianza);
 
         aceptar2.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -482,10 +491,10 @@ public class Configuracion extends javax.swing.JFrame {
                 .addComponent(cancelar1l1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jToggleButton1.setText("Eliminar como dispositivo de confianza");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        eliminarDispositivoConfianzaButtom.setText("Eliminar como dispositivo de confianza");
+        eliminarDispositivoConfianzaButtom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                eliminarDispositivoConfianzaButtomActionPerformed(evt);
             }
         });
 
@@ -496,19 +505,19 @@ public class Configuracion extends javax.swing.JFrame {
             .addGroup(dispositivosConfianzaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(dispositivosConfianzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eliminarDispositivoConfianzaButtom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(dispositivosConfianzaLayout.createSequentialGroup()
                         .addComponent(fieldRutaDescarga)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2)
+                        .addComponent(cambiarCarpetaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollJList)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dispositivosConfianzaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(aceptar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cancelar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(dispositivosConfianzaLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(labelDispositivosConfianza)
                         .addGap(0, 240, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -516,15 +525,15 @@ public class Configuracion extends javax.swing.JFrame {
             dispositivosConfianzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dispositivosConfianzaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelDispositivosConfianza)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dispositivosConfianzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fieldRutaDescarga, javax.swing.GroupLayout.PREFERRED_SIZE, 25, Short.MAX_VALUE))
+                    .addComponent(cambiarCarpetaBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fieldRutaDescarga, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollJList, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jToggleButton1)
+                .addComponent(eliminarDispositivoConfianzaButtom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(dispositivosConfianzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cancelar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -572,7 +581,7 @@ public class Configuracion extends javax.swing.JFrame {
                 .addComponent(confIDUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(confRutaDescarga)
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addContainerGap(327, Short.MAX_VALUE))
         );
 
         tablero.addTab("Ver configuración actual", configuracionActual);
@@ -589,7 +598,7 @@ public class Configuracion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
+                .addComponent(tablero))
         );
 
         pack();
@@ -660,10 +669,30 @@ public class Configuracion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_aceptar1lMouseClicked
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void eliminarDispositivoConfianzaButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarDispositivoConfianzaButtomActionPerformed
         // TODO add your handling code here:
         this.eliminarDispositivoConfianza();
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_eliminarDispositivoConfianzaButtomActionPerformed
+
+    private void cambiarCarpetaLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiarCarpetaLabelMouseClicked
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("Escojer ruta de descarga");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            Log.info("Ruta de descarga seleccionada");
+            Log.info("getCurrentDirectory(): " + chooser.getCurrentDirectory());
+            Log.info("getSelectedFile() : "+ chooser.getSelectedFile());
+            Persistencia.setRutaDescarga(""+chooser.getSelectedFile());
+            Persistencia.guardarPersistencia();
+            this.fieldRutaDescarga.setText(""+chooser.getSelectedFile());
+        } else {
+            Log.info("No se seleccionó ninguna ruta nueva de descarga por parte del usuario");
+        }
+    }//GEN-LAST:event_cambiarCarpetaLabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -701,11 +730,14 @@ public class Configuracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList JListDispositivosConfianza;
     private javax.swing.JPanel aceptar1;
     private javax.swing.JLabel aceptar1l;
     private javax.swing.JLabel aceptar1l1;
     private javax.swing.JPanel aceptar2;
     private javax.swing.JPanel cabecera;
+    private javax.swing.JPanel cambiarCarpetaBox;
+    private javax.swing.JLabel cambiarCarpetaLabel;
     private javax.swing.JPanel cancelar1;
     private javax.swing.JLabel cancelar1l;
     private javax.swing.JLabel cancelar1l1;
@@ -717,15 +749,11 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JPanel configuracionActual;
     private javax.swing.JPanel configuracionEquipo;
     private javax.swing.JPanel dispositivosConfianza;
+    private javax.swing.JToggleButton eliminarDispositivoConfianzaButtom;
     private javax.swing.JTextField fieldRutaDescarga;
     private javax.swing.JPanel interiorScroll;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JList jList1;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel labelCerrar;
+    private javax.swing.JLabel labelDispositivosConfianza;
     private javax.swing.JLabel labelMinimizar;
     private javax.swing.JLabel nombrePrograma;
     private javax.swing.JTextField nombreTextField;
@@ -733,6 +761,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JPanel panelCerrar;
     private javax.swing.JPanel panelMinimizar;
     private javax.swing.JScrollPane scrollImagenPerfil;
+    private javax.swing.JScrollPane scrollJList;
     private javax.swing.JTabbedPane tablero;
     private javax.swing.JLabel titulo3;
     // End of variables declaration//GEN-END:variables
