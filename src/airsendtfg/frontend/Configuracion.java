@@ -65,6 +65,7 @@ public class Configuracion extends javax.swing.JFrame {
         this.confIcono.setText(confIcono.getText() + Persistencia.getGatoUsuario());
         this.confIDUsuario.setText(confIDUsuario.getText() + Persistencia.getIdUsuario());
         this.confRutaDescarga.setText(confRutaDescarga.getText() + Persistencia.getRutaDescarga());
+        this.confSistemaOperativo.setText(confSistemaOperativo.getText() +  System.getProperty("os.name"));
         this.cargarJList();
     }
 
@@ -207,6 +208,7 @@ public class Configuracion extends javax.swing.JFrame {
         confIcono = new javax.swing.JLabel();
         confIDUsuario = new javax.swing.JLabel();
         confRutaDescarga = new javax.swing.JLabel();
+        confSistemaOperativo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(java.awt.Color.black);
@@ -524,6 +526,9 @@ public class Configuracion extends javax.swing.JFrame {
         confRutaDescarga.setForeground(new java.awt.Color(255, 255, 255));
         confRutaDescarga.setText("Ruta de descarga: ");
 
+        confSistemaOperativo.setForeground(new java.awt.Color(255, 255, 255));
+        confSistemaOperativo.setText("Sistema operativo: ");
+
         javax.swing.GroupLayout configuracionActualLayout = new javax.swing.GroupLayout(configuracionActual);
         configuracionActual.setLayout(configuracionActualLayout);
         configuracionActualLayout.setHorizontalGroup(
@@ -534,7 +539,8 @@ public class Configuracion extends javax.swing.JFrame {
                     .addComponent(confNombre)
                     .addComponent(confIcono)
                     .addComponent(confIDUsuario)
-                    .addComponent(confRutaDescarga))
+                    .addComponent(confRutaDescarga)
+                    .addComponent(confSistemaOperativo))
                 .addContainerGap(643, Short.MAX_VALUE))
         );
         configuracionActualLayout.setVerticalGroup(
@@ -548,7 +554,9 @@ public class Configuracion extends javax.swing.JFrame {
                 .addComponent(confIDUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(confRutaDescarga)
-                .addContainerGap(327, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(confSistemaOperativo)
+                .addContainerGap(302, Short.MAX_VALUE))
         );
 
         tablero.addTab("Ver configuración actual", configuracionActual);
@@ -678,6 +686,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel confIcono;
     private javax.swing.JLabel confNombre;
     private javax.swing.JLabel confRutaDescarga;
+    private javax.swing.JLabel confSistemaOperativo;
     private javax.swing.JPanel configuracionActual;
     private javax.swing.JPanel configuracionEquipo;
     private javax.swing.JPanel dispositivosConfianza;

@@ -525,6 +525,7 @@
                           <Component id="confIcono" min="-2" max="-2" attributes="0"/>
                           <Component id="confIDUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="confRutaDescarga" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="confSistemaOperativo" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="643" max="32767" attributes="0"/>
                   </Group>
@@ -541,7 +542,9 @@
                       <Component id="confIDUsuario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="confRutaDescarga" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="327" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="confSistemaOperativo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="302" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -577,6 +580,14 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ruta de descarga: "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="confSistemaOperativo">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Sistema operativo: "/>
               </Properties>
             </Component>
           </SubComponents>
