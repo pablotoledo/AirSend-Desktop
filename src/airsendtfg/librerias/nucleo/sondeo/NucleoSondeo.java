@@ -32,26 +32,47 @@ public class NucleoSondeo {
     private static Thread hiloEmisorSondeo;
     private static Thread hiloReceptorSondeo;
     private static EmisorSondeo emisorSondeo;
-    private static ReceptorSondeo receptoSondeo;
+    private static ReceptorSondeo receptorSondeo;
 
     /**
      * Constructor
      */
     public NucleoSondeo() {
         this.emisorSondeo = new EmisorSondeo();
-        this.receptoSondeo = new ReceptorSondeo();
+        this.receptorSondeo = new ReceptorSondeo();
         this.hiloEmisorSondeo = new Thread(this.emisorSondeo);
-        this.hiloReceptorSondeo = new Thread(this.receptoSondeo);
+        this.hiloReceptorSondeo = new Thread(this.receptorSondeo);
         this.hiloEmisorSondeo.start();
         this.hiloReceptorSondeo.start();
     }
+    
+    /**
+     * Permite deterner los hilos
+     */
+    public void pararNucleo(){
+        hiloEmisorSondeo.interrupt();
+        hiloReceptorSondeo.interrupt();
+        receptorSondeo.liberarSockets();
+    }
 
+    /**
+     * Permite arrancar los hilos
+     */
+    public void runNucleo(){
+        this.emisorSondeo = new EmisorSondeo();
+        this.receptorSondeo = new ReceptorSondeo();
+        this.hiloEmisorSondeo = new Thread(this.emisorSondeo);
+        this.hiloReceptorSondeo = new Thread(this.receptorSondeo);
+        this.hiloEmisorSondeo.start();
+        this.hiloReceptorSondeo.start();
+    }
+    
     /**
      * Permite objetener una lista de elementos recibidos y actualizada
      * @return Lista de elementos recibidos y actualizada
      */
     public static ArrayList<MensajeSondeoJSON> getListaElementos() {
-        return receptoSondeo.getLista();
+        return receptorSondeo.getLista();
     }
 
 }

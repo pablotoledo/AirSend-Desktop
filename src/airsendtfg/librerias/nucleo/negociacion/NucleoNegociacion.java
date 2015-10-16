@@ -36,13 +36,36 @@ public class NucleoNegociacion {
     public static int puertoNucleoNegociacion = 8586;
     
     private Thread hiloReceptor;
+    private ReceptorNegociacion receptor;
     
     
     public NucleoNegociacion(){
+        this.receptor = new ReceptorNegociacion();
+        this.hiloReceptor = new Thread(this.receptor);
+        this.hiloReceptor.start();
+    }
+    
+        /**
+     * Permite deterner los hilos
+     */
+    public void pararNucleo(){
+        hiloReceptor.interrupt();
+        receptor.liberarSockets();
+    }
+
+    /**
+     * Permite arrancar los hilos
+     */
+    public void runNucleo(){
         this.hiloReceptor = new Thread(new ReceptorNegociacion());
         this.hiloReceptor.start();
     }
     
+    /**
+     * Getter del mensaje a partir de la Key,
+     * @param key
+     * @return 
+     */
     public synchronized static MensajeNegociacionJSON recuperarMensaje(String key){
         if(listaPropuesta.containsKey(key)){
             return listaPropuesta.get(key);

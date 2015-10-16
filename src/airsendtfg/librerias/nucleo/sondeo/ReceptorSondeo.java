@@ -113,11 +113,15 @@ public class ReceptorSondeo implements Runnable {
                 //System.err.println(new Gson().toJson(mensajeJSON).toString());
                 this.procesarMensajeSondeoJSON(mensajeJSON);
             }
-        } catch (IOException | JsonSyntaxException ex) {
-            Logger.getLogger(ReceptorSondeo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (IOException | JsonSyntaxException ex ) {
+            Log.sondeoReceptor("Socket Cerrado");
+        } 
     }
 
+    public void liberarSockets() {
+        this.socket.close();
+    }
+    
     private void procesarMensajeSondeoJSON(MensajeSondeoJSON mensaje) throws UnknownHostException {
         //Solo aquellos mensajes que no sean nuestros pasarán a la lista de dispositivos
         if (!listaContiene(mensaje)) {

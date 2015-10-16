@@ -38,4 +38,14 @@ public class NucleoAirSend {
         return nucleoSondeo.getListaElementos();
     }
     
+    public static void pararNucleos(){
+        nucleoSondeo.pararNucleo();
+        nucleoNegociacion.pararNucleo();
+    }
+    
+    public static void runNucleos(){
+        nucleoSondeo.runNucleo();
+        nucleoNegociacion.runNucleo();
+    }
+    
 }

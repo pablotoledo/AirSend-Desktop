@@ -22,6 +22,7 @@ import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;
 import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -35,9 +36,9 @@ import java.util.logging.Logger;
  */
 public class ReceptorNegociacion implements Runnable {
 
-    @Override
+    private ServerSocket server_socket;
+
     public void run() {
-        ServerSocket server_socket = null;
         Socket socket = null;
         try {
             server_socket = new ServerSocket(NucleoNegociacion.puertoNucleoNegociacion);
@@ -62,8 +63,15 @@ public class ReceptorNegociacion implements Runnable {
                 socket.close();
             }
         } catch (Exception ioe) {
-            Logger.getLogger(ReceptorNegociacion.class.getName()).log(Level.SEVERE, null, ioe);
-            Log.error("ReceptorNegociacion"+ioe.getLocalizedMessage());
+            Log.info("ReceptorNegociacion socket cerrado");
+        }
+    }
+
+    public void liberarSockets() {
+        try {
+            this.server_socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ReceptorNegociacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -84,7 +92,7 @@ public class ReceptorNegociacion implements Runnable {
             } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[3])) {
                 //Caso de COMIENZO
                 this.procesarMensajeCOMIENZO(mensaje);
-            } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[4])){
+            } else if (mensaje.getTipoMensaje().equals(MensajeNegociacionJSON.tipoMensajes[4])) {
                 //Caso de TERMINADO
                 this.procesarMensajeTERMINADO(mensaje);
             } else {
@@ -104,20 +112,21 @@ public class ReceptorNegociacion implements Runnable {
         //Como el receptor es quien recibe el mensaje, creamos una interfaz
         new RecibirVentana(entrada).setVisible(true);
         //Comprobamos si se trata de un origen de confianza
-        if(!Persistencia.getListaDispositivosConfianza().containsKey(entrada.getIdentificadorEmisor())){
+        if (!Persistencia.getListaDispositivosConfianza().containsKey(entrada.getIdentificadorEmisor())) {
             //Agregamos a la lista de recibidos del nucleo de negociación
             NucleoNegociacion.listaPropuesta.put(entrada.getIdentificadorEmisor(), entrada);
             Log.info("Mensaje de propuesta " + entrada.getIdentificadorEmisor() + " procesado");
-        }else{
+        } else {
             //Si se trata de un origen de confianza tratamos este evento de forma individual
             this.recibirDeEmisorDeConfianza(entrada);
         }
     }
 
     /**
-     * Este método se encarga de recibir un mensaje desde un dispositivo de confianza
+     * Este método se encarga de recibir un mensaje desde un dispositivo de
+     * confianza
      */
-    private void recibirDeEmisorDeConfianza(MensajeNegociacionJSON entrada){
+    private void recibirDeEmisorDeConfianza(MensajeNegociacionJSON entrada) {
         ReceptorTransferencia receptor = new ReceptorTransferencia(entrada);
         receptor.setRutaFichero(Persistencia.getRutaDescarga());
         Thread hiloReceptor = new Thread(receptor);
@@ -125,7 +134,7 @@ public class ReceptorNegociacion implements Runnable {
         EmisorNegociacion.enviarMensajeAceptadoQ1(entrada, receptor.getPuerto());
         Log.info("Mensaje de propuesta de dispositivo de confianza " + entrada.getIdentificadorEmisor() + " procesado");
     }
-    
+
     /**
      * Método que aisla el código referente a los mensajes de tipo ACEPTADO
      *

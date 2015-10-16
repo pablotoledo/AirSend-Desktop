@@ -61,7 +61,7 @@ public class EmisorSondeo implements Runnable {
                 Thread.sleep(NucleoSondeo.tiempoSleppLoopSondeo);
             }
         } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(EmisorSondeo.class.getName()).log(Level.SEVERE, null, ex);
+            Log.sondeoEmisor("Servicio de SondeoEmisor Interrumpido");
         }
     }
 

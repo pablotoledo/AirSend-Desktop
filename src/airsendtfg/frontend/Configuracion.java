@@ -16,6 +16,7 @@
 package airsendtfg.frontend;
 
 import airsendtfg.frontend.img.Colores;
+import airsendtfg.librerias.nucleo.NucleoAirSend;
 import airsendtfg.librerias.nucleo.negociacion.MensajeNegociacionJSON;
 import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;
@@ -109,6 +110,14 @@ public class Configuracion extends javax.swing.JFrame {
                 gatoSeleccionado = diccionarioJPanelString.get(panel).substring(diccionarioJPanelString.get(panel).lastIndexOf("/") + 1, diccionarioJPanelString.get(panel).lastIndexOf("."));
             }
         });
+    }
+    
+    /**
+     * Reinicia los nucleos de AirSend para hacer efectivos los cambios
+     */
+    private void reiniciarNucleo(){
+        NucleoAirSend.pararNucleos();
+        NucleoAirSend.runNucleos();
     }
 
     /**
@@ -369,7 +378,7 @@ public class Configuracion extends javax.swing.JFrame {
         aceptar1.setLayout(aceptar1Layout);
         aceptar1Layout.setHorizontalGroup(
             aceptar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(aceptar1l, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+            .addComponent(aceptar1l, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         aceptar1Layout.setVerticalGroup(
             aceptar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,12 +398,9 @@ public class Configuracion extends javax.swing.JFrame {
                         .addGroup(configuracionEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nombreTitulo)
                             .addComponent(titulo3))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(aceptar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, configuracionEquipoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(aceptar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(203, 203, 203))
         );
         configuracionEquipoLayout.setVerticalGroup(
             configuracionEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,6 +619,7 @@ public class Configuracion extends javax.swing.JFrame {
             Persistencia.setNombreUsuario(this.nombreTextField.getText());
             Persistencia.setGatoUsuario(gatoSeleccionado);
             Persistencia.guardarPersistencia();
+            this.reiniciarNucleo();
         } else {
             JOptionPane.showMessageDialog(this,
                     "Es necesario que el nombre tenga al menos 5 letras y seleccione una imagen",
