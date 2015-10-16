@@ -16,6 +16,8 @@
 package airsendtfg.librerias.utilidades;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.text.DecimalFormat;
 
 /**
@@ -24,6 +26,7 @@ import java.text.DecimalFormat;
  */
 public class Utilidades {
 
+    private static ServerSocket singleton;
     /**
      * Permite el calculo del peso de un array de File y devuelve la fecha en
      * formato String #.## MB
@@ -78,6 +81,21 @@ public class Utilidades {
         }
 
         return length;
+    }
+    
+    /**
+     * Este método garantiza que AirSend mantenga solo una instancia en ejecución
+     * @return booleano
+     */
+    public static boolean singleton(){
+        try {
+            singleton = new ServerSocket(8827);
+            return true;
+        } catch (IOException ex) {
+            Log.error("Existe otra instacia en ejecución");
+            System.exit(0);
+            return false;
+        }
     }
 
 }

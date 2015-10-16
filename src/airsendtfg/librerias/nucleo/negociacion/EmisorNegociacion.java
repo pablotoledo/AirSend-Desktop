@@ -113,6 +113,10 @@ public class EmisorNegociacion {
         }
     }
 
+    /**
+     * Permite enviar un mensaje al finalizar la transferencia
+     * @param entrada 
+     */
     public static void enviarMensajeTerminadoQ1(MensajeNegociacionJSON entrada) {
         //Asignamos el valor de tipo al mensaje de entrada
         entrada.setTipoMensaje(MensajeNegociacionJSON.tipoMensajes[4]);

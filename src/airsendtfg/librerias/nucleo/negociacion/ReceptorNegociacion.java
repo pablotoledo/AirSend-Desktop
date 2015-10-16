@@ -16,7 +16,6 @@
 package airsendtfg.librerias.nucleo.negociacion;
 
 import airsendtfg.frontend.RecibirVentana;
-import airsendtfg.frontend.clasesAuxiliares.ActualizarRecibir;
 import airsendtfg.librerias.nucleo.transferencia.ReceptorTransferencia;
 import airsendtfg.librerias.utilidades.Log;
 import airsendtfg.recursos.Persistencia;
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,6 +36,9 @@ public class ReceptorNegociacion implements Runnable {
 
     private ServerSocket server_socket;
 
+    /**
+     * Método principal del hijo de ejecución
+     */
     public void run() {
         Socket socket = null;
         try {
@@ -67,6 +68,9 @@ public class ReceptorNegociacion implements Runnable {
         }
     }
 
+    /**
+     * Libera los sockets para evitar solapamientos si se reinicia la clase actual
+     */
     public void liberarSockets() {
         try {
             this.server_socket.close();
@@ -75,6 +79,11 @@ public class ReceptorNegociacion implements Runnable {
         }
     }
 
+    /**
+     * Procesa el mensaje recibido derivandolo al método que lo tratará según su tipología
+     * @param mensaje
+     * @param dirIPMensaje 
+     */
     private void procesarMensaje(MensajeNegociacionJSON mensaje, String dirIPMensaje) {
         //Se comprueba que no este nulo
         if (mensaje != null) {

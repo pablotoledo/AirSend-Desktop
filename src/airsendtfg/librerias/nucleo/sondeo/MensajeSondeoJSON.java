@@ -16,6 +16,7 @@
 package airsendtfg.librerias.nucleo.sondeo;
 
 import airsendtfg.recursos.Persistencia;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
@@ -27,7 +28,7 @@ import java.util.logging.Logger;
  * anunciar dentro de la red nuestra presencia
  * @author Pablo
  */
-public class MensajeSondeoJSON {
+public class MensajeSondeoJSON implements Serializable {
 
     private String sistemaOperativo; //Innecesario ¿?
     private String nombreEquipo; //Nombre del equipo

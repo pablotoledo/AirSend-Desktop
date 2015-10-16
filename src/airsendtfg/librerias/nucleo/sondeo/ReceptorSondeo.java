@@ -118,6 +118,9 @@ public class ReceptorSondeo implements Runnable {
         } 
     }
 
+    /**
+     * Permite liberar los sockets para permitir reiniciar la clase actual
+     */
     public void liberarSockets() {
         this.socket.close();
     }
@@ -132,6 +135,12 @@ public class ReceptorSondeo implements Runnable {
         }
     }
     
+    /**
+     * Comprobamos si la lista actual contiene el mensaje recibido, esto permite
+     * descartar nuevas inclusiones en la lista
+     * @param mensaje
+     * @return 
+     */
     private boolean listaContiene(MensajeSondeoJSON mensaje){
         boolean bandera = false;
         for (MensajeSondeoJSON disp : getLista()) {
@@ -185,6 +194,11 @@ public class ReceptorSondeo implements Runnable {
         ).start();
     }
 
+    /**
+     * Getter con aplicación de exclusión mutua que protege condiciones de carrera
+     * e interbloqueos
+     * @return 
+     */
     public synchronized ArrayList<MensajeSondeoJSON> getLista() {
         return lista;
     }

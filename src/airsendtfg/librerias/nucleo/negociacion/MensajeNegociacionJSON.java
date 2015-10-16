@@ -40,6 +40,12 @@ public class MensajeNegociacionJSON implements Serializable{
     //Lista que define los tipos de mensajes posibles
     public static final String[] tipoMensajes = {"PROPUESTA", "ACEPTADO", "DENEGADO", "COMIENZO","TERMINADO"};
     
+    /**
+     * Constructor
+     * @param listaArchivos Lista de ficheros a enviar
+     * @param ipDestino IP de destino
+     * @param idDestinatario ID del destinatario
+     */
     public MensajeNegociacionJSON(File[] listaArchivos, String ipDestino, String idDestinatario){
         this.listaElementos = listaArchivos;
         this.identificadorEmisor = Persistencia.getIdUsuario();

@@ -21,7 +21,7 @@ import airsendtfg.librerias.nucleo.sondeo.NucleoSondeo;
 import java.util.ArrayList;
 
 /**
- *
+ * Clase que encargada de gestionar los mecanismos de sondeo y negociacion
  * @author Pablo
  */
 public class NucleoAirSend {
@@ -29,20 +29,33 @@ public class NucleoAirSend {
     private static NucleoSondeo nucleoSondeo;
     private static NucleoNegociacion nucleoNegociacion;
     
+    /**
+     * Carga los núcleos
+     */
     public static void cargarNucleos(){
         nucleoSondeo = new NucleoSondeo();
         nucleoNegociacion = new NucleoNegociacion();
     }
     
+    /**
+     * Permite recuperar la lista de dispositivos
+     * @return lista de dispositivos
+     */
     public static ArrayList<MensajeSondeoJSON> getListaDispositivos(){
         return nucleoSondeo.getListaElementos();
     }
     
+    /**
+     * Realiza una interrupción de los hilos
+     */
     public static void pararNucleos(){
         nucleoSondeo.pararNucleo();
         nucleoNegociacion.pararNucleo();
     }
     
+    /**
+     * Arranca los nucleos detenidos
+     */
     public static void runNucleos(){
         nucleoSondeo.runNucleo();
         nucleoNegociacion.runNucleo();

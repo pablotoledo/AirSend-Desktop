@@ -5,13 +5,13 @@
  */
 package airsendtfg;
 
-import airsendtfg.frontend.Configuracion;
 import airsendtfg.frontend.LicenciaVentana;
 import airsendtfg.frontend.MenuPrincipal;
 import airsendtfg.librerias.nucleo.NucleoAirSend;
 import airsendtfg.librerias.nucleo.negociacion.EmisorNegociacion;
 import airsendtfg.librerias.nucleo.sondeo.MensajeSondeoJSON;
 import airsendtfg.librerias.utilidades.Log;
+import airsendtfg.librerias.utilidades.Utilidades;
 import airsendtfg.recursos.Persistencia;
 import java.io.File;
 
@@ -22,6 +22,7 @@ import java.io.File;
 public class AirSendTFG {
     
     public void cargarAirSend(){
+        Utilidades.singleton();
         if(!Persistencia.existeFichero()){
             new LicenciaVentana().setVisible(true);
         }else{

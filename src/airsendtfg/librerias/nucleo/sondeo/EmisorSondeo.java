@@ -21,8 +21,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Clase encargada de emitir mensajes de sondeo por la red
