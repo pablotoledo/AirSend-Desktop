@@ -39,6 +39,7 @@ public class ActualizarRecibir implements Runnable{
         
         while(true){
             try {
+                Thread.sleep(3000);
                 mensaje = NucleoNegociacion.recuperarMensaje(this.mensaje.getIdentificadorMensaje());
                 String estado = mensaje.getTipoMensaje();
                 if(estado.equals(MensajeNegociacionJSON.tipoMensajes[0])){
@@ -63,10 +64,17 @@ public class ActualizarRecibir implements Runnable{
                 }
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(ActualizarEnviar.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex1) {
+                    Logger.getLogger(ActualizarRecibir.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                actualizarEstado();
             }
         }
     }
+    
+    
 
     @Override
     public void run() {

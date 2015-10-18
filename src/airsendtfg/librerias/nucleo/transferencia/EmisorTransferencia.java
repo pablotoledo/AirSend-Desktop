@@ -25,6 +25,9 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
@@ -48,6 +51,36 @@ public class EmisorTransferencia implements Runnable {
     //Valor para JProgressBar
     private int progreso;
 
+    private Map<File, String> listaFileEntrada = new HashMap<File,String>();
+   
+    ArrayList<String> listadoRecorrido = new ArrayList();
+    String CARPETAORIGEN;
+    public void generateFileList(File node) {
+
+        // add file only
+        if (node.isFile()) {
+            this.listadoRecorrido.add(generateZipEntry(node.toString()));
+            this.listaFileEntrada.put(node,  node.getAbsolutePath().substring(this.CARPETAORIGEN.length()));
+        }
+
+        if (node.isDirectory()) {
+            String[] carpetas = node.list();
+            for (String filename : carpetas) {
+                generateFileList(new File(node, filename));
+            }
+        }
+    }
+
+    private String generateZipEntry(String file) {
+        return file.substring(CARPETAORIGEN.length(), file.length());
+    }
+    
+    private void cargarListado(File[] entrada) {
+        for (int i = 0; i < entrada.length; i++) {
+            this.CARPETAORIGEN = entrada[i].getParent() + "/";
+            this.generateFileList(entrada[i]);
+        }
+    }
     /**
      * Método constructor que precisa de ciertos objetos para trabajar
      * correctamente de la EnviarInterfaz que lo va a crear.
@@ -55,7 +88,9 @@ public class EmisorTransferencia implements Runnable {
      * @param mensaje Mensaje
      */
     public EmisorTransferencia(MensajeNegociacionJSON mensaje) {
+        this.cargarListado(mensaje.getListaElementos());
         this.mensaje = mensaje;
+        
     }
 
     /**
@@ -175,7 +210,7 @@ public class EmisorTransferencia implements Runnable {
         //Registramos el suceso
         Log.info("Compresión: Añadiendo fichero " + nombre + "...");
         //Creamos una entrada de registro
-        ZipEntry ze = new ZipEntry(archivo.getName());
+        ZipEntry ze = new ZipEntry(this.listaFileEntrada.get(archivo));
         //Añadimos la entrada al flujo
         zos.putNextEntry(ze);
         //Creamos un flujo de lectura que será dirigido al flujo de compresión
