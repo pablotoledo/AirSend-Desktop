@@ -34,9 +34,9 @@ public class Log {
     private static final String mensajeInicial = " Comienza ejecución de AirSend";
     private static final String mensajeFinal = " Finaliza ejecución de AirSend";
     private static final java.io.File archivo = new java.io.File(directorio + ficheroNombre);
-    private static final boolean activarLogs = true; //Si es true el programa funcionará usando archivos Logs
+    private static final boolean activarLogs = false; //Si es true el programa funcionará usando archivos Logs
     private static final boolean activarTerminal = true; //Si es true el programa imprimirá mensajes por pantalla
-    private static final boolean registrarSondeo = true; //Si es true el programa registrará los mensajes del protocolo de sondeo
+    private static final boolean registrarSondeo = false; //Si es true el programa registrará los mensajes del protocolo de sondeo
 
     /**
      * Este método inicializa un mensaje por pantalla y por el fichero de log
