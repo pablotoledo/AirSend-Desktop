@@ -181,9 +181,14 @@ public class EmisorTransferencia implements Runnable {
      */
     private void nuevoFichero(ZipOutputStream zos, String nombre, File archivo) throws Exception {
         //Registramos el suceso
+        //Log.info("A "+this.CARPETAORIGEN);
+        //Log.info("B "+archivo.getPath()); 
         Log.info("Compresión: Añadiendo fichero " + nombre + "...");
         //Creamos una entrada de registro
-        ZipEntry ze = new ZipEntry(archivo.getAbsolutePath().substring(this.CARPETAORIGEN.length()));
+        String entrada = archivo.getPath().substring(this.CARPETAORIGEN.length());
+        //Log.info("Compresión e-> " + entrada + " previo!");
+        entrada = entrada.replace('\\', '/');//Necesario para sistemas Windows :@
+        ZipEntry ze = new ZipEntry(entrada);
         //Añadimos la entrada al flujo
         zos.putNextEntry(ze);
         //Creamos un flujo de lectura que será dirigido al flujo de compresión
@@ -195,11 +200,12 @@ public class EmisorTransferencia implements Runnable {
             int valor = (int) len;
             this.progreso = (valor / 1024) + this.progreso;
         }
+        Log.info("Compresión e-> " + entrada + " OK!");
         //Cerramos el flujo de lectura
         in.close();
         //Informamos de que hemos terminado de enviar el fichero actual
         zos.closeEntry();
-        Log.info("Compresión: " + nombre + " OK!");
+        
     }
 
     /**

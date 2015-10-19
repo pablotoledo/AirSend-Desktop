@@ -562,6 +562,8 @@ public class EnviarVentana extends javax.swing.JFrame {
 
     private void textoBtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBtnCancelarMouseClicked
         this.hiloActualizarEnviar.interrupt();
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_textoBtnCancelarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
