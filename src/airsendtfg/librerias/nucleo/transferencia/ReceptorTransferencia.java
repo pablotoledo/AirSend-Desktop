@@ -146,7 +146,7 @@ public class ReceptorTransferencia implements Runnable {
         } catch (IOException e) {
             Log.error("Fallo en la conexión: " + e);
         } catch (InterruptedException ex) {
-            Log.error("Fallo en la conexión: " + ex);
+            Log.error("Fallo o interrupción de la conexión: " + ex);
         }
 
     }

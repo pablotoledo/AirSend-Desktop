@@ -50,6 +50,7 @@ public class ActualizarRecibir implements Runnable{
                 }
                 if(estado.equals(MensajeNegociacionJSON.tipoMensajes[2])){
                     this.ventana.setTextoEstado("Estado: Propuesta denegada");
+                    this.ventana.setTextoBtnCancelar("Salir");
                     break;
                 }
                 if(estado.equals(MensajeNegociacionJSON.tipoMensajes[3])){
@@ -58,6 +59,7 @@ public class ActualizarRecibir implements Runnable{
                 }
                 if(estado.equals(MensajeNegociacionJSON.tipoMensajes[4])){
                     this.ventana.setTextoEstado("Estado: Transferencia completada");
+                    this.ventana.setTextoBtnCancelar("Salir");
                     this.ventana.getBarra().setMaximum(1);
                     this.ventana.getBarra().setValue(1);
                     break;

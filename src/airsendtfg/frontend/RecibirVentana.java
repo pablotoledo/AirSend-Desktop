@@ -34,6 +34,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
 /**
@@ -116,6 +117,10 @@ public class RecibirVentana extends javax.swing.JFrame {
 
     public JProgressBar getBarra() {
         return barra;
+    }
+
+    public void setTextoBtnCancelar(String textoBtnCancelar) {
+        this.textoBtnCancelar.setText(textoBtnCancelar);
     }
 
     public ReceptorTransferencia getReceptor() {
@@ -531,6 +536,7 @@ public class RecibirVentana extends javax.swing.JFrame {
 
     private void botonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMouseClicked
         this.setVisible(false);
+        this.hiloReceptor.interrupt();
         this.dispose();
     }//GEN-LAST:event_botonCancelarMouseClicked
 

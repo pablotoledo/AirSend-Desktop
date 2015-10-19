@@ -112,7 +112,10 @@ public class EnviarVentana extends javax.swing.JFrame {
     public JProgressBar getBarra() {
         return barra;
     }
-
+    
+    public void setTextoBtnCancelar(String textoBtnCancelar) {
+        this.textoBtnCancelar.setText(textoBtnCancelar);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -512,6 +515,7 @@ public class EnviarVentana extends javax.swing.JFrame {
 
     private void botonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMouseClicked
         this.setVisible(false);
+        this.hiloTransferencia.interrupt();
         this.dispose();
     }//GEN-LAST:event_botonCancelarMouseClicked
 

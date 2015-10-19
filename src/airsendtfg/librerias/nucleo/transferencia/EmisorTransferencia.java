@@ -107,7 +107,7 @@ public class EmisorTransferencia implements Runnable {
                 Log.error("Fallo de envío: Fallo durante la transferencia en el mensaje " + this.mensaje.getIdentificadorMensaje());
                 Logger.getLogger(EmisorTransferencia.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
-                Logger.getLogger(EmisorTransferencia.class.getName()).log(Level.SEVERE, null, ex);
+                Log.error("Fallo o interrupción de la conexión: " + ex);
             }
         }
     }
