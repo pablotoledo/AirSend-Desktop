@@ -121,12 +121,12 @@ public class ReceptorNegociacion implements Runnable {
         //Comprobamos si se trata de un origen de confianza
         if (!Persistencia.getListaDispositivosConfianza().containsKey(entrada.getIdentificadorEmisor())) {
             //Agregamos a la lista de recibidos del nucleo de negociación
+            //Como el receptor es quien recibe el mensaje, creamos una interfaz
+            new RecibirVentana(entrada).setVisible(true);
             NucleoNegociacion.listaPropuesta.put(entrada.getIdentificadorEmisor(), entrada);
             Log.info("Mensaje de propuesta " + entrada.getIdentificadorEmisor() + " procesado");
         } else {
             //Si se trata de un origen de confianza tratamos este evento de forma individual
-            new RecibirVentana(entrada).setVisible(true);
-            //Como el receptor es quien recibe el mensaje, creamos una interfaz
             this.recibirDeEmisorDeConfianza(entrada);
         }
     }
