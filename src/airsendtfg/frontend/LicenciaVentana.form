@@ -142,7 +142,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="&#xa;Copyright 2015 Juan Pablo Toledo Gavagnin&#xa;&#xa;La titularidad de los derechos de propiedad intelectual de los Proyectos&#xa;Fin de Grado corresponde a los/las estudiantes que los hayan realizado.&#xa;&#xa;Ley de Propiedad Intelectual (Real Decreto Legislativo 1/1996, 12 abril),&#xa;y en su caso por la Ley de patentes (Ley 11/1986, de 20 de marzo, de &#xa;Patentes).&#xa;"/>
+                <Property name="text" type="java.lang.String" value="&#xa;Copyright 2015 Juan Pablo Toledo Gavagnin&#xa;&#xa;"/>
               </Properties>
             </Component>
           </SubComponents>

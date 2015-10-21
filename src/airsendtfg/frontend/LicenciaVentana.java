@@ -20,6 +20,15 @@
  intelectual de los Proyectos Fin de Grado corresponde a los/las estudiantes
  que los hayan realizado.
 
+Copyright 2015 Juan Pablo Toledo Gavagnin
+
+La titularidad de los derechos de propiedad intelectual de los Proyectos
+Fin de Grado corresponde a los/las estudiantes que los hayan realizado.
+
+Ley de Propiedad Intelectual (Real Decreto Legislativo 1/1996, 12 abril),
+y en su caso por la Ley de patentes (Ley 11/1986, de 20 de marzo, de 
+Patentes).
+
  */
 package airsendtfg.frontend;
 
@@ -110,7 +119,7 @@ public class LicenciaVentana extends javax.swing.JFrame {
         textoCondiciones.setColumns(20);
         textoCondiciones.setForeground(new java.awt.Color(255, 255, 255));
         textoCondiciones.setRows(5);
-        textoCondiciones.setText("\nCopyright 2015 Juan Pablo Toledo Gavagnin\n\nLa titularidad de los derechos de propiedad intelectual de los Proyectos\nFin de Grado corresponde a los/las estudiantes que los hayan realizado.\n\nLey de Propiedad Intelectual (Real Decreto Legislativo 1/1996, 12 abril),\ny en su caso por la Ley de patentes (Ley 11/1986, de 20 de marzo, de \nPatentes).\n");
+        textoCondiciones.setText("\nCopyright 2015 Juan Pablo Toledo Gavagnin\n\n");
         jScrollPane1.setViewportView(textoCondiciones);
 
         cancelarContenedor.setBackground(new java.awt.Color(102, 102, 102));
@@ -266,7 +275,6 @@ public class LicenciaVentana extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarContenedorMouseClicked
 
     private void aceptarContenedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarContenedorMouseClicked
-
         this.setVisible(false);
         new MenuConfigInicial().setVisible(true);
         this.dispose();

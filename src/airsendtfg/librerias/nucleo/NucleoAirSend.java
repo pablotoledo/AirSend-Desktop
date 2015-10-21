@@ -41,7 +41,7 @@ public class NucleoAirSend {
      * Permite recuperar la lista de dispositivos
      * @return lista de dispositivos
      */
-    public static ArrayList<MensajeSondeoJSON> getListaDispositivos(){
+    public synchronized static ArrayList<MensajeSondeoJSON> getListaDispositivos(){
         return nucleoSondeo.getListaElementos();
     }
     
