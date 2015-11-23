@@ -36,7 +36,7 @@ public class MensajeNegociacionJSON implements Serializable{
     private String ipDestinatario; //IP del sistema destino
     private String tipoMensaje; // Tipología del actual objeto mensaje
     private int puertoReceptorTransferencia; // Puerto asignado para comenzar a recibir datos
-    
+    private boolean directorioUnico;
     //Lista que define los tipos de mensajes posibles
     public static final String[] tipoMensajes = {"PROPUESTA", "ACEPTADO", "DENEGADO", "COMIENZO","TERMINADO"};
     
@@ -55,6 +55,7 @@ public class MensajeNegociacionJSON implements Serializable{
         this.ipDestinatario = ipDestino;
         this.identificadorDestinatario = idDestinatario;
         this.identificadorMensaje = java.util.UUID.randomUUID().toString();
+        this.directorioUnico = (listaArchivos[0].isDirectory())?true:false;
     }
 
     //Setters
@@ -114,7 +115,10 @@ public class MensajeNegociacionJSON implements Serializable{
     public static String[] getTipoMensajes() {
         return tipoMensajes;
     }
-    
-    
-    
+
+    public boolean isDirectorioUnico() {
+        return directorioUnico;
+    }
+
+
 }

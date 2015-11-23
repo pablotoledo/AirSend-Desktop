@@ -119,7 +119,7 @@ public class ReceptorTransferencia implements Runnable {
         InputStream entrada;
         String timeStamp = new SimpleDateFormat(" hhmm - ddmmyyyy").format(new Date());
         String fichero ="";
-        if(this.mensaje.getListaElementos().length>1)
+        if((this.mensaje.isDirectorioUnico())||(this.mensaje.getListaElementos().length>1))
              fichero = this.rutaFichero + this.nombreFichero +timeStamp+ ".zip";
         else
             fichero = this.rutaFichero+ timeStamp+"-"+this.mensaje.getListaElementos()[0].getName();

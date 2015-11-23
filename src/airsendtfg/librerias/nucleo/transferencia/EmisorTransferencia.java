@@ -88,7 +88,7 @@ public class EmisorTransferencia implements Runnable {
                 MensajeNegociacionJSON mensajeGuardado = NucleoNegociacion.recuperarMensaje(mensaje.getIdentificadorMensaje());
                 if (mensajeGuardado.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[3])) {
                     mensaje = mensajeGuardado;
-                    if(mensajeGuardado.getListaElementos().length>1)
+                    if((mensaje.getListaElementos().length>1)||(mensaje.isDirectorioUnico()))
                         transmitirComprimido(this.mensaje.getListaElementos());
                     else
                         transmitirUnico(this.mensaje.getListaElementos());
