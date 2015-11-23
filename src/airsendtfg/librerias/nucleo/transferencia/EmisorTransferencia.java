@@ -22,12 +22,11 @@ import airsendtfg.librerias.utilidades.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
@@ -89,7 +88,10 @@ public class EmisorTransferencia implements Runnable {
                 MensajeNegociacionJSON mensajeGuardado = NucleoNegociacion.recuperarMensaje(mensaje.getIdentificadorMensaje());
                 if (mensajeGuardado.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[3])) {
                     mensaje = mensajeGuardado;
-                    transmitir(this.mensaje.getListaElementos());
+                    if(mensajeGuardado.getListaElementos().length>1)
+                        transmitirComprimido(this.mensaje.getListaElementos());
+                    else
+                        transmitirUnico(this.mensaje.getListaElementos());
                     break;
                 }
                 if (mensajeGuardado.getTipoMensaje().equals(NucleoNegociacion.tipoMensajes[2])) {
@@ -120,7 +122,7 @@ public class EmisorTransferencia implements Runnable {
      * @param listaEnviar File[] - Lista de ficheros a enviar del Mensaje
      * @throws IOException
      */
-    private void transmitir(File[] listaEnviar) throws IOException {
+    private void transmitirComprimido(File[] listaEnviar) throws IOException {
         //Socket
         socketDatos = new Socket(InetAddress.getByName(mensaje.getIpDestinatario()), mensaje.getPuertoReceptorTransferencia());
         //Conectamos un ZipOutputStream al socket, lo que provoca que se escriban
@@ -132,6 +134,32 @@ public class EmisorTransferencia implements Runnable {
         this.comprimir(listaEnviar, zos);
         //Cerramos de forma protocolaria el socket y el flujo de compresión
         zos.close();
+        socketDatos.close();
+        //Avisamos que hemos terminado
+        EmisorNegociacion.enviarMensajeTerminadoQ1(mensaje);
+    }
+    
+    /**
+     * Método privado que se encarga de enviar en un socket un único archivo
+     *
+     * @param socket Socket - Inicializado previamente
+     * @param listaEnviar File[] - Lista de ficheros a enviar del Mensaje
+     * @throws IOException
+     */
+    private void transmitirUnico(File[] listaEnviar) throws IOException{
+        //Socket
+        socketDatos = new Socket(InetAddress.getByName(mensaje.getIpDestinatario()), mensaje.getPuertoReceptorTransferencia());
+        //Conectamos un ZipOutputStream al socket, lo que provoca que se escriban
+        //los datos comprimidos en el equipo remoto
+        OutputStream os = socketDatos.getOutputStream();
+        InputStream in = new FileInputStream(listaEnviar[0]);
+        byte[] buf = new byte[1024];
+        int len = 0;
+        while ((len = in.read(buf)) != -1) {
+            os.write(buf, 0, len);
+        }
+        //Cerramos de forma protocolaria el socket y el flujo de compresión
+        os.close();
         socketDatos.close();
         //Avisamos que hemos terminado
         EmisorNegociacion.enviarMensajeTerminadoQ1(mensaje);
