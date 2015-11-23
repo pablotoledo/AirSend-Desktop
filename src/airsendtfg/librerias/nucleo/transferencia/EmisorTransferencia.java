@@ -157,6 +157,8 @@ public class EmisorTransferencia implements Runnable {
         int len = 0;
         while ((len = in.read(buf)) != -1) {
             os.write(buf, 0, len);
+            int valor = (int) len;
+            this.progreso = (valor / 1024) + this.progreso;
         }
         //Cerramos de forma protocolaria el socket y el flujo de compresión
         os.close();
