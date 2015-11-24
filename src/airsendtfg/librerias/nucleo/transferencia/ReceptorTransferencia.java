@@ -120,9 +120,9 @@ public class ReceptorTransferencia implements Runnable {
         String timeStamp = new SimpleDateFormat(" hhmm - ddmmyyyy").format(new Date());
         String fichero ="";
         if((this.mensaje.isDirectorioUnico())||(this.mensaje.getListaElementos().length>1))
-             fichero = this.rutaFichero + this.nombreFichero +timeStamp+ ".zip";
+            fichero = this.rutaFichero + this.nombreFichero +timeStamp+ ".zip";
         else
-            fichero = this.rutaFichero+ timeStamp+"-"+this.mensaje.getListaElementos()[0].getName();
+            fichero = this.rutaFichero+ timeStamp+"-"+this.mensaje.getListaElementos()[0].getName().substring(this.mensaje.getListaElementos()[0].getPath().lastIndexOf("."));
         try {
             Log.info("Transmisión: A la espera concurrente para recibir datos");
             transferencia = socketRecepcion.accept(); // Espera conexiones de clientes. Crea socket "transferencia"
